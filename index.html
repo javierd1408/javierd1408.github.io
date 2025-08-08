@@ -1,81 +1,476 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Javier Durán | Hardening y Desarrollo Web</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Javier Durán — Fullstack & Cybersecurity</title>
+  <meta name="description" content="Portafolio de Javier Durán — Hardening, Desarrollo Web y Análisis en Cybersecurity."/>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      background-color: #f5f5f5;
-      color: #333;
+    /* -------------------------
+       Reset & utilities
+       ------------------------- */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --glass: rgba(255,255,255,0.04);
+      --accent1: #00d1b2;
+      --accent2: #7c5cff;
+      --muted: #9aa4b2;
+      --glass-border: rgba(255,255,255,0.06);
+      --radius: 14px;
+      --maxw: 1100px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.12), transparent),
+                  radial-gradient(900px 400px at 90% 90%, rgba(0,209,178,0.06), transparent),
+                  var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    /* -------------------------
+       Layout
+       ------------------------- */
+    header.nav {
+      position:fixed;
+      top:0;left:0;right:0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:14px 20px;
+      backdrop-filter: blur(6px) saturate(120%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      z-index:1000;
+    }
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+    .brand {display:flex;align-items:center;gap:.9rem;font-weight:700}
+    .brand .logo {
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg,var(--accent2),var(--accent1));
+      color:#041126;font-weight:800;box-shadow:0 6px 18px rgba(12,18,30,0.6);
+    }
+    nav.mainnav{display:flex;gap:14px;align-items:center}
+    nav.mainnav a{
+      color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600;font-size:.95rem;
+    }
+    nav.mainnav a:hover{color: #fff;background:var(--glass)}
+
+    /* mobile menu */
+    .menu-toggle{display:none}
+    @media (max-width:820px){
+      nav.mainnav{display:none}
+      .menu-toggle{display:inline-flex;gap:.6rem;align-items:center;cursor:pointer}
     }
 
-    header {
-      background-color: #222;
-      color: white;
-      padding: 1.5rem;
-      text-align: center;
+    /* -------------------------
+       Hero
+       ------------------------- */
+    .hero{
+      padding:120px 0 60px;
+      display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:28px;border:1px solid var(--glass-border);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      transform: translateY(0);
+    }
+    .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:.85rem;margin-bottom:12px}
+    h1{font-size:2.1rem;margin-bottom:.4rem}
+    p.lead{color:var(--muted);font-size:1rem;margin-bottom:16px}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:.6rem;padding:10px 14px;border-radius:10px;font-weight:700;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#041126;border:none;cursor:pointer;box-shadow:0 8px 20px rgba(124,92,255,0.12);
+    }
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
+
+    /* hero right: profile card */
+    .profile{
+      display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center;padding:20px;
+    }
+    .photo{
+      width:160px;height:160px;border-radius:18px;border:4px solid rgba(255,255,255,0.04);overflow:hidden;
+      box-shadow: 0 18px 40px rgba(2,6,23,0.6);
+      background: linear-gradient(135deg,#051025, #081226);
+    }
+    .profile h3{margin-top:6px;font-size:1.1rem}
+    .profile small{color:var(--muted)}
+
+    /* -------------------------
+       Sections
+       ------------------------- */
+    section.block{padding:54px 0}
+    .section-title{display:flex;align-items:end;gap:14px;margin-bottom:18px}
+    .section-title h2{font-size:1.25rem}
+    .grid{display:grid;gap:18px}
+
+    /* services */
+    .services{grid-template-columns:repeat(3,1fr)}
+    .service{
+      background:var(--glass);
+      border-radius:12px;padding:18px;border:1px solid var(--glass-border);
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .service:hover{transform:translateY(-8px);box-shadow:0 22px 50px rgba(3,8,20,0.6)}
+
+    .service h3{margin-bottom:8px}
+    .muted{color:var(--muted);font-size:.95rem}
+
+    /* projects carousel */
+    .carousel{
+      position:relative;background:transparent;padding:14px;border-radius:12px;
+    }
+    .carousel-track{display:flex;gap:16px;overflow:hidden}
+    .proj{
+      min-width:320px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:16px;border-radius:12px;border:1px solid var(--glass-border);
+      box-shadow:0 12px 30px rgba(2,6,23,0.45);
+    }
+    .proj .img{height:160px;border-radius:10px;overflow:hidden;background:#061028;display:grid;place-items:center;color:var(--muted)}
+    .carousel .arrow{
+      position:absolute;top:50%;transform:translateY(-50%);background:rgba(2,6,23,0.6);border-radius:8px;border:1px solid rgba(255,255,255,0.04);
+      width:42px;height:42px;display:grid;place-items:center;cursor:pointer;
+    }
+    .carousel .arrow.left{left:8px}
+    .carousel .arrow.right{right:8px}
+
+    /* certifications badges row */
+    .badges{display:flex;gap:12px;flex-wrap:wrap}
+    .badge{width:110px;height:70px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;border:1px solid var(--glass-border);padding:8px}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .contact-form input, .contact-form textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;margin-bottom:12px;
+    }
+    .contact-form button{width:100%;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent2),var(--accent1));font-weight:700;color:#041126}
+
+    /* footer */
+    footer.sitefoot{padding:28px 0;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:40px}
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr 360px}
+    }
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr; padding-top:100px}
+      .profile{order:-1}
+      .services{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .services{grid-template-columns:1fr}
+      .brand .logo{width:40px;height:40px}
+      .photo{width:140px;height:140px}
+      .proj{min-width:260px}
     }
 
-    nav a {
-      color: #00d1b2;
-      margin: 0 1rem;
-      text-decoration: none;
-    }
-
-    section {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
+    /* reveal animation */
+    .reveal{opacity:0;transform:translateY(14px);transition:all .7s cubic-bezier(.2,.9,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Javier Durán</h1>
-    <p>Especialista en Hardening y Desarrollo Web</p>
-    <nav>
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between">
+      <div class="brand">
+        <div class="logo">JD</div>
+        <div>
+          <div style="font-weight:900">Javier Durán</div>
+          <small style="color:var(--muted);font-weight:600">Fullstack Developer • Analista Junior Cybersecurity</small>
+        </div>
+      </div>
+
+      <nav class="mainnav" aria-label="Main navigation">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#certificaciones">Certificaciones</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="menu-toggle" onclick="document.querySelector('nav.mainnav').classList.toggle('open')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
   </header>
 
-  <section id="sobre-mi">
-    <h2>Sobre mí</h2>
-    <p>Soy un profesional especializado en la protección de infraestructuras tecnológicas y en el desarrollo de soluciones web modernas. Ayudo a pequeñas y medianas empresas a fortalecer su seguridad y presencia digital.</p>
-  </section>
+  <main class="container">
+    <!-- HERO -->
+    <section id="inicio" class="hero">
+      <div class="hero-card reveal">
+        <div class="kicker">Disponible para proyectos</div>
+        <h1>Construyo productos robustos y seguros.</h1>
+        <p class="lead">Soy <strong>Javier</strong>, desarrollador fullstack y analista junior en cybersecurity. Me especializo en hardening de infraestructuras y desarrollo de aplicaciones web seguras y escalables.</p>
 
-  <section id="servicios">
-    <h2>Servicios</h2>
-    <ul>
-      <li><strong>Hardening para PYMES:</strong> Configuración segura de sistemas operativos, servidores y redes.</li>
-      <li><strong>Desarrollo Web:</strong> Sitios web modernos, responsivos y optimizados para SEO.</li>
-      <li><strong>Consultoría:</strong> Asesoramiento técnico en seguridad informática y mejores prácticas.</li>
-    </ul>
-  </section>
+        <div class="cta-row">
+          <a class="btn" href="#contacto">Contrátame</a>
+          <a class="btn ghost" href="https://github.com/javierd1408" target="_blank" rel="noopener">Mi GitHub</a>
+        </div>
 
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <p>Puedes escribirme a: <a href="mailto:jandres1408@gmail.com">jandres1408@gmail.com</a></p>
-  </section>
+        <div style="margin-top:18px;color:var(--muted);font-size:.95rem">
+          <strong>Servicios destacados:</strong> Hardening · Pentesting básico · Desarrollo web · Consultoría
+        </div>
+      </div>
 
-  <footer>
-    <p>&copy; 2025 Javier Durán. Todos los derechos reservados.</p>
-  </footer>
+      <aside class="hero-card profile reveal">
+        <!-- PHOTO -->
+        <div class="photo" id="photoWrap" aria-hidden="false">
+          <!-- REPLACE images/photo.jpg with your photo file inside repo: images/photo.jpg -->
+          <img id="profilePhoto" src="images/photo.jpg" alt="Foto de Javier" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23061028%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23a9b7c7%22 font-family=%22sans-serif%22 font-size=%2218%22>Foto</text></svg>'"/>
+        </div>
+        <h3>Javier Durán</h3>
+        <small class="muted">Fullstack Developer • Analista Junior Cybersecurity</small>
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <a class="btn" href="#proyectos">Ver proyectos</a>
+          <a class="btn ghost" href="#certificaciones">Ver certificaciones</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SOBRE MI -->
+    <section id="sobre-mi" class="block reveal">
+      <div class="section-title">
+        <h2>Sobre mí</h2>
+      </div>
+      <div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <p class="muted">Trabajo con tecnologías web modernas, practicas de seguridad y hardening de servidores. Mi enfoque es práctico: soluciones simples que realmente mejoren la postura de seguridad y la experiencia de usuario.</p>
+
+          <ul style="margin-top:12px;color:var(--muted);line-height:1.7">
+            <li>Experiencia en desarrollo con JavaScript, Node.js, React y bases de datos SQL/NoSQL.</li>
+            <li>Hardening de Linux, configuración de cortafuegos, gestión de usuarios y permisos.</li>
+            <li>Automatización de despliegues y CI/CD básico.</li>
+          </ul>
+        </div>
+
+        <div style="width:320px">
+          <div style="background:var(--glass);padding:14px;border-radius:12px;border:1px solid var(--glass-border)">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:800;color:#041126">JD</div>
+              <div>
+                <div style="font-weight:800">Javier Durán</div>
+                <div class="muted" style="font-size:.9rem">Colombia • Disponible</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px">
+              <div style="font-size:.85rem;color:var(--muted)">Contacto</div>
+              <div style="font-weight:700;margin-top:6px">jandres1408@gmail.com</div>
+              <a style="display:inline-block;margin-top:8px;color:var(--muted)" href="https://github.com/javierd1408" target="_blank">github.com/javierd1408</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="block reveal">
+      <div class="section-title"><h2>Servicios</h2></div>
+
+      <div class="grid services">
+        <div class="service">
+          <h3>Hardening para PYMES</h3>
+          <p class="muted">Análisis y fortalecimiento de servidores, políticas de acceso, cierre de vectores comunes y configuración segura.</p>
+          <ul class="muted" style="margin-top:10px">
+            <li>Hardening Linux/Windows</li>
+            <li>Configuración de firewall y ssh seguro</li>
+            <li>Backups y monitoreo</li>
+          </ul>
+        </div>
+
+        <div class="service">
+          <h3>Desarrollo Web</h3>
+          <p class="muted">Sitios y aplicaciones responsivas, accesibles y optimizadas para rendimiento y SEO.</p>
+          <ul class="muted" style="margin-top:10px">
+            <li>Frontend: HTML, CSS, JS, React</li>
+            <li>Backend: Node.js, APIs REST</li>
+            <li>Despliegue y CI</li>
+          </ul>
+        </div>
+
+        <div class="service">
+          <h3>Consultoría & Formación</h3>
+          <p class="muted">Asesorías para equipos pequeños, auditorías básicas y capacitación en buenas prácticas de seguridad.</p>
+          <ul class="muted" style="margin-top:10px">
+            <li>Evaluaciones rápidas</li>
+            <li>Planes de mejora</li>
+            <li>Capacitación técnica</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="block reveal">
+      <div class="section-title"><h2>Proyectos</h2></div>
+
+      <div class="carousel" aria-roledescription="carousel">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Sample project cards. Reemplaza con tus proyectos cuando los tengas -->
+          <article class="proj">
+            <div class="img">Imagen / demo (placeholder)</div>
+            <h3 style="margin-top:12px">Proyecto: Landing segura</h3>
+            <p class="muted">Landing page corporativa con buenas prácticas de seguridad, HTTPS, CSP y headers seguros.</p>
+            <div style="margin-top:12px"><small class="muted">Tecnologías: HTML, CSS, Node</small></div>
+          </article>
+
+          <article class="proj">
+            <div class="img">Imagen / demo (placeholder)</div>
+            <h3 style="margin-top:12px">Proyecto: API protegida</h3>
+            <p class="muted">API REST con autenticación, rate-limiting y logs.</p>
+            <div style="margin-top:12px"><small class="muted">Tecnologías: Node.js, Express</small></div>
+          </article>
+
+          <article class="proj">
+            <div class="img">Coming soon</div>
+            <h3 style="margin-top:12px">Próximos proyectos</h3>
+            <p class="muted">Aquí mostraré casos de estudio y repositorios públicos. Mientras tanto, puedo compartir ejemplos en una reunión.</p>
+          </article>
+        </div>
+
+        <div class="arrow left" id="arrowLeft" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="arrow right" id="arrowRight" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICACIONES -->
+    <section id="certificaciones" class="block reveal">
+      <div class="section-title"><h2>Certificaciones</h2></div>
+      <p class="muted">A continuación puedes añadir imágenes de las insignias que hayas obtenido. Coloca los archivos en <code>images/</code> y reemplaza los nombres si es necesario.</p>
+
+      <div class="badges" style="margin-top:14px">
+        <!-- Reemplaza badge1.png y badge2.png con tus imágenes -->
+        <div class="badge"><img src="images/badge1.png" alt="Badge 1" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%2270%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=11>Badge 1</text></svg>'"/></div>
+        <div class="badge"><img src="images/badge2.png" alt="Badge 2" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%2270%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=11>Badge 2</text></svg>'"/></div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="block reveal">
+      <div class="section-title"><h2>Contacto</h2></div>
+
+      <div class="contact-grid">
+        <div class="contact-form">
+          <p class="muted">¿Listo para empezar? Escríbeme por email o usa el formulario (abre tu cliente de correo):</p>
+          <input type="text" id="name" placeholder="Tu nombre" />
+          <input type="email" id="email" placeholder="Tu correo" />
+          <textarea id="message" rows="6" placeholder="Mensaje..."></textarea>
+          <!-- El form usa mailto para no requerir backend; puedes integrar una API más tarde -->
+          <button onclick="sendMail()">Enviar mensaje</button>
+        </div>
+
+        <aside style="background:var(--glass);padding:18px;border-radius:12px;border:1px solid var(--glass-border);height:max-content">
+          <h3>También puedes escribir a</h3>
+          <div style="margin-top:8px;font-weight:800">jandres1408@gmail.com</div>
+          <div style="margin-top:12px;color:var(--muted)">Disponible para trabajos remotos y presenciales (Colombia). Tarifas y estimaciones a convenir.</div>
+
+          <div style="margin-top:16px;display:flex;gap:10px">
+            <a class="btn ghost" href="https://github.com/javierd1408" target="_blank">GitHub</a>
+            <a class="btn ghost" href="#" onclick="alert('Reemplaza este enlace con tu LinkedIn')">LinkedIn</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="sitefoot">
+      <div>© <span id="year"></span> Javier Durán — Fullstack & Cybersecurity</div>
+    </footer>
+  </main>
+
+  <script>
+    // ------------------------
+    // Small helpers & init
+    // ------------------------
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const target = document.querySelector(a.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+      })
+    });
+
+    // ------------------------
+    // Reveal on scroll
+    // ------------------------
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting) en.target.classList.add('visible');
+      });
+    }, {threshold: .12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ------------------------
+    // Carousel logic
+    // ------------------------
+    const track = document.getElementById('carouselTrack');
+    const left = document.getElementById('arrowLeft');
+    const right = document.getElementById('arrowRight');
+    let idx = 0;
+
+    function showIndex(i){
+      const card = track.children[i];
+      const offset = card.offsetLeft;
+      track.scrollTo({left: offset - 12, behavior:'smooth'});
+    }
+
+    left.addEventListener('click', ()=>{
+      idx = Math.max(0, idx-1);
+      showIndex(idx);
+    });
+    right.addEventListener('click', ()=>{
+      idx = Math.min(track.children.length-1, idx+1);
+      showIndex(idx);
+    });
+
+    // autoplay
+    let auto = setInterval(()=>{
+      idx = (idx+1) % track.children.length;
+      showIndex(idx);
+    }, 5000);
+
+    track.addEventListener('mouseenter', ()=>clearInterval(auto));
+    track.addEventListener('mouseleave', ()=>auto = setInterval(()=>{ idx=(idx+1)%track.children.length; showIndex(idx); },5000));
+
+    // ------------------------
+    // Mailto send
+    // ------------------------
+    function sendMail(){
+      const name = document.getElementById('name').value || 'Sin nombre';
+      const email = document.getElementById('email').value || 'No especificado';
+      const message = encodeURIComponent(document.getElementById('message').value || '');
+      const subject = encodeURIComponent('Contacto desde portfolio - ' + name);
+      const body = encodeURIComponent('De: ' + name + ' (' + email + ')\n\n') + message;
+      location.href = `mailto:jandres1408@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // accessibility: keyboard carousel
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'ArrowLeft') left.click();
+      if(e.key === 'ArrowRight') right.click();
+    });
+  </script>
 </body>
 </html>

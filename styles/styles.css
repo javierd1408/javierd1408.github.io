@@ -1,0 +1,143 @@
+/* ==== RESET ==== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    line-height: 1.6;
+}
+
+/* ==== HEADER ==== */
+.header {
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+}
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+.header-text h1 {
+    letter-spacing: 1.5px;
+    margin-bottom: 0.3rem;
+}
+.header-text h2 {
+    font-weight: 300;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+}
+.tagline {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 0 1rem;
+}
+
+/* ==== SOCIAL ICONS ==== */
+.social-icons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.8rem;
+}
+.social-icons a {
+    color: white;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+.social-icons a:hover {
+    color: #1da1f2;
+}
+
+/* ==== SECCIONES ==== */
+.section {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+.section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+/* ==== PROYECTOS ==== */
+.carousel-container {
+    overflow: hidden;
+    max-width: 100%;
+}
+.carousel-track {
+    display: flex;
+    animation: scroll 10s linear infinite;
+}
+.carousel-item {
+    flex: 0 0 auto;
+    margin-right: 1rem;
+}
+.carousel-item img {
+    width: 250px;
+    border-radius: 10px;
+}
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ==== CERTIFICACIONES ==== */
+.cert-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.cert-item img {
+    width: 200px;
+    border-radius: 10px;
+}
+
+/* ==== FORM ==== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    max-width: 400px;
+    margin: auto;
+}
+input, textarea, button {
+    padding: 0.6rem;
+    border: none;
+    border-radius: 5px;
+}
+button {
+    background: #1da1f2;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background: #0d8ddb;
+}
+
+/* ==== RESPONSIVE ==== */
+@media (max-width: 768px) {
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
+    .carousel-item img {
+        width: 180px;
+    }
+}

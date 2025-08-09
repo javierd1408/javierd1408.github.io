@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Javier Durán — Fullstack & Cybersecurity</title>
   <meta name="description" content="Portafolio de Javier Durán — Hardening, Desarrollo Web y Análisis en Cybersecurity."/>
+  <!-- intl-tel-input CSS (para selector de teléfono) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
   <style>
     :root{
       --bg:#0f1724;
@@ -16,6 +18,7 @@
       --glass-border: rgba(255,255,255,0.06);
       --radius: 14px;
       --maxw: 1200px;
+      --gap: 16px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%}
@@ -63,7 +66,7 @@
     .header-socials{display:flex;gap:10px;align-items:center}
     .icon-btn{
       width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,0.02);
-      border:1px solid rgba(255,255,255,0.03);cursor:pointer;
+      border:1px solid rgba(255,255,255,0.03);cursor:pointer;text-decoration:none;color:inherit;
     }
     .icon-btn svg{width:18px;height:18px;display:block}
 
@@ -71,13 +74,13 @@
     .menu-toggle{display:none;align-items:center;cursor:pointer}
     .menu-toggle svg{width:24px;height:24px}
     .mobile-nav{display:none;flex-direction:column;gap:8px;padding:12px;background:rgba(2,6,23,0.96);border-radius:10px;position:absolute;top:64px;right:20px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
-    .mobile-nav a{color:var(--muted);padding:8px 10px;border-radius:8px;text-decoration:none}
+    .mobile-nav a{color:var(--muted);padding:8px 10px;border-radius:8px;text-decoration:none;display:flex;align-items:center;gap:10px}
     .mobile-nav a:hover{color:#fff;background:rgba(255,255,255,0.02)}
     @media (max-width:860px){
       nav.mainnav{display:none}
       .menu-toggle{display:flex}
       .mobile-nav.open{display:flex}
-      .header-socials{display:none} /* optional: hide socials on small so menu fits; socials shown in mobile nav below */
+      .header-socials{display:none}
     }
 
     /* HERO */
@@ -112,7 +115,6 @@
       box-shadow: 0 18px 40px rgba(2,6,23,0.6);background: linear-gradient(135deg,#051025, #081226);
       display:block;
     }
-    /* center face better: object-position y reduced to bring face up */
     .photo img{width:100%;height:100%;object-fit:cover; object-position:50% 28%}
     .profile h3{margin-top:6px;font-size:1.05rem}
     .profile small{color:var(--muted)}
@@ -143,17 +145,18 @@
 
     /* projects carousel */
     .carousel{position:relative;background:transparent;padding:14px;border-radius:12px}
-    .carousel-track{display:flex;gap:16px;overflow:auto;scroll-behavior:smooth;padding-bottom:8px}
+    .carousel-track{display:flex;gap:var(--gap);overflow:auto;scroll-behavior:smooth;padding-bottom:8px;padding-left:6px}
     .proj{min-width:320px;background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:16px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 12px 30px rgba(2,6,23,0.45);}
+      padding:16px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 12px 30px rgba(2,6,23,0.45);flex:0 0 auto;}
     .proj .img{height:160px;border-radius:10px;overflow:hidden;background:#061028;display:grid;place-items:center;color:var(--muted)}
     .carousel .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(2,6,23,0.6);border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:42px;height:42px;display:grid;place-items:center;cursor:pointer}
     .carousel .arrow.left{left:6px}
     .carousel .arrow.right{right:6px}
 
     /* badges */
-    .badges{display:flex;gap:12px;flex-wrap:wrap}
-    .badge{width:110px;height:70px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;border:1px solid var(--glass-border);padding:8px}
+    .badges{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+    .badge{width:140px;height:auto;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));display:grid;place-items:center;border:1px solid var(--glass-border);padding:8px}
+    .badge img{max-width:100%;height:auto;border-radius:6px;display:block}
 
     /* contact */
     .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
@@ -172,6 +175,7 @@
       .profile{order:-1}
       .services{grid-template-columns:repeat(2,1fr)}
       .contact-grid{grid-template-columns:1fr}
+      .carousel .arrow{display:none} /* hide arrows on small, allow swipe */
     }
     @media (max-width:560px){
       .services{grid-template-columns:1fr}
@@ -184,6 +188,7 @@
       .hero .hero-card{padding:16px}
       .hero .profile{padding:12px}
       .section-card{padding:16px}
+      .contact-grid{grid-template-columns:1fr}
     }
 
     /* small animations */
@@ -192,6 +197,9 @@
 
     /* subtle focus */
     input:focus, textarea:focus, select:focus{outline:3px solid rgba(124,92,255,0.12);outline-offset:2px}
+
+    /* small helper for visually hidden (accessibility) */
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   </style>
 </head>
 <body>
@@ -225,6 +233,7 @@
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z" fill="#e6eef8"/>
             </svg>
+            <span class="sr-only">GitHub</span>
           </a>
 
           <a class="icon-btn" href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener" title="LinkedIn">
@@ -232,6 +241,7 @@
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M4.98 3.5a2.5 2.5 0 11-.002 5.002A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.84v1.65h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21V21H17v-5.1c0-1.22-.02-2.79-1.7-2.79-1.7 0-1.96 1.33-1.96 2.7V21H10V9z" fill="#e6eef8"/>
             </svg>
+            <span class="sr-only">LinkedIn</span>
           </a>
         </div>
 
@@ -249,9 +259,17 @@
           <a href="#certificaciones">Certificaciones</a>
           <a href="#contacto">Contacto</a>
           <div style="height:1px;background:rgba(255,255,255,0.02);margin:8px 0"></div>
-          <!-- add socials to mobile menu -->
-          <a href="https://github.com/javierd1408" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener">LinkedIn</a>
+          <!-- add socials to mobile menu as icons -->
+          <a href="https://github.com/javierd1408" target="_blank" rel="noopener" aria-label="GitHub">
+            <!-- small inline GitHub -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#e6eef8" style="margin-right:8px"><path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <!-- small inline LinkedIn -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#e6eef8" style="margin-right:8px"><path d="M4.98 3.5a2.5 2.5 0 11-.002 5.002A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.84v1.65h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21V21H17v-5.1c0-1.22-.02-2.79-1.7-2.79-1.7 0-1.96 1.33-1.96 2.7V21H10V9z"/></svg>
+            LinkedIn
+          </a>
         </div>
       </div>
     </div>
@@ -263,17 +281,19 @@
       <div class="hero-card reveal">
         <div class="kicker">Disponible para proyectos</div>
 
-        <!-- NEW HERO TEXT -->
         <h1>Impulso productos digitales seguros y resilientes.</h1>
 
         <p class="lead">
-          <strong>¡Hola!</strong> soy <strong>Javier Durán</strong>, desarrollador fullstack y analista junior en cybersecurity. Me especializo en hardening de infraestructuras y desarrollo de aplicaciones web seguras y escalables. 
-          <em>¿Qué tal si comenzamos a crear soluciones seguras que realmente protejan a tus usuarios y crezcan con tu negocio?</em>
+          <strong>¡Hola!</strong> soy <strong>Javier Durán</strong>, desarrollador fullstack y analista junior en cybersecurity. Me especializo en hardening de infraestructuras y desarrollo de aplicaciones web seguras y escalables.
         </p>
 
         <div class="cta-row">
           <a class="btn" href="#contacto">Contrátame</a>
-          <a class="btn ghost" href="https://github.com/javierd1408" target="_blank" rel="noopener">Mi GitHub</a>
+          <a class="btn ghost" href="https://github.com/javierd1408" target="_blank" rel="noopener" aria-label="GitHub (externo)">
+            <!-- small GitHub icon inside button -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle"><path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z" fill="#e6eef8"/></svg>
+            <span style="margin-left:8px">Mi GitHub</span>
+          </a>
         </div>
 
         <div style="margin-top:16px;color:var(--muted);font-size:.95rem">
@@ -283,7 +303,6 @@
 
       <aside class="hero-card profile reveal">
         <div class="photo" id="photoWrap">
-          <!-- photo: keep in images/photo.jpg -->
           <img id="profilePhoto" src="images/photo.jpg" alt="Foto de Javier" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23061028%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23a9b7c7%22 font-family=%22sans-serif%22 font-size=%2218%22>Foto</text></svg>'"/>
         </div>
 
@@ -307,7 +326,6 @@
       <div class="section-card">
         <div style="display:flex;gap:22px;align-items:flex-start;flex-wrap:wrap">
           <div style="flex:1;min-width:280px">
-            <!-- reworked, more "innovadora" -->
             <p class="muted">
               Soy ingeniero en práctica: construyo soluciones web que priorizan seguridad y escalabilidad desde el primer commit. Fusiono buenas prácticas de desarrollo con controles técnicos que dificultan ataques reales — no solo “parches”.
             </p>
@@ -333,7 +351,15 @@
               <div style="margin-top:12px">
                 <div style="font-size:.85rem;color:var(--muted)">Contacto</div>
                 <div style="font-weight:800;margin-top:6px">jandres14031@hotmail.com</div>
-                <a style="display:inline-block;margin-top:8px;color:var(--muted)" href="https://github.com/javierd1408" target="_blank">github.com/javierd1408</a>
+                <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+                  <!-- replace textual github/linkedin with icons -->
+                  <a class="icon-btn" href="https://github.com/javierd1408" target="_blank" rel="noopener" title="GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z" fill="#e6eef8"/></svg>
+                  </a>
+                  <a class="icon-btn" href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener" title="LinkedIn">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.002 5.002A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.84v1.65h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21V21H17v-5.1c0-1.22-.02-2.79-1.7-2.79-1.7 0-1.96 1.33-1.96 2.7V21H10V9z" fill="#e6eef8"/></svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -409,10 +435,10 @@
             </article>
           </div>
 
-          <div class="arrow left" id="arrowLeft" aria-hidden="true">
+          <div class="arrow left" id="arrowLeft" aria-hidden="true" title="Anterior">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <div class="arrow right" id="arrowRight" aria-hidden="true">
+          <div class="arrow right" id="arrowRight" aria-hidden="true" title="Siguiente">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
@@ -423,12 +449,11 @@
     <section id="certificaciones" class="block reveal">
       <div class="section-title"><h2>Certificaciones</h2></div>
       <div class="section-card">
-        <p class="muted">Sube aquí tus insignias. Coloca archivos en <code>images/</code> como <em>cert1.jpg</em>, <em>cert2.jpg</em>, <em>cert3.jpg</em>.</p>
+        <p class="muted">Coloca tus insignias en <code>images/</code>.</p>
 
         <div class="badges" style="margin-top:14px">
-          <div class="badge"><img src="images/cert1.jpg" alt="Cert 1" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%2270%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=11>Cert 1</text></svg>'"/></div>
-          <div class="badge"><img src="images/cert2.jpg" alt="Cert 2" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%2270%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=11>Cert 2</text></svg>'"/></div>
-          <div class="badge"><img src="images/cert3.jpg" alt="Cert 3" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22110%22 height=%2270%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=11>Cert 3</text></svg>'"/></div>
+          <div class="badge"><img src="images/cert1.jpg" alt="Cert 1" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%2290%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=12>Cert 1</text></svg>'"/></div>
+          <div class="badge"><img src="images/cert2.jpg" alt="Cert 2" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%2290%22><rect rx=8 width=100% height=100% fill=%22%23061028%22/><text x=50% y=50% dominant-baseline=middle text-anchor=middle fill=%22%23a9b7c7%22 font-family=sans-serif font-size=12>Cert 2</text></svg>'"/></div>
         </div>
       </div>
     </section>
@@ -440,9 +465,8 @@
       <div class="section-card">
         <div class="contact-grid">
           <div class="contact-form">
-            <p class="muted">¿Listo para empezar? Completa el formulario y te responderé. Si quieres integración con WhatsApp o automatizaciones, te explico abajo las opciones.</p>
+            <p class="muted">¿Listo para empezar? Completa el formulario y te responderé.</p>
 
-            <!-- COUNTRY CODE + PHONE: simple selector con varios países -->
             <label class="small-muted">País / Código</label>
             <select id="ccode" aria-label="Código país">
               <option value="+58" selected>Venezuela (+58)</option>
@@ -452,20 +476,17 @@
               <option value="+44">Reino Unido (+44)</option>
               <option value="+52">México (+52)</option>
               <option value="+91">India (+91)</option>
-              <!-- Puedes añadir más opciones aquí -->
             </select>
 
-            <input type="text" id="phone" placeholder="Número de teléfono (sin código)" />
+            <input type="tel" id="telefono" placeholder="Número de teléfono" />
             <input type="text" id="name" placeholder="Tu nombre" />
             <input type="email" id="email" placeholder="Tu correo" />
             <textarea id="message" rows="6" placeholder="Mensaje..."></textarea>
 
-            <!-- El form usa mailto por defecto para no requerir backend.
-                 Más abajo te explico opciones gratuitas para automatizar y enviar confirmaciones por WhatsApp. -->
-            <button onclick="sendMail()">Enviar mensaje</button>
+            <button type="submit" id="submitBtn">Enviar mensaje</button>
 
             <div style="margin-top:10px;color:var(--muted);font-size:.9rem">
-              <strong>Nota:</strong> si prefieres, puedo integrar el formulario con Formspree o Netlify Forms (gratuitos en plan básico) y en otro paso conectar un webhook para notificaciones.
+              <strong>Nota:</strong> Si deseas integrar el formulario, puedo ayudarte a conectar Formspree/Netlify Forms o preparar un backend.
             </div>
           </div>
 
@@ -474,9 +495,14 @@
             <div style="margin-top:8px;font-weight:800">jandres14031@hotmail.com</div>
             <div style="margin-top:12px;color:var(--muted)">Disponible para trabajos remotos y presenciales (Caracas). Tarifas y estimaciones a convenir.</div>
 
-            <div style="margin-top:16px;display:flex;gap:10px">
-              <a class="btn ghost" href="https://github.com/javierd1408" target="_blank" rel="noopener">GitHub</a>
-              <a class="btn ghost" href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener">LinkedIn</a>
+            <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+              <!-- replace text buttons with icon images -->
+              <a class="icon-btn" href="https://github.com/javierd1408" target="_blank" rel="noopener" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z" fill="#e6eef8"/></svg>
+              </a>
+              <a class="icon-btn" href="https://www.linkedin.com/in/javier-andr%C3%A9s-duran-mata-7a208725a/" target="_blank" rel="noopener" title="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.002 5.002A2.5 2.5 0 014.98 3.5zM3 9h4v12H3V9zm7 0h3.84v1.65h.05c.54-1.02 1.86-2.08 3.83-2.08 4.1 0 4.86 2.7 4.86 6.21V21H17v-5.1c0-1.22-.02-2.79-1.7-2.79-1.7 0-1.96 1.33-1.96 2.7V21H10V9z" fill="#e6eef8"/></svg>
+              </a>
             </div>
           </aside>
         </div>
@@ -489,7 +515,11 @@
     </footer>
   </main>
 
+  <!-- intl-tel-input JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
   <script>
+    // year
     document.getElementById('year').innerText = new Date().getFullYear();
 
     // Mobile menu toggle (works for click and keyboard)
@@ -506,11 +536,9 @@
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', e=>{
         const href = a.getAttribute('href');
-        // allow external or mailto links
         if(!href.startsWith('#')) return;
         const target = document.querySelector(href);
         if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
-        // if mobile nav is open, close it
         if(mobileNav.classList.contains('open')) mobileNav.classList.remove('open');
       })
     });
@@ -523,51 +551,69 @@
     }, {threshold: .12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Carousel
+    /* ====== Carousel robust behavior (desktop + mobile) ====== */
     const track = document.getElementById('carouselTrack');
     const left = document.getElementById('arrowLeft');
     const right = document.getElementById('arrowRight');
-    let idx = 0;
-    function showIndex(i){
+
+    function getCardWidth(){
+      if(!track || !track.children.length) return 320;
+      const style = getComputedStyle(track);
+      const gap = parseInt(style.gap || style.getPropertyValue('gap')) || 16;
+      const first = track.children[0].getBoundingClientRect().width;
+      return Math.round(first + gap);
+    }
+
+    // Move by one card
+    function scrollByCard(direction = 1){
       if(!track) return;
-      const card = track.children[i];
-      if(!card) return;
-      const offset = card.offsetLeft;
-      track.scrollTo({left: offset - 12, behavior:'smooth'});
+      const w = getCardWidth();
+      track.scrollBy({left: w * direction, behavior: 'smooth'});
     }
+
     if(left && right && track){
-      left.addEventListener('click', ()=>{ idx = Math.max(0, idx-1); showIndex(idx); });
-      right.addEventListener('click', ()=>{ idx = Math.min(track.children.length-1, idx+1); showIndex(idx); });
-      let auto = setInterval(()=>{ idx = (idx+1) % track.children.length; showIndex(idx); }, 5000);
+      left.addEventListener('click', ()=>scrollByCard(-1));
+      right.addEventListener('click', ()=>scrollByCard(1));
+
+      // Auto scroll every 5s (desktop + mobile)
+      let auto = setInterval(()=>{ scrollByCard(1); }, 5000);
       track.addEventListener('mouseenter', ()=>clearInterval(auto));
-      track.addEventListener('mouseleave', ()=>auto = setInterval(()=>{ idx=(idx+1)%track.children.length; showIndex(idx); },5000));
+      track.addEventListener('mouseleave', ()=>auto = setInterval(()=>{ scrollByCard(1); },5000));
+      // allow arrow keys to navigate when carousel is visible
       document.addEventListener('keydown', (e)=>{ if(e.key==='ArrowLeft') left.click(); if(e.key==='ArrowRight') right.click(); });
+
+      // Recompute on resize to keep consistent behavior
+      window.addEventListener('resize', ()=>{ /* no-op for now, getCardWidth reads fresh values */ });
     }
 
-    // Mailto send (includes phone + country code)
-    function sendMail(){
-      const name = (document.getElementById('name').value || 'Sin nombre').trim();
-      const email = (document.getElementById('email').value || 'No especificado').trim();
-      const ccode = document.getElementById('ccode') ? document.getElementById('ccode').value : '';
-      const phone = (document.getElementById('phone').value || '').trim();
-      const message = (document.getElementById('message').value || '').trim();
-      let body = `De: ${name} (${email})\nTel: ${ccode} ${phone}\n\n${message}`;
-      const subject = encodeURIComponent('Contacto desde portfolio - ' + name);
-      const mailto = `mailto:jandres14031@hotmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
-      // open mail client
-      location.href = mailto;
-      // suggestion: after submitting, show a friendly toast or message
-      alert('Se abrirá su cliente de correo para enviar el mensaje. Alternativamente, podemos integrar una API (Formspree / Netlify Forms) para recibir mensajes sin cliente de correo.');
+    /* ====== IntlTelInput for #telefono ====== */
+    const phoneInput = document.querySelector("#telefono");
+    if(phoneInput && window.intlTelInput){
+      const iti = window.intlTelInput(phoneInput, {
+          preferredCountries: ["ve", "ar", "co", "cl", "us", "es"],
+          separateDialCode: true,
+          utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+      });
+      // optional: on form submit, you can get the full number with iti.getNumber()
     }
 
-    /* Opciones para recibir formularios sin backend (ideas):
-       1) Formspree (plan gratuito básico): crea un endpoint y en lugar de mailto, envías via fetch a Formspree.
-       2) Netlify Forms (si publicas en Netlify): declara un <form> con data-netlify="true" y Netlify guarda envíos.
-       3) Para notificaciones automáticas por WhatsApp necesitarás:
-          - un servicio que envíe mensajes (Twilio / WhatsApp Business API) -> normalmente de pago.
-          - alternativa gratuita: enviar un correo al solicitante con un link "Confirmar" que abra un chat wa.me con tu número.
-       Si quieres lo integro a Formspree (te explico el proceso) o preparo un backend simple en Node.js que reciba y dispare notificaciones.
-    */
+    /* ====== Simple demo form handler (no mailto yet) ====== */
+    const formButton = document.getElementById('submitBtn');
+    if(formButton){
+      const form = formButton.closest('form') || document.querySelector('.contact-form');
+      // Attach listener to the contact-form container: use event delegation for the button
+      document.querySelector('.contact-form').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        // Build small preview (demo) - you can later replace with fetch to your backend/Formspree
+        const name = document.getElementById('name') ? document.getElementById('name').value.trim() : 'Sin nombre';
+        const email = document.getElementById('email') ? document.getElementById('email').value.trim() : 'No especificado';
+        const tel = (window.intlTelInput && phoneInput) ? window.intlTelInputGlobals.getInstance(phoneInput).getNumber() : (document.getElementById('telefono') ? document.getElementById('telefono').value.trim() : '');
+        alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
+        // reset optional
+        // document.querySelector('.contact-form').reset();
+      });
+    }
+
   </script>
 </body>
 </html>

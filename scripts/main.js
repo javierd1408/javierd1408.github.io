@@ -142,3 +142,10 @@ if (submitBtn) {
     alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
   });
 }
+
+function toggleMobileNav(){
+  const open = mobileNav.classList.toggle('open');
+  mobileNav.setAttribute('aria-hidden', String(!open));
+  document.documentElement.style.overflow = open ? 'hidden' : '';
+  document.body.style.overflow = open ? 'hidden' : '';
+}

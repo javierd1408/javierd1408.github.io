@@ -408,3 +408,38 @@ section.block{
   /* si ves la barra aún “alta”, puedes bajar un poco el logo para equilibrar */
   .brand .logo{ width: 42px; height: 42px; }
 }
+/* ===== Header refinado (solo desktop) ===== */
+@media (min-width: 1100px) {
+  /* Empujar logo/texto hacia la izquierda: reducimos padding interno del container */
+  header.nav .container {
+    padding-left: 14px;   /* antes era más grande */
+    padding-right: 14px;  /* reducimos también en el lado derecho */
+  }
+
+  /* Logo + texto juntos, y ligeramente hacia la izquierda */
+  .brand {
+    margin-right: 8px;    /* un poco de separación con el nav */
+    gap: 8px !important;  /* compacta visualmente logo y texto */
+  }
+
+  /* Ajusta nombre + subtítulo */
+  .brand .text b {
+    margin-bottom: 2px;
+    line-height: 1.05;
+  }
+  .brand .text small {
+    letter-spacing: .1px;
+  }
+
+  /* Secciones del nav tuvieron que pasar a 1 línea; alivia padding */
+  nav.mainnav a {
+    padding: 8px 10px;    /* más compactos para caber juntos */
+    margin: 0 4px;
+  }
+
+  /* GitHub y LinkedIn permanecen a la derecha, acércalos un poco al borde */
+  .header-socials {
+    margin-left: 12px;    /* diminutiva separación respecto del nav */
+    margin-right: 0;      /* pega al borde */
+  }
+}

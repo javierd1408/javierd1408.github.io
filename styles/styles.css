@@ -28,28 +28,93 @@ a{color:inherit}
 img{max-width:100%;display:block}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 
-/* ===== Header / Nav ===== */
+/* ===== Header / Nav (base: móvil + general) ===== */
 header.nav{
-  position:fixed;inset:0 0 auto 0;
-  display:flex;align-items:center;justify-content:center;
-  padding:12px 18px;backdrop-filter: blur(8px) saturate(130%);
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  backdrop-filter: blur(8px) saturate(130%);
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-bottom:1px solid rgba(255,255,255,0.03);z-index:1000;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  z-index: 1000;
 }
-.nav-inner{width:100%;display:flex;align-items:center;gap:18px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:.9rem;font-weight:700}
+
+.nav-inner{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.brand{ display:flex; align-items:center; gap:.9rem; font-weight:700; }
 .brand .logo{
-  width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--accent2),var(--accent1));
-  color:#041126;font-weight:900;box-shadow:0 6px 18px rgba(12,18,30,0.6);flex-shrink:0;
+  width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center;
+  background: linear-gradient(135deg,var(--accent2),var(--accent1));
+  color: #041126; font-weight: 900; box-shadow: 0 6px 18px rgba(12,18,30,0.6); flex-shrink: 0;
 }
-.brand .text{line-height:1}
-.brand .text b{display:block}
-nav.mainnav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.brand .text{ line-height: 1; }
+.brand .text b{ display: block; }
+
+/* Menú: no permitir saltos de línea en desktop; en móvil seguirá envolviendo cuando el layout cambie */
+nav.mainnav{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  flex-wrap: nowrap;        /* <- clave para que no se parta en desktop */
+  white-space: nowrap;      /* <- evita que baje a segunda línea */
+}
 nav.mainnav a{
-  color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:700;font-size:.95rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: .95rem;
 }
-nav.mainnav a:hover{color:#fff;background:rgba(255,255,255,0.02)}
+nav.mainnav a:hover{ color:#fff; background: rgba(255,255,255,0.02); }
+
+/* ===== Solo desktop (layout compacto y más espacio para el menú) ===== */
+@media (min-width:1100px){
+  /* header un poco más bajo y gutters reducidos solo en la barra */
+  header.nav{ padding-top: 8px; padding-bottom: 8px; }
+  header.nav .container{ padding-left: 12px; padding-right: 12px; }
+
+  /* grid a 3 columnas: [brand] [nav (1fr)] [sociales] */
+  .nav-inner{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 12px;
+  }
+
+  /* marca más compacta para ceder espacio al menú */
+  .brand{ gap: 8px; }
+  .brand .logo{ width: 40px; height: 40px; }
+  .brand .text b{ margin-bottom: 4px; line-height: 1.05; }
+
+  /* el menú se alinea a la derecha y cabe en una sola línea */
+  nav.mainnav{
+    justify-self: end;
+    gap: 10px;
+  }
+  nav.mainnav a{
+    padding: 6px 9px;
+    font-size: .94rem;
+  }
+
+  /* iconos siguen a la derecha, pegados al borde */
+  .header-socials{ gap: 10px; margin-right: 0; }
+}
+
+/* Desktop “justo” (si tu ancho es algo menor y aún se aprieta) */
+@media (min-width:1100px) and (max-width:1320px){
+  nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
+  .brand .logo{ width: 38px; height: 38px; }
+}
 
 /* Socials */
 .header-socials{display:flex;gap:10px;align-items:center}
@@ -365,143 +430,3 @@ section.block{
 }
 
 
-/* ===== Header refinado (solo desktop) ===== */
-@media (min-width: 1100px){
-  /* Menos alto y más limpio */
-  header.nav{
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  /* Distribución a 3 columnas: [brand] [nav centrado] [sociales a la derecha] */
-  .nav-inner{
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    column-gap: 24px;
-  }
-  /* nav al centro visual */
-  nav.mainnav{ justify-self: center; }
-
-  /* empuja el bloque derecho (sociales + hamburguesa) al borde derecho */
-  .nav-inner > div:last-child{ justify-self: end; }
-
-  /* separa "Javier Durán" del subtítulo */
-  .brand .text b{
-    display:block;
-    margin-bottom: 2px;  /* espacio entre nombre y subtítulo */
-    line-height: 1.05;
-  }
-  .brand .text small{
-    display:block;
-    margin-top: 2px;
-    letter-spacing: .1px;
-  }
-
-  /* ligeramente más a la derecha los iconos y sin que “bajen” la barra */
-  .header-socials{
-    gap: 12px;
-    margin-left: 12px;     /* separa del nav */
-    align-self: center;
-  }
-
-  /* si ves la barra aún “alta”, puedes bajar un poco el logo para equilibrar */
-  .brand .logo{ width: 42px; height: 42px; }
-}
-/* ===== Header refinado (solo desktop) ===== */
-@media (min-width: 1100px) {
-  /* Empujar logo/texto hacia la izquierda: reducimos padding interno del container */
-  header.nav .container {
-    padding-left: 14px;   /* antes era más grande */
-    padding-right: 14px;  /* reducimos también en el lado derecho */
-  }
-
-  /* Logo + texto juntos, y ligeramente hacia la izquierda */
-  .brand {
-    margin-right: 8px;    /* un poco de separación con el nav */
-    gap: 8px !important;  /* compacta visualmente logo y texto */
-  }
-
-  /* Ajusta nombre + subtítulo */
-  .brand .text b {
-    margin-bottom: 2px;
-    line-height: 1.05;
-  }
-  .brand .text small {
-    letter-spacing: .1px;
-  }
-
-  /* Secciones del nav tuvieron que pasar a 1 línea; alivia padding */
-  nav.mainnav a {
-    padding: 8px 10px;    /* más compactos para caber juntos */
-    margin: 0 4px;
-  }
-
-  /* GitHub y LinkedIn permanecen a la derecha, acércalos un poco al borde */
-  .header-socials {
-    margin-left: 12px;    /* diminutiva separación respecto del nav */
-    margin-right: 0;      /* pega al borde */
-  }
-}
-
-/* ===== Header en desktop: más espacio para el menú, marca más a la izquierda,
-   sociales pegados a la derecha y SIN que el menú baje de línea ===== */
-@media (min-width: 1100px){
-
-  /* Compacta la barra y reduce los “gutter” laterales del header */
-  header.nav{
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-  }
-  header.nav .container{
-    padding-left: 12px !important;   /* acerca “Javier Durán” al borde izquierdo */
-    padding-right: 12px !important;  /* pega sociales al borde derecho */
-  }
-
-  /* Reorganiza el header en 3 columnas: [brand] [nav ocupa 1fr] [sociales] */
-  .nav-inner{
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
-    align-items: center !important;
-    column-gap: 16px !important;
-    width: 100% !important;
-  }
-
-  /* El menú ocupa el centro/derecha y NO se parte a otra línea */
-  nav.mainnav{
-    justify-self: end !important;
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 10px !important;
-    white-space: nowrap !important;
-  }
-  nav.mainnav a{
-    padding: 6px 9px !important;   /* más compacto para que quepa todo */
-    margin: 0 !important;
-    font-size: 0.96rem !important;
-  }
-
-  /* El bloque derecho (donde están los iconos) queda pegado al borde derecho */
-  .nav-inner > div:last-child{
-    justify-self: end !important;
-  }
-  .nav-inner > div:last-child .header-socials{
-    gap: 10px !important;
-    margin-right: 0 !important;     /* sin colchón extra a la derecha */
-  }
-
-  /* Marca más compacta y tirada a la izquierda */
-  .brand{ gap: 8px !important; }
-  .brand .logo{ width: 40px !important; height: 40px !important; }
-  .brand .text b{ margin-bottom: 3px !important; line-height: 1.05 !important; }
-  .brand .text small{ letter-spacing: .1px !important; }
-}
-
-/* En pantallas “justas” evita saltos del menú apretándolo un poco más */
-@media (min-width: 1100px) and (max-width: 1320px){
-  nav.mainnav a{
-    padding: 5px 8px !important;
-    font-size: 0.94rem !important;
-  }
-  .brand .logo{ width: 38px !important; height: 38px !important; }
-}

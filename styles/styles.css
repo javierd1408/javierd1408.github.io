@@ -578,3 +578,76 @@ section.block{
     gap: 10px;               /* un pelín más compacto */
   }
 }
+/* ===== Header en 3 columnas (solo desktop) ===== */
+@media (min-width:1100px){
+  /* [brand] [nav crece] [social/cta] */
+  .nav-inner{
+    display: grid !important;
+    grid-template-columns: auto minmax(0,1fr) auto !important;
+    align-items: center;
+    column-gap: 18px;
+  }
+
+  /* Menú centrado, una sola línea, sin montarse */
+  nav.mainnav{
+    display: flex !important;
+    justify-content: center !important;
+    gap: 18px;
+    white-space: nowrap;   /* no saltar de línea */
+    overflow: hidden;      /* evitar solapes si se aprieta */
+  }
+  nav.mainnav a{
+    padding: 7px 10px;
+    font-size: .95rem;
+  }
+
+  /* Redes + CTA pegados al borde derecho */
+  .header-socials{
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    justify-self: end;     /* anclado a la 3ª columna */
+  }
+  .header-socials .icon-btn{
+    width: 36px; height: 36px; border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    display: grid; place-items: center;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .header-socials .icon-btn:hover{
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* CTA verde elegante (solo desktop) */
+  .cta-green{
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: linear-gradient(90deg,#17c964,#13b255);
+    color:#041126; font-weight:800;
+    padding:10px 14px; border-radius:999px; border:none;
+    box-shadow:0 8px 22px rgba(23,201,100,.22);
+    text-decoration:none;
+    transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  .cta-green:hover{
+    transform: translateY(-2px);
+    box-shadow:0 14px 28px rgba(23,201,100,.28);
+    filter:saturate(1.05);
+  }
+
+  /* Afinado cuando el ancho es justo */
+  @media (max-width:1380px){
+    nav.mainnav{ gap: 14px; }
+    nav.mainnav a{ padding: 6px 8px; font-size: .92rem; }
+    .header-socials{ gap: 10px; }
+  }
+}
+
+/* En móvil/tablet ocultamos el CTA (el enlace Contacto ya está en el menú) */
+@media (max-width:1099px){
+  .cta-green{ display: none !important; }
+}

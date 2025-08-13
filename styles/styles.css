@@ -326,3 +326,16 @@ section.block{
     padding: 0 !important;
   }
 }
+
+/* ===== Ajuste de tarjeta de contacto en móvil ===== */
+@media (max-width: 560px){
+  .contact-card{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    max-width: 320px;
+    margin: 0 auto; /* centrado */
+  }
+}

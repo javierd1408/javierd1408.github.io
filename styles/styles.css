@@ -563,3 +563,18 @@ section.block{
 @media (max-width:1099px){
   .cta-green{ display: none !important; }
 }
+
+/* Empuja el grupo de redes/CTA más a la derecha (solo desktop) */
+@media (min-width:1100px){
+  /* reduce el padding derecho del contenedor SOLO en el header */
+  header.nav .container{
+    padding-right: 12px;     /* antes lo tienes en ~24–28px */
+  }
+
+  /* por si algún padding/gap deja aire extra */
+  .header-socials{
+    justify-self: end;       /* asegura que va a la 3ª columna a la derecha */
+    margin-right: -2px;      /* opcional: “beso” al borde; ajusta -4/-6 si quieres */
+    gap: 10px;               /* un pelín más compacto */
+  }
+}

@@ -339,3 +339,28 @@ section.block{
     margin: 0 auto; /* centrado */
   }
 }
+/* ===== Ajuste de tarjeta de contacto en móvil (centrada, separada y con su propio “glass”) ===== */
+/* ===== Fix tarjeta de contacto en móvil (centrada, separada y con su propio “glass”) ===== */
+@media (max-width: 560px){
+  /* fuerza el bloque a separarse del texto y a centrarse */
+  #sobre-mi .section-card .contact-card{
+    display: block;
+    width: auto !important;
+    max-width: 340px !important;       /* un poco más ancho que 320 si hay espacio */
+    margin: 16px auto 0 !important;    /* separación arriba + centrado */
+    padding: 14px !important;
+
+    /* su propio “glass” para que no se confunda con el contenedor */
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 14px 28px rgba(3,8,20,0.35) !important;
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+
+  /* opcional: reduce el padding del contenedor para que se vea más separada del borde */
+  #sobre-mi .section-card{
+    padding-bottom: 18px;
+  }
+}
+

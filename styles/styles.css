@@ -220,3 +220,60 @@ input:focus,textarea:focus,select:focus{outline:3px solid rgba(124,92,255,0.12);
   color: #8fe3c6;                       /* texto en la misma paleta */
   border: 1px solid rgba(16,185,129,0.25);
 }
+/* ===== Ajustes finos de espaciados ===== */
+/* === Ajuste fino de espaciados (desktop + móvil) === */
+
+/* Más margen lateral (gutter) global */
+.container{
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* El hero queda un poco más compacto para acercar "Sobre mí" */
+.hero{
+  /* antes: padding: 80px 0 40px; (desktop)
+     dejamos menos aire abajo para que la siguiente sección suba */
+  padding-top: 80px;
+  padding-bottom: 24px;
+}
+
+/* Todas las secciones un poco menos altas para que el scroll sea más ágil */
+section.block{
+  /* antes: 54px 0 */
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+
+/* ===== Responsive ===== */
+
+/* Tablets / pantallas medianas */
+@media (max-width: 880px){
+  /* Mantén buen gutter en tablet */
+  .container{ padding-left: 22px; padding-right: 22px; }
+
+  /* Acerca aún más “Sobre mí” en móvil/tablet sin apretar demasiado */
+  .hero{
+    /* antes lo tenías sobreescrito a ~28px/20px; damos un pelín menos */
+    padding-top: 28px;
+    padding-bottom: 14px;
+  }
+
+  section.block{
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 560px){
+  /* Evitar que el contenido toque los bordes en teléfonos */
+  .container{ padding-left: 18px; padding-right: 18px; }
+
+  /* Un pelín menos de aire bajo el hero para que “Sobre mí” suba */
+  .hero{ padding-bottom: 10px; }
+
+  section.block{
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}

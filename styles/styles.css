@@ -277,3 +277,52 @@ section.block{
     padding-bottom: 32px;
   }
 }
+/* ===== Versión alternativa: ajustes finos de espaciados (más generoso) ===== */
+/* ===== Gutter (margen lateral) más generoso ===== */
+main.container,
+header .container,
+footer .container{
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+/* Subir un poco "Sobre mí" reduciendo el aire inferior del hero */
+.hero{
+  /* antes ~80px 0 40px; dejamos menos abajo */
+  padding-bottom: 18px;
+}
+
+/* Secciones un poco más compactas (sube el contenido siguiente) */
+section.block{
+  /* antes 54px 0 */
+  padding-top: 44px;
+  padding-bottom: 44px;
+}
+
+/* ===== Tablet ===== */
+@media (max-width: 880px){
+  main.container,
+  header .container,
+  footer .container{ padding-left: 22px; padding-right: 22px; }
+
+  .hero{ padding-bottom: 12px; }
+  section.block{ padding-top: 36px; padding-bottom: 36px; }
+}
+
+/* ===== Móvil ===== */
+@media (max-width: 560px){
+  main.container,
+  header .container,
+  footer .container{ padding-left: 18px; padding-right: 18px; }
+
+  .hero{ padding-bottom: 10px; }
+  section.block{ padding-top: 32px; padding-bottom: 32px; }
+
+  /* Quitar "doble marco" de la tarjeta interior en Sobre mí */
+  .contact-card{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}

@@ -487,3 +487,85 @@ section.block{
   .brand .text b{ margin-bottom:3px; }
 }
 
+/* ===========================
+   HEADER EN 3 COLUMNAS (DESKTOP)
+   Manteniendo tu HTML tal cual
+   =========================== */
+@media (min-width:1100px){
+  /* 3 columnas: [brand] [nav] [derecha] */
+  .nav-inner{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    column-gap:20px;
+  }
+
+  /* Columna 1: marca a la izquierda */
+  .nav-inner .brand{
+    justify-self:start;
+    /* opcional: acércalo un pelín al borde si quieres */
+    /* margin-left:-10px; */
+  }
+  .brand .text b{ margin-bottom:3px; }
+
+  /* Columna 2: menú centrado, en una sola línea con aire */
+  .nav-inner nav.mainnav{
+    display:flex;
+    gap:20px;
+    white-space:nowrap;
+    flex-wrap:nowrap;
+    justify-self:center;
+    min-width:0; /* evita empujes raros en anchos justos */
+  }
+  .nav.inner nav.mainnav a{ padding:7px 10px; font-size:.95rem; }
+
+  /* Columna 3: el ÚLTIMO hijo de .nav-inner (tu wrapper con display:flex)
+     que contiene .header-socials + .menu-toggle + .mobile-nav */
+  .nav-inner > :last-child{
+    justify-self:end;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  /* Dentro de ese wrapper, alinea iconos en fila con aire */
+  .header-socials{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  /* Iconos en pastilla redonda con hover sutil */
+  .header-socials .icon-btn{
+    width:36px; height:36px; border-radius:999px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    display:grid; place-items:center;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .header-socials .icon-btn:hover{
+    transform:translateY(-2px);
+    background:rgba(255,255,255,0.06);
+  }
+
+  /* Botón CTA verde sobrio (asegúrate de usar class="btn cta-green" en el HTML) */
+  .btn.cta-green{
+    background:linear-gradient(90deg,#17c964,#13b255);
+    color:#041126; font-weight:800;
+    padding:10px 14px; border-radius:999px; border:none;
+    box-shadow:0 8px 22px rgba(23,201,100,.22);
+    transition:transform .16s ease, box-shadow .18s ease, filter .18s ease;
+    text-decoration:none;
+  }
+  .btn.cta-green:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 28px rgba(23,201,100,.28);
+    filter:saturate(1.05);
+  }
+}
+
+/* (Opcional) Si quieres ocultar el CTA en móvil para no duplicar con "Contacto" del menú
+@media (max-width:1099px){
+  .header-socials .cta-green{ display:none; }
+}
+*/

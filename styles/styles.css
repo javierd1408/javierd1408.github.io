@@ -428,226 +428,79 @@ section.block{
     padding-bottom: 18px;
   }
 }
-/* ===== Ajustes de header en desktop (3 zonas) ===== */
-/* ===== Desktop: organizar header en 3 zonas sin tocar la marca ===== */
+/* ===== FIX DURO: header en 3 columnas y CTA/íconos a la derecha ===== */
 @media (min-width:1100px){
-  /* Estructura: [brand][nav 1fr][social/cta] */
-  .nav-inner{
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    column-gap: 18px;
-  }
 
-  /* Menú con aire y sin romper en 2 líneas */
-  nav.mainnav{
-    display:flex;
-    gap:20px;
-    white-space:nowrap;
-    flex-wrap:nowrap;
-    justify-self:center; /* si lo prefieres a la derecha: end */
-  }
-  nav.mainnav a{ padding: 7px 10px; font-size: .95rem; }
-
-  /* Grupo de iconos como 'pastilla' y CTA a la derecha */
-  .header-socials{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    justify-self:end;
-  }
-  .header-socials .icon-btn{
-    width:36px; height:36px; border-radius:999px;
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.06);
-    display:grid; place-items:center;
-    transition:transform .15s ease, background .15s ease;
-  }
-  .header-socials .icon-btn:hover{
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.06);
-  }
-
-  /* CTA verde sobrio */
-  .btn.cta-green{
-    background: linear-gradient(90deg,#17c964,#13b255);
-    color:#041126; font-weight:800;
-    padding:10px 14px; border-radius:999px; border:none;
-    box-shadow:0 8px 22px rgba(23,201,100,.22);
-    transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
-  }
-  .btn.cta-green:hover{
-    transform: translateY(-2px);
-    box-shadow:0 14px 28px rgba(23,201,100,.28);
-    filter:saturate(1.05);
-  }
-
-  /* (opcional) acercar un pelín la marca al borde izq */
-  .brand{ margin-left:-10px; } /* ajusta -12/-14 si te gusta más */
-  .brand .text b{ margin-bottom:3px; }
-}
-
-/* ====== Header: 3 columnas y sin montarse (desktop) ====== */
-@media (min-width:1100px){
-  /* Estructura fija: [brand] [nav crece] [social/cta] */
-  .nav-inner{
-    display: grid;
-    grid-template-columns: auto minmax(0,1fr) auto; /* evita que el nav empuje a la 3ª col */
-    align-items: center;
-    column-gap: 18px;
-  }
-
-  /* Menú centrado, en una sola línea y sin romper */
-  nav.mainnav{
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    white-space: nowrap;   /* no permitir saltos de línea */
-    overflow: hidden;      /* evita solaparse con la 3ª columna */
-  }
-  nav.mainnav a{
-    padding: 7px 10px;
-    font-size: .95rem;
-  }
-
-  /* Bloque de iconos + CTA a la derecha (en una sola línea) */
-  .header-socials{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;   /* no partir iconos/CTA */
-    justify-self: end;
-  }
-  .header-socials .icon-btn{
-    width: 36px; height: 36px; border-radius: 999px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    display: grid; place-items: center;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .header-socials .icon-btn:hover{
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.06);
-  }
-
-  /* CTA verde (sólo desktop) */
-  .cta-green{
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    background: linear-gradient(90deg,#17c964,#13b255);
-    color:#041126; font-weight:800;
-    padding:10px 14px; border-radius:999px; border:none;
-    box-shadow:0 8px 22px rgba(23,201,100,.22);
-    text-decoration:none;
-    transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
-  }
-  .cta-green:hover{
-    transform: translateY(-2px);
-    box-shadow:0 14px 28px rgba(23,201,100,.28);
-    filter:saturate(1.05);
-  }
-
-  /* Acercar un pelín la marca al borde izq si quieres más aire */
-  .brand{ margin-left:-10px; }
-}
-
-/* Afinado para anchos “medios” donde antes se montaba */
-@media (min-width:1100px) and (max-width:1380px){
-  nav.mainnav{ gap: 14px; }
-  nav.mainnav a{ padding: 6px 8px; font-size: .92rem; }
-  .header-socials{ gap: 10px; }
-}
-
-/* En móvil/tablet, no muestres el CTA (ya lo tienes en el menú) */
-@media (max-width:1099px){
-  .cta-green{ display: none !important; }
-}
-
-/* Empuja el grupo de redes/CTA más a la derecha (solo desktop) */
-@media (min-width:1100px){
-  /* reduce el padding derecho del contenedor SOLO en el header */
-  header.nav .container{
-    padding-right: 12px;     /* antes lo tienes en ~24–28px */
-  }
-
-  /* por si algún padding/gap deja aire extra */
-  .header-socials{
-    justify-self: end;       /* asegura que va a la 3ª columna a la derecha */
-    margin-right: -2px;      /* opcional: “beso” al borde; ajusta -4/-6 si quieres */
-    gap: 10px;               /* un pelín más compacto */
-  }
-}
-/* ===== Header en 3 columnas (solo desktop) ===== */
-@media (min-width:1100px){
-  /* [brand] [nav crece] [social/cta] */
-  .nav-inner{
+  /* el contenedor del header usa grid (3 columnas) sí o sí */
+  header.nav .container.nav-inner{
     display: grid !important;
     grid-template-columns: auto minmax(0,1fr) auto !important;
-    align-items: center;
-    column-gap: 18px;
+    align-items: center !important;
+    column-gap: 18px !important;
   }
 
-  /* Menú centrado, una sola línea, sin montarse */
-  nav.mainnav{
+  /* reduce padding lateral del header para ganar aire a la derecha */
+  header.nav .container{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* el menú queda centrado y en una sola línea */
+  header.nav .container.nav-inner > nav.mainnav{
     display: flex !important;
     justify-content: center !important;
-    gap: 18px;
-    white-space: nowrap;   /* no saltar de línea */
-    overflow: hidden;      /* evitar solapes si se aprieta */
+    gap: 18px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
   }
-  nav.mainnav a{
-    padding: 7px 10px;
-    font-size: .95rem;
+  header.nav .container.nav-inner > nav.mainnav a{
+    padding: 7px 10px !important;
+    font-size: .95rem !important;
   }
 
-  /* Redes + CTA pegados al borde derecho */
-  .header-socials{
+  /* el bloque de redes + CTA va a la 3ª columna, pegado a la derecha */
+  header.nav .container.nav-inner > .header-socials{
     display: flex !important;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;
-    justify-self: end;     /* anclado a la 3ª columna */
+    align-items: center !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+    justify-self: end !important;     /* <-- clave */
+    margin-left: 0 !important;
   }
+
+  /* por si tus íconos están dentro de otro wrapper flex, empuja a la derecha */
+  header.nav .container.nav-inner > div > .header-socials{
+    margin-left: auto !important;     /* fallback si existe un wrapper */
+  }
+
   .header-socials .icon-btn{
-    width: 36px; height: 36px; border-radius: 999px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    display: grid; place-items: center;
-    transition: transform .15s ease, background .15s ease;
-  }
-  .header-socials .icon-btn:hover{
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.06);
+    width: 36px !important; height: 36px !important; border-radius: 999px !important;
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+    display: grid !important; place-items: center !important;
   }
 
-  /* CTA verde elegante (solo desktop) */
+  /* CTA verde (solo desktop) */
   .cta-green{
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    background: linear-gradient(90deg,#17c964,#13b255);
-    color:#041126; font-weight:800;
-    padding:10px 14px; border-radius:999px; border:none;
-    box-shadow:0 8px 22px rgba(23,201,100,.22);
-    text-decoration:none;
-    transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
-  }
-  .cta-green:hover{
-    transform: translateY(-2px);
-    box-shadow:0 14px 28px rgba(23,201,100,.28);
-    filter:saturate(1.05);
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: .5rem !important;
+    background: linear-gradient(90deg,#17c964,#13b255) !important;
+    color:#041126 !important; font-weight:800 !important;
+    padding:10px 14px !important; border-radius:999px !important; border:none !important;
+    box-shadow:0 8px 22px rgba(23,201,100,.22) !important;
+    text-decoration:none !important;
   }
 
-  /* Afinado cuando el ancho es justo */
+  /* afinado cuando aprieta el ancho */
   @media (max-width:1380px){
-    nav.mainnav{ gap: 14px; }
-    nav.mainnav a{ padding: 6px 8px; font-size: .92rem; }
-    .header-socials{ gap: 10px; }
+    header.nav .container.nav-inner > nav.mainnav{ gap: 14px !important; }
+    header.nav .container.nav-inner > nav.mainnav a{ padding: 6px 8px !important; font-size: .92rem !important; }
+    header.nav .container.nav-inner > .header-socials{ gap: 10px !important; }
   }
 }
 
-/* En móvil/tablet ocultamos el CTA (el enlace Contacto ya está en el menú) */
+/* oculta el CTA en móvil/tablet (usamos el enlace Contacto del menú) */
 @media (max-width:1099px){
   .cta-green{ display: none !important; }
 }

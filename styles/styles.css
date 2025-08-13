@@ -443,3 +443,65 @@ section.block{
     margin-right: 0;      /* pega al borde */
   }
 }
+
+/* ===== Header en desktop: más espacio para el menú, marca más a la izquierda,
+   sociales pegados a la derecha y SIN que el menú baje de línea ===== */
+@media (min-width: 1100px){
+
+  /* Compacta la barra y reduce los “gutter” laterales del header */
+  header.nav{
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+  }
+  header.nav .container{
+    padding-left: 12px !important;   /* acerca “Javier Durán” al borde izquierdo */
+    padding-right: 12px !important;  /* pega sociales al borde derecho */
+  }
+
+  /* Reorganiza el header en 3 columnas: [brand] [nav ocupa 1fr] [sociales] */
+  .nav-inner{
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important;
+    align-items: center !important;
+    column-gap: 16px !important;
+    width: 100% !important;
+  }
+
+  /* El menú ocupa el centro/derecha y NO se parte a otra línea */
+  nav.mainnav{
+    justify-self: end !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    white-space: nowrap !important;
+  }
+  nav.mainnav a{
+    padding: 6px 9px !important;   /* más compacto para que quepa todo */
+    margin: 0 !important;
+    font-size: 0.96rem !important;
+  }
+
+  /* El bloque derecho (donde están los iconos) queda pegado al borde derecho */
+  .nav-inner > div:last-child{
+    justify-self: end !important;
+  }
+  .nav-inner > div:last-child .header-socials{
+    gap: 10px !important;
+    margin-right: 0 !important;     /* sin colchón extra a la derecha */
+  }
+
+  /* Marca más compacta y tirada a la izquierda */
+  .brand{ gap: 8px !important; }
+  .brand .logo{ width: 40px !important; height: 40px !important; }
+  .brand .text b{ margin-bottom: 3px !important; line-height: 1.05 !important; }
+  .brand .text small{ letter-spacing: .1px !important; }
+}
+
+/* En pantallas “justas” evita saltos del menú apretándolo un poco más */
+@media (min-width: 1100px) and (max-width: 1320px){
+  nav.mainnav a{
+    padding: 5px 8px !important;
+    font-size: 0.94rem !important;
+  }
+  .brand .logo{ width: 38px !important; height: 38px !important; }
+}

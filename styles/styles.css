@@ -336,7 +336,7 @@ section.block{
     padding: 14px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     max-width: 320px;
-    margin: 0 auto; /* centrado */
+    margin: 24px auto 0 auto;
   }
 }
 /* ===== Ajuste de tarjeta de contacto en móvil (centrada, separada y con su propio “glass”) ===== */
@@ -364,3 +364,47 @@ section.block{
   }
 }
 
+
+/* ===== Header refinado (solo desktop) ===== */
+@media (min-width: 1100px){
+  /* Menos alto y más limpio */
+  header.nav{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* Distribución a 3 columnas: [brand] [nav centrado] [sociales a la derecha] */
+  .nav-inner{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 24px;
+  }
+  /* nav al centro visual */
+  nav.mainnav{ justify-self: center; }
+
+  /* empuja el bloque derecho (sociales + hamburguesa) al borde derecho */
+  .nav-inner > div:last-child{ justify-self: end; }
+
+  /* separa "Javier Durán" del subtítulo */
+  .brand .text b{
+    display:block;
+    margin-bottom: 2px;  /* espacio entre nombre y subtítulo */
+    line-height: 1.05;
+  }
+  .brand .text small{
+    display:block;
+    margin-top: 2px;
+    letter-spacing: .1px;
+  }
+
+  /* ligeramente más a la derecha los iconos y sin que “bajen” la barra */
+  .header-socials{
+    gap: 12px;
+    margin-left: 12px;     /* separa del nav */
+    align-self: center;
+  }
+
+  /* si ves la barra aún “alta”, puedes bajar un poco el logo para equilibrar */
+  .brand .logo{ width: 42px; height: 42px; }
+}

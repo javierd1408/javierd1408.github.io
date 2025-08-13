@@ -428,5 +428,62 @@ section.block{
     padding-bottom: 18px;
   }
 }
+/* ===== Ajustes de header en desktop (3 zonas) ===== */
+/* ===== Desktop: organizar header en 3 zonas sin tocar la marca ===== */
+@media (min-width:1100px){
+  /* Estructura: [brand][nav 1fr][social/cta] */
+  .nav-inner{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: 18px;
+  }
 
+  /* Menú con aire y sin romper en 2 líneas */
+  nav.mainnav{
+    display:flex;
+    gap:20px;
+    white-space:nowrap;
+    flex-wrap:nowrap;
+    justify-self:center; /* si lo prefieres a la derecha: end */
+  }
+  nav.mainnav a{ padding: 7px 10px; font-size: .95rem; }
+
+  /* Grupo de iconos como 'pastilla' y CTA a la derecha */
+  .header-socials{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    justify-self:end;
+  }
+  .header-socials .icon-btn{
+    width:36px; height:36px; border-radius:999px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    display:grid; place-items:center;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .header-socials .icon-btn:hover{
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* CTA verde sobrio */
+  .btn.cta-green{
+    background: linear-gradient(90deg,#17c964,#13b255);
+    color:#041126; font-weight:800;
+    padding:10px 14px; border-radius:999px; border:none;
+    box-shadow:0 8px 22px rgba(23,201,100,.22);
+    transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
+  }
+  .btn.cta-green:hover{
+    transform: translateY(-2px);
+    box-shadow:0 14px 28px rgba(23,201,100,.28);
+    filter:saturate(1.05);
+  }
+
+  /* (opcional) acercar un pelín la marca al borde izq */
+  .brand{ margin-left:-10px; } /* ajusta -12/-14 si te gusta más */
+  .brand .text b{ margin-bottom:3px; }
+}
 

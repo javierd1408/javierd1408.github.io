@@ -504,3 +504,11 @@ section.block{
 @media (max-width:1099px){
   .cta-green{ display: none !important; }
 }
+
+/* Limitar ancho y evitar que el subtítulo empuje el título */
+@media (min-width:1100px) {
+  header.nav .brand {
+    margin-left: -30px; /* mueve todo el bloque más a la izquierda */
+  }
+}
+

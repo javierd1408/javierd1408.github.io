@@ -511,44 +511,36 @@ section.block{
     margin-left: -30px; /* mueve todo el bloque más a la izquierda */
   }
 }
-/* ===== Header: compactar marca y evitar que el subtítulo se meta bajo el menú (solo desktop) ===== */
+/* ===== Header: 3 columnas con 1ª columna (brand) limitada ===== */
 @media (min-width:1100px){
-  /* Mueve un poco más a la izquierda el bloque de marca */
-  .brand{
-    transform: translateX(-18px);
+  header.nav .nav-inner{
+    display: grid;
+    /* 1) BRAND con ancho máximo controlado
+       2) NAV ocupa el resto
+       3) SOCIALES/CTA a la derecha */
+    grid-template-columns: clamp(260px, 28vw, 420px) minmax(0,1fr) auto;
+    align-items: center;
+    column-gap: 18px;
   }
 
-  /* Limita el ancho útil de la marca para que el subtítulo no invada la zona del menú */
-  .brand .text{
-    max-width: 420px;   /* ajusta a 380–460px si quieres */
-  }
-
-  /* Subtítulo más compacto y en una sola línea con elipsis si se pasa */
+  /* El subtítulo se envuelve dentro de la columna de brand (no bajo el nav) */
   .brand .text small{
-    font-size: .92rem;     /* antes ~1rem */
-    line-height: 1.1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; /* muestra … si se excede */
-    display: block;
+    white-space: normal;    /* importante: permite el wrap dentro del ancho limitado */
+    line-height: 1.15;
   }
 
-  /* Un poco menos de “gap” en el menú para ganar aire */
-  nav.mainnav{
-    gap: 14px;
-  }
+  /* Pequeños ajustes para ganar aire al menú */
+  nav.mainnav{ gap: 14px; }
+  nav.mainnav a{ padding: 6px 9px; font-size: .94rem; }
 
-  /* Casi imperceptible: reduce gutters de la barra para dejar más espacio al contenido */
-  header.nav .container{
-    padding-left: 10px;
-    padding-right: 14px;
-  }
+  /* Opcional: mueve un pelín el bloque a la izquierda si quieres */
+  .brand{ transform: translateX(-8px); } /* ajusta -0 a -12px si lo prefieres */
 }
 
-/* Afinado para anchos medios (donde más suele chocar) */
+/* Afinado para anchos medios (donde más chocaba) */
 @media (min-width:1100px) and (max-width:1350px){
-  .brand .text{ max-width: 360px; }       /* recorta un poco más en esta franja */
+  header.nav .nav-inner{
+    grid-template-columns: clamp(260px, 30vw, 380px) minmax(0,1fr) auto;
+  }
   nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
-  .header-socials{ gap: 10px; }
 }
-

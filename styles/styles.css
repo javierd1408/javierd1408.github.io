@@ -511,4 +511,44 @@ section.block{
     margin-left: -30px; /* mueve todo el bloque más a la izquierda */
   }
 }
+/* ===== Header: compactar marca y evitar que el subtítulo se meta bajo el menú (solo desktop) ===== */
+@media (min-width:1100px){
+  /* Mueve un poco más a la izquierda el bloque de marca */
+  .brand{
+    transform: translateX(-18px);
+  }
+
+  /* Limita el ancho útil de la marca para que el subtítulo no invada la zona del menú */
+  .brand .text{
+    max-width: 420px;   /* ajusta a 380–460px si quieres */
+  }
+
+  /* Subtítulo más compacto y en una sola línea con elipsis si se pasa */
+  .brand .text small{
+    font-size: .92rem;     /* antes ~1rem */
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* muestra … si se excede */
+    display: block;
+  }
+
+  /* Un poco menos de “gap” en el menú para ganar aire */
+  nav.mainnav{
+    gap: 14px;
+  }
+
+  /* Casi imperceptible: reduce gutters de la barra para dejar más espacio al contenido */
+  header.nav .container{
+    padding-left: 10px;
+    padding-right: 14px;
+  }
+}
+
+/* Afinado para anchos medios (donde más suele chocar) */
+@media (min-width:1100px) and (max-width:1350px){
+  .brand .text{ max-width: 360px; }       /* recorta un poco más en esta franja */
+  nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
+  .header-socials{ gap: 10px; }
+}
 

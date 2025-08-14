@@ -518,7 +518,7 @@ section.block{
     /* 1) BRAND con ancho máximo controlado
        2) NAV ocupa el resto
        3) SOCIALES/CTA a la derecha */
-    grid-template-columns: clamp(260px, 28vw, 420px) minmax(0,1fr) auto;
+    grid-template-columns: clamp(260px, 28vw, 380px) minmax(0,1fr) auto;
     align-items: center;
     column-gap: 18px;
   }
@@ -534,7 +534,7 @@ section.block{
   nav.mainnav a{ padding: 6px 9px; font-size: .94rem; }
 
   /* Opcional: mueve un pelín el bloque a la izquierda si quieres */
-  .brand{ transform: translateX(-8px); } /* ajusta -0 a -12px si lo prefieres */
+  .brand{ transform: translateX(-12px); } /* ajusta -0 a -12px si lo prefieres */
 }
 
 /* Afinado para anchos medios (donde más chocaba) */

@@ -537,61 +537,77 @@ section.block{
   .brand{ transform: translateX(-12px); } /* ajusta -0 a -12px si lo prefieres */
 }
 
-/* Afinado para anchos medios (donde más chocaba) */
-@media (min-width:1100px) and (max-width:1350px){
-  header.nav .nav-inner{
-    grid-template-columns: clamp(260px, 30vw, 380px) minmax(0,1fr) auto;
-  }
-  nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
-}
-
-/* ===== Header limpio (desktop) ===== */
+/* === HEADER ESTABLE EN 3 ZONAS (DESKTOP) === */
 @media (min-width:1100px){
-  /* 1) Nombre + subtítulo en UNA sola fila */
-  .brand .text{
-    display:flex;
-    flex-direction:row;        /* antes vertical */
-    align-items:baseline;
-    gap:12px;
-  }
-  .brand .text b{
-    display:inline-block;
-    margin:0;
-    line-height:1.05;
-  }
-  .brand .text .small-muted{
-    display:inline-block;      /* de bloque -> en línea */
-    white-space:nowrap;        /* no saltes de línea */
-    overflow:hidden;           /* si no cabe, elípsis */
-    text-overflow:ellipsis;
-    max-width: clamp(180px, 28vw, 420px); /* ancho flexible */
-    font-size:.95rem;
-    opacity:.86;
-  }
-
-  /* 2) Un poco más de aire + grilla estable en 3 zonas */
-  header.nav .container{ padding-left:16px; padding-right:16px; }
   .nav-inner{
-    display:grid;
-    grid-template-columns: auto minmax(0,1fr) auto; /* [brand][nav crece][social/cta] */
-    align-items:center;
-    column-gap:18px;
+    display: grid;
+    /* La 1ª col (brand) no puede comerse todo: tope ~36% */
+    grid-template-columns: minmax(260px, 36%) minmax(0,1fr) auto;
+    align-items: center;
+    column-gap: 16px;
   }
-  nav.mainnav{
-    display:flex;
-    gap:16px;
-    white-space:nowrap;  /* no partir el menú */
-    overflow:hidden;     /* no empujes a la 3ª columna */
-    flex-wrap:nowrap;
-    justify-self:center;
-  }
-  .header-socials{ gap:10px; justify-self:end; white-space:nowrap; }
 
-  /* 3) Un pelín más compacto el logo para ganar ancho */
-  .brand .logo{ width:36px; height:36px; }
+  /* MUY IMPORTANTE: permitir que las columnas en grid encojan */
+  .brand, nav.mainnav, .header-socials { min-width: 0; }
+
+  /* BRAND compacto en una sola línea con “...” si se pasa */
+  .brand .text{
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    white-space: nowrap;          /* nombre + subtítulo en línea */
+    overflow: hidden;             /* recorta si no cabe */
+    text-overflow: ellipsis;      /* “…” si no cabe */
+  }
+  .brand .text b{ line-height: 1.05; }
+  .brand .text small{
+    font-size: clamp(.88rem, 1vw, .95rem);
+    opacity: .9;
+  }
+
+  /* NAV adaptable dentro de SU columna (sin solaparse) */
+  nav.mainnav{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;              /* si no cabe en una fila, parte en 2 dentro de su celda */
+    white-space: normal;          /* clave para que pueda partirse */
+    overflow: visible;
+  }
+  nav.mainnav a{
+    padding: 6px 9px;
+    font-size: .94rem;
+  }
+
+  /* SOCIALS/CTA a la derecha en una sola línea */
+  .header-socials{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    justify-self: end;
+  }
+  .header-socials .icon-btn{
+    width: 36px; height: 36px; border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    display: grid; place-items: center;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .header-socials .icon-btn:hover{
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.06);
+  }
 }
 
-/* Si el ancho es justito, oculta el subtítulo para proteger el layout */
-@media (min-width:1100px) and (max-width:1280px){
-  .brand .text .small-muted{ display:none; }
+/* En anchos “justos”, comprime y oculta el CTA para evitar desbordes */
+@media (min-width:1100px) and (max-width:1400px){
+  nav.mainnav{ gap: 12px; }
+  nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
+  .cta-green{ display: none !important; } /* libera espacio crítico */
+}
+
+/* En móvil/tablet, el CTA ya está en el menú: ocultarlo arriba */
+@media (max-width:1099px){
+  .cta-green{ display: none !important; }
 }

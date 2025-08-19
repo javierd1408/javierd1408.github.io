@@ -226,3 +226,17 @@ function toggleMobileNav(){
     card.addEventListener('mouseleave', reset);
   });
 })();
+
+// Prefill rápido del mensaje con el servicio elegido
+document.querySelectorAll('.service-cta').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const svc = btn.getAttribute('data-service') || 'Servicio';
+    // espera a que el scroll aterrice en #contacto
+    setTimeout(()=>{
+      const msg = document.getElementById('message');
+      if(msg && !msg.value.trim()){
+        msg.value = `Hola Javier, quiero una propuesta para: ${svc}.`;
+      }
+    }, 400);
+  });
+});

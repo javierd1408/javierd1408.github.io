@@ -153,85 +153,117 @@
 <section id="servicios" class="block reveal">
   <div class="section-title">
     <h2>Servicios</h2>
-    <span class="small-muted">un mago nunca revela sus secretos 🪄</span>
+    <span class="small-muted">“Menos riesgo, más producto.”</span>
   </div>
 
-  <div class="services-grid">
-    <!-- 1) Desarrollo web seguro -->
-    <article class="service-card">
-      <header class="svc-head">
-        <h3>Desarrollo Web Seguro</h3>
-        <p class="muted">Apps rápidas, accesibles y listas para producción.</p>
-      </header>
-      <ul class="svc-list">
-        <li>Validación server/cliente & sesiones seguras</li>
-        <li>SSR/SPA (React) y APIs con Node/Express</li>
-        <li>Optimización Core Web Vitals</li>
-      </ul>
-      <div class="svc-chips">
-        <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JS</span>
-        <span class="chip">React</span><span class="chip">Node</span>
-      </div>
-      <div class="svc-meta"><small class="muted">Orientado a: landing, e-commerce y portales internos.</small></div>
-      <a class="svc-cta" href="#contacto">Solicitar demo</a>
-    </article>
-
-    <!-- 2) Hardening para PYMES -->
-    <article class="service-card">
-      <header class="svc-head">
+  <div class="services-grid fancy">
+    <!-- Hardening -->
+    <article class="service-card" style="--hue: 160">
+      <header class="service-head">
+        <div class="service-icon">
+          <!-- shield -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l7 3v6c0 5-3.4 9.4-7 11-3.6-1.6-7-6-7-11V5l7-3z" fill="currentColor"/></svg>
+        </div>
         <h3>Hardening para PYMES</h3>
-        <p class="muted">Reduce superficie de ataque y cumple buenas prácticas.</p>
+        <p class="tagline">Infraestructura reforzada y visible: menos superficie de ataque, más disponibilidad.</p>
       </header>
-      <ul class="svc-list">
-        <li>Linux/Windows baseline + políticas seguras</li>
-        <li>Firewall/SSH, backups y registros</li>
-        <li>Escaneos: Nmap, Lynis, OpenVAS</li>
+
+      <ul class="service-list">
+        <li>Baselines en Linux/Windows, políticas y endurecimiento SSH/Firewall</li>
+        <li>Escaneos con OpenVAS, Lynis, Nmap + plan de remediación</li>
+        <li>Backups y monitoreo inicial</li>
       </ul>
-      <div class="svc-chips">
-        <span class="chip">Linux</span><span class="chip">Windows</span>
-        <span class="chip">UFW</span><span class="chip">OpenVAS</span><span class="chip">Lynis</span>
+
+      <div class="chips">
+        <span class="chip">OpenVAS</span>
+        <span class="chip">Lynis</span>
+        <span class="chip">UFW/iptables</span>
       </div>
-      <div class="svc-meta"><small class="muted">Orientado a: PYMES y equipos en crecimiento.</small></div>
-      <a class="svc-cta" href="#contacto">Solicitar plan</a>
+
+      <a href="#contacto" class="service-cta" data-service="Hardening para PYMES">Solicitar propuesta</a>
     </article>
 
-    <!-- 3) Consultoría & Asesoría -->
-    <article class="service-card">
-      <header class="svc-head">
+    <!-- Desarrollo Web -->
+    <article class="service-card" style="--hue: 220">
+      <header class="service-head">
+        <div class="service-icon">
+          <!-- code -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 16L4 12l4.5-4M15.5 8L20 12l-4.5 4M13 5l-2 14" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Desarrollo Web</h3>
+        <p class="tagline">Front + Back con seguridad, rendimiento y DX pensados desde el diseño.</p>
+      </header>
+
+      <ul class="service-list">
+        <li>SPA/SSR, APIs seguras, autenticación y sesiones</li>
+        <li>Validación robusta en cliente/servidor</li>
+        <li>CI/CD y despliegue</li>
+      </ul>
+
+      <div class="chips">
+        <span class="chip">HTML/CSS/JS</span>
+        <span class="chip">Node.js</span>
+        <span class="chip">React</span>
+      </div>
+
+      <a href="#contacto" class="service-cta" data-service="Desarrollo Web">Solicitar propuesta</a>
+    </article>
+
+    <!-- Consultoría -->
+    <article class="service-card" style="--hue: 280">
+      <header class="service-head">
+        <div class="service-icon">
+          <!-- compass -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm3.8 6.2l-2.1 5.6-5.6 2.1 2.1-5.6 5.6-2.1z" fill="currentColor"/></svg>
+        </div>
         <h3>Consultoría & Asesoría</h3>
-        <p class="muted">Decisiones técnicas claras, sin humo.</p>
+        <p class="tagline">Auditorías prácticas, priorización por riesgo y hojas de ruta accionables.</p>
       </header>
-      <ul class="svc-list">
-        <li>Evaluaciones de seguridad y priorización</li>
-        <li>Planes de remediación accionables</li>
-        <li>Formación práctica a tu equipo</li>
-      </ul>
-      <div class="svc-chips">
-        <span class="chip">Arquitectura</span><span class="chip">Threat-Modeling</span>
-        <span class="chip">DevSecOps</span>
-      </div>
-      <div class="svc-meta"><small class="muted">Orientado a: founders y líderes técnicos.</small></div>
-      <a class="svc-cta" href="#contacto">Agendar consultoría</a>
-    </article>
 
-    <!-- 4) Monitoreo & Respuesta -->
-    <article class="service-card">
-      <header class="svc-head">
-        <h3>Monitoreo & Respuesta Inicial</h3>
-        <p class="muted">Detecta antes, responde mejor.</p>
-      </header>
-      <ul class="svc-list">
-        <li>Alertas y dashboard de salud</li>
-        <li>Backups verificados y restauración</li>
-        <li>Playbooks de incidentes</li>
+      <ul class="service-list">
+        <li>Revisión arquitecturas y dependencias</li>
+        <li>Threat modeling ligero</li>
+        <li>Planes por impacto/esfuerzo</li>
       </ul>
-      <div class="svc-chips">
-        <span class="chip">Docker</span><span class="chip">Logs</span><span class="chip">CI/CD</span>
+
+      <div class="chips">
+        <span class="chip">Threat modeling</span>
+        <span class="chip">OWASP</span>
+        <span class="chip">Roadmap</span>
       </div>
-      <div class="svc-meta"><small class="muted">Orientado a: servicios críticos de negocio.</small></div>
-      <a class="svc-cta" href="#contacto">Configurar monitoreo</a>
+
+      <a href="#contacto" class="service-cta" data-service="Consultoría y Asesoría">Solicitar propuesta</a>
     </article>
+    <!-- Pentesting básico -->
+<article class="service-card" style="--hue: 330">
+  <header class="service-head">
+    <div class="service-icon">
+      <!-- target/crosshair -->
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M12 6a6 6 0 100 12 6 6 0 000-12zm0-4a10 10 0 110 20 10 10 0 010-20z"
+              fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>Pentesting Básico</h3>
+    <p class="tagline">Reconocimiento, escaneo y validación controlada para priorizar riesgos reales.</p>
+  </header>
+
+  <ul class="service-list">
+    <li>Recon y enumeración (Nmap, WhatWeb)</li>
+    <li>Vuln scan con Nikto/OpenVAS y verificación manual</li>
+    <li>Informe con hallazgos y plan de mitigación</li>
+  </ul>
+
+  <div class="chips">
+    <span class="chip">Nmap</span>
+    <span class="chip">Nikto</span>
+    <span class="chip">OWASP</span>
   </div>
+
+  <a href="#contacto" class="service-cta" data-service="Pentesting Básico">Solicitar propuesta</a>
+</article>
+  </div>
+</section>
 </section>
 
     <section id="proyectos" class="block reveal">

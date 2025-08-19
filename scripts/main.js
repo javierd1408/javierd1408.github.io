@@ -201,3 +201,28 @@ function toggleMobileNav(){
   window.addEventListener('hashchange', handleHash);
   window.addEventListener('load', () => setTimeout(handleHash, 0));
 })();
+
+
+(() => {
+  const cards = document.querySelectorAll('.service-card');
+  if (!cards.length) return;
+  const coarse = window.matchMedia?.('(pointer:coarse)').matches;
+  if (coarse) return;
+
+  cards.forEach(card => {
+    const onMove = (e) => {
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const ry = ((x / r.width) - 0.5) * 10;
+      const rx = ((y / r.height) - 0.5) * -10;
+      card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+      card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+      card.style.setProperty('--mx', (x / r.width) * 100 + '%');
+      card.style.setProperty('--my', (y / r.height) * 100 + '%');
+    };
+    const reset = () => { card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); };
+    card.addEventListener('mousemove', onMove);
+    card.addEventListener('mouseleave', reset);
+  });
+})();

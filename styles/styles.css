@@ -623,3 +623,61 @@ html { scroll-padding-top: calc(var(--header-h) + 12px); }
 
 /* Y, por si acaso, cada sección con id también se separa del borde superior */
 section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
+
+
+
+/* ===== Servicios ===== */
+.services-grid{
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 18px;
+}
+@media (max-width:1200px){ .services-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (max-width:900px){  .services-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:560px){  .services-grid{ grid-template-columns: 1fr; } }
+
+.service-card{
+  position: relative;
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 26px rgba(3,8,20,0.45);
+  overflow: hidden;
+  transform: perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0);
+  transition: transform .25s cubic-bezier(.2,.9,.2,1), box-shadow .25s ease, border-color .25s ease;
+}
+.service-card:hover{ box-shadow: 0 18px 40px rgba(3,8,20,0.55); border-color: rgba(255,255,255,0.12); }
+
+.service-card::before{
+  content:""; position:absolute; inset:-2px; border-radius:16px;
+  background: radial-gradient(600px 200px at var(--mx,50%) var(--my,0%), rgba(124,92,255,0.12), transparent 60%);
+  opacity:0; pointer-events:none; transition: opacity .25s ease;
+}
+.service-card:hover::before{ opacity:.9; }
+
+.svc-head h3{ font-size:1.05rem; margin-bottom:4px; }
+.svc-head .muted{ font-size:.93rem; }
+.svc-list{ margin:12px 0 10px 0; padding-left:18px; color:var(--muted); }
+.svc-list li{ margin:6px 0; }
+
+.svc-chips{ display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; }
+.chip{ font-size:.78rem; padding:6px 10px; border-radius:999px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); }
+
+.svc-meta{ margin-bottom:10px; }
+.svc-cta{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:9px 12px; border-radius:10px; font-weight:800; text-decoration:none;
+  background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.08);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .2s ease;
+}
+.svc-cta:hover{ transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); box-shadow: 0 8px 18px rgba(10,14,22,0.35); }
+
+@media (max-width:560px){
+  .service-card{ padding:16px; }
+  .svc-head h3{ font-size:1.02rem; }
+  .svc-head .muted{ font-size:.9rem; }
+}
+
+/* Por si existe un viejo .services, que no afecte este grid */
+.services-grid .service{ all: unset; }

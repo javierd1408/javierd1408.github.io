@@ -544,3 +544,54 @@ section.block{
   }
   nav.mainnav a{ padding: 5px 8px; font-size: .92rem; }
 }
+
+/* ===== Header limpio (desktop) ===== */
+@media (min-width:1100px){
+  /* 1) Nombre + subtítulo en UNA sola fila */
+  .brand .text{
+    display:flex;
+    flex-direction:row;        /* antes vertical */
+    align-items:baseline;
+    gap:12px;
+  }
+  .brand .text b{
+    display:inline-block;
+    margin:0;
+    line-height:1.05;
+  }
+  .brand .text .small-muted{
+    display:inline-block;      /* de bloque -> en línea */
+    white-space:nowrap;        /* no saltes de línea */
+    overflow:hidden;           /* si no cabe, elípsis */
+    text-overflow:ellipsis;
+    max-width: clamp(180px, 28vw, 420px); /* ancho flexible */
+    font-size:.95rem;
+    opacity:.86;
+  }
+
+  /* 2) Un poco más de aire + grilla estable en 3 zonas */
+  header.nav .container{ padding-left:16px; padding-right:16px; }
+  .nav-inner{
+    display:grid;
+    grid-template-columns: auto minmax(0,1fr) auto; /* [brand][nav crece][social/cta] */
+    align-items:center;
+    column-gap:18px;
+  }
+  nav.mainnav{
+    display:flex;
+    gap:16px;
+    white-space:nowrap;  /* no partir el menú */
+    overflow:hidden;     /* no empujes a la 3ª columna */
+    flex-wrap:nowrap;
+    justify-self:center;
+  }
+  .header-socials{ gap:10px; justify-self:end; white-space:nowrap; }
+
+  /* 3) Un pelín más compacto el logo para ganar ancho */
+  .brand .logo{ width:36px; height:36px; }
+}
+
+/* Si el ancho es justito, oculta el subtítulo para proteger el layout */
+@media (min-width:1100px) and (max-width:1280px){
+  .brand .text .small-muted{ display:none; }
+}

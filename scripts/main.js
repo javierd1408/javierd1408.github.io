@@ -240,3 +240,25 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
     }, 400);
   });
 });
+// Prefill de mensaje al pulsar "Solicitar propuesta"
+(() => {
+  const ctas = document.querySelectorAll('.cta-propuesta');
+  if (!ctas.length) return;
+
+  ctas.forEach(a => {
+    a.addEventListener('click', () => {
+      const servicio = a.dataset.service || 'un servicio';
+      const area = document.querySelector('#message');
+      const name = document.querySelector('#name');
+
+      if (area) {
+        // No sobreescribas si el usuario ya escribió algo
+        if (!area.value || area.value.trim().length < 5) {
+          area.value = `Hola Javier, me interesa ${servicio}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
+        }
+      }
+      // Lleva foco al nombre para acelerar el contacto
+      if (name) name.focus();
+    });
+  });
+})();

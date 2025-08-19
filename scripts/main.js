@@ -149,3 +149,55 @@ function toggleMobileNav(){
   document.documentElement.style.overflow = open ? 'hidden' : '';
   document.body.style.overflow = open ? 'hidden' : '';
 }
+
+/* Fix anclas con header fijo (drop-in, idempotente) */
+(() => {
+  // evita cargas duplicadas si lo pegas más de una vez
+  if (window.__jdAnchorFixLoaded) return;
+  window.__jdAnchorFixLoaded = true;
+
+  const HEADER_SEL = 'header.nav';
+  const prefersReduce = () =>
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+  const getOffset = () => {
+    const h = document.querySelector(HEADER_SEL);
+    return (h?.offsetHeight || 0) + 12; // 12px de aire
+  };
+
+  const scrollToTarget = (el) => {
+    const y = el.getBoundingClientRect().top + window.scrollY - getOffset();
+    window.scrollTo({
+      top: y,
+      behavior: prefersReduce() ? 'auto' : 'smooth',
+    });
+  };
+
+  // Delegación: un solo listener para todos los enlaces internos
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+
+    const href = a.getAttribute('href');
+    const id = href.slice(1);
+    if (!id) return;
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    e.preventDefault();
+    scrollToTarget(el);
+    history.pushState(null, '', href);
+  });
+
+  // Ajusta también si llegas con hash o usas atrás/adelante
+  const handleHash = () => {
+    const id = location.hash.slice(1);
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el) scrollToTarget(el);
+  };
+
+  window.addEventListener('hashchange', handleHash);
+  window.addEventListener('load', () => setTimeout(handleHash, 0));
+})();

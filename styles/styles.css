@@ -611,3 +611,15 @@ section.block{
 @media (max-width:1099px){
   .cta-green{ display: none !important; }
 }
+
+/* Altura base del header (ajústala si cambias el header) */
+:root { --header-h: 76px; }        /* desktop */
+@media (max-width: 880px){
+  :root { --header-h: 68px; }      /* móvil/tablet */
+}
+
+/* Aplica un “acolchado” al scroll nativo de anclas */
+html { scroll-padding-top: calc(var(--header-h) + 12px); }
+
+/* Y, por si acaso, cada sección con id también se separa del borde superior */
+section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }

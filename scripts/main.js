@@ -262,3 +262,23 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
     });
   });
 })();
+
+// Carrusel de Servicios (flechas / scroll suave)
+(() => {
+  const car = document.getElementById('svcCarousel');
+  if (!car) return;
+  const track = car.querySelector('.services-track');
+  const prev = car.querySelector('.svc-arrow.left');
+  const next = car.querySelector('.svc-arrow.right');
+
+  const step = () => Math.min(track.clientWidth * 0.85, 480);
+
+  const go = (dir) => track.scrollBy({ left: dir * step(), behavior: 'smooth' });
+  prev?.addEventListener('click', () => go(-1));
+  next?.addEventListener('click', () => go(1));
+
+  // Accesible por teclado
+  [prev, next].forEach(btn => btn?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+  }));
+})();

@@ -290,7 +290,7 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
       "Hola Javier, me interesa el servicio de Hardening para PYMES. Contexto: equipos Windows/Linux, firewall/SSH, backups y monitoreo. ¿Podemos agendar una llamada? Puedo compartir nº de equipos/servidores, SO y prioridades.",
     "Desarrollo Web Seguro":
       "Hola Javier, quiero una propuesta de Desarrollo Web Seguro. Puedo detallar tipo de app (landing/ecommerce/dashboard), auth, integraciones y hosting. ¿Coordinamos una llamada para alcance/tiempos?",
-    "Consultoría y Formación":
+    "Consultoría y Asesoría":
       "Hola Javier, busco Consultoría/Asesoría. Objetivo: evaluación rápida y plan de remediación/formación. Te paso objetivos, stack y plazos para estimación. ¿Agendamos una llamada breve?",
     "Pentesting básico":
       "Hola Javier, me interesa un Pentesting básico / evaluación de seguridad. Tengo definido el alcance y el entorno de pruebas. ¿Podemos coordinar fechas, ventanas de prueba y entregables?"
@@ -309,3 +309,39 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
     textarea.value = msg;
   });
 })();
+
+// --- CTA Servicios: sobrescribir mensaje del formulario en cada click ---
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.cta-propuesta');
+  if (!btn) return;
+
+  e.preventDefault();
+
+  // Toma el nombre del servicio desde data-service o, si no hay, del texto del botón
+  const servicio = (btn.dataset.service || btn.textContent || 'un servicio').trim();
+
+  // Plantilla de mensaje (edítala a tu gusto)
+  const texto = `Hola Javier, me interesa el servicio de ${servicio}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
+
+  // Sobrescribe SIEMPRE el textarea
+  const area = document.getElementById('message');
+  if (area) {
+    area.value = texto;
+    area.dispatchEvent(new Event('input', { bubbles: true })); // por si hay validaciones
+    area.focus({ preventScroll: true });
+  }
+
+  // Desplaza a #contacto con offset del header fijo
+  const header = document.querySelector('header.nav');
+  const offset = (header?.offsetHeight || 0) + 12;
+  const destino = document.getElementById('contacto');
+  if (destino) {
+    const top = destino.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  } else {
+    // fallback
+    location.hash = '#contacto';
+  }
+});
+
+

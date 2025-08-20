@@ -157,7 +157,9 @@ if (submitBtn) {
     alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
   });
 }
-// Congelar / restaurar scroll sin saltos (móvil)
+/* =========================
+   Congelar / restaurar scroll (móvil)
+========================= */
 function freezeScroll(){
   const y = window.scrollY || window.pageYOffset || 0;
   document.body.dataset.scrollY = String(y);
@@ -167,7 +169,6 @@ function freezeScroll(){
   document.body.style.right = '0';
   document.body.style.width = '100%';
 }
-
 function unfreezeScroll(){
   const y = parseInt(document.body.dataset.scrollY || '0', 10);
   document.body.style.position = '';
@@ -179,6 +180,12 @@ function unfreezeScroll(){
   window.scrollTo(0, y);
 }
 
+/* =========================
+   Menú móvil (centralizado)
+========================= */
+// const menuToggle = document.getElementById('menuToggle');
+// const mobileNav  = document.getElementById('mobileNav');
+
 function toggleMobileNav(){
   if (!mobileNav) return;
   const open = mobileNav.classList.toggle('open');
@@ -186,8 +193,6 @@ function toggleMobileNav(){
   if (menuToggle) menuToggle.setAttribute('aria-expanded', String(open));
   open ? freezeScroll() : unfreezeScroll();
 }
-
-// Cerrar de forma centralizada (libera scroll)
 function closeMobileNav(){
   if (!mobileNav) return;
   mobileNav.classList.remove('open');
@@ -196,95 +201,78 @@ function closeMobileNav(){
   unfreezeScroll();
 }
 
-// 1) Al hacer click en un enlace del *menú móvil*, navega con offset y cierra
+/* =========================
+   Anclas con header fijo (1 solo handler)
+========================= */
+function headerOffset(){
+  const h = document.querySelector('header.nav');
+  return (h?.offsetHeight || 0) + 12;
+}
+function scrollToEl(el){
+  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset();
+  window.scrollTo({ top, behavior: 'smooth' });
+}
+function handleHash(){
+  const id = location.hash.slice(1);
+  if (!id) return;
+  const el = document.getElementById(id);
+  if (el) scrollToEl(el);
+}
+window.addEventListener('hashchange', handleHash);
+window.addEventListener('load', () => setTimeout(handleHash, 0));
+
 document.addEventListener('click', (e) => {
-  const link = e.target.closest('#mobileNav a[href^="#"]');
-  if (!link) return;
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+
+  const href = a.getAttribute('href');
+  const id = href.slice(1);
+  const el = document.getElementById(id);
+  if (!el) return;
 
   e.preventDefault();
-  const id = link.getAttribute('href').slice(1);
-  const el = document.getElementById(id);
-  if (el) {
-    const header = document.querySelector('header.nav');
-    const offset = (header?.offsetHeight || 0) + 12;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
+  scrollToEl(el);
+  history.pushState(null, '', href);
+
+  // Si el click vino del menú móvil, ciérralo
+  if (mobileNav?.classList.contains('open') && a.closest('#mobileNav')) {
+    closeMobileNav();
   }
-  closeMobileNav();
 });
 
-// 2) Clic fuera del panel: cerrar
-document.addEventListener('click', (e) => {
-  if (!mobileNav?.classList.contains('open')) return;
-  const clickedToggle = e.target.closest('#menuToggle');
-  const insidePanel  = e.target.closest('#mobileNav');
-  if (!clickedToggle && !insidePanel) closeMobileNav();
-});
-
-// 3) Escape: cerrar
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMobileNav();
-});
-
-// 4) Al pasar a escritorio: cerrar y liberar scroll
-window.addEventListener('resize', () => {
-  if (window.innerWidth >= 861) closeMobileNav();
-});
-
-
-/* Fix anclas con header fijo (drop-in, idempotente) */
+/* =========================
+   Wiring ÚNICO del menú móvil
+========================= */
 (() => {
-  // evita cargas duplicadas si lo pegas más de una vez
-  if (window.__jdAnchorFixLoaded) return;
-  window.__jdAnchorFixLoaded = true;
+  if (!menuToggle || !mobileNav) return;
 
-  const HEADER_SEL = 'header.nav';
-  const prefersReduce = () =>
-    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-
-  const getOffset = () => {
-    const h = document.querySelector(HEADER_SEL);
-    return (h?.offsetHeight || 0) + 12; // 12px de aire
-  };
-
-  const scrollToTarget = (el) => {
-    const y = el.getBoundingClientRect().top + window.scrollY - getOffset();
-    window.scrollTo({
-      top: y,
-      behavior: prefersReduce() ? 'auto' : 'smooth',
-    });
-  };
-
-  // Delegación: un solo listener para todos los enlaces internos
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-
-    const href = a.getAttribute('href');
-    const id = href.slice(1);
-    if (!id) return;
-
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    e.preventDefault();
-    scrollToTarget(el);
-    history.pushState(null, '', href);
+  // Botón hamburguesa
+  menuToggle.addEventListener('click', toggleMobileNav);
+  menuToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMobileNav(); }
   });
 
-  // Ajusta también si llegas con hash o usas atrás/adelante
-  const handleHash = () => {
-    const id = location.hash.slice(1);
-    if (!id) return;
-    const el = document.getElementById(id);
-    if (el) scrollToTarget(el);
-  };
+  // ESC
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileNav();
+  });
 
-  window.addEventListener('hashchange', handleHash);
-  window.addEventListener('load', () => setTimeout(handleHash, 0));
+  // Click fuera del panel
+  document.addEventListener('click', (e) => {
+    if (!mobileNav.classList.contains('open')) return;
+    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
+    closeMobileNav();
+  });
+
+  // Pasar a desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 861) closeMobileNav();
+  });
 })();
 
-
+/* =========================
+   Tilt en tarjetas de servicio (solo desktop)
+========================= */
 (() => {
   const cards = document.querySelectorAll('.service-card');
   if (!cards.length) return;
@@ -303,69 +291,39 @@ window.addEventListener('resize', () => {
       card.style.setProperty('--mx', (x / r.width) * 100 + '%');
       card.style.setProperty('--my', (y / r.height) * 100 + '%');
     };
-    const reset = () => { card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); };
+    const reset = () => {
+      card.style.setProperty('--rx','0deg');
+      card.style.setProperty('--ry','0deg');
+    };
     card.addEventListener('mousemove', onMove);
     card.addEventListener('mouseleave', reset);
   });
 })();
 
-// Prefill rápido del mensaje con el servicio elegido
-document.querySelectorAll('.service-cta').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const svc = btn.getAttribute('data-service') || 'Servicio';
-    // espera a que el scroll aterrice en #contacto
-    setTimeout(()=>{
-      const msg = document.getElementById('message');
-      if(msg && !msg.value.trim()){
-        msg.value = `Hola Javier, quiero una propuesta para: ${svc}.`;
-      }
-    }, 400);
-  });
-});
-// Prefill de mensaje al pulsar "Solicitar propuesta"
-(() => {
-  const ctas = document.querySelectorAll('.cta-propuesta');
-  if (!ctas.length) return;
-
-  ctas.forEach(a => {
-    a.addEventListener('click', () => {
-      const servicio = a.dataset.service || 'un servicio';
-      const area = document.querySelector('#message');
-      const name = document.querySelector('#name');
-
-      if (area) {
-        // No sobreescribas si el usuario ya escribió algo
-        if (!area.value || area.value.trim().length < 5) {
-          area.value = `Hola Javier, me interesa ${servicio}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
-        }
-      }
-      // Lleva foco al nombre para acelerar el contacto
-      if (name) name.focus();
-    });
-  });
-})();
-
-// Carrusel de Servicios (flechas / scroll suave)
+/* =========================
+   Carrusel de Servicios
+========================= */
 (() => {
   const car = document.getElementById('svcCarousel');
   if (!car) return;
   const track = car.querySelector('.services-track');
-  const prev = car.querySelector('.svc-arrow.left');
-  const next = car.querySelector('.svc-arrow.right');
+  const prev  = car.querySelector('.svc-arrow.left');
+  const next  = car.querySelector('.svc-arrow.right');
 
   const step = () => Math.min(track.clientWidth * 0.85, 480);
+  const go   = (dir) => track.scrollBy({ left: dir * step(), behavior: 'smooth' });
 
-  const go = (dir) => track.scrollBy({ left: dir * step(), behavior: 'smooth' });
   prev?.addEventListener('click', () => go(-1));
   next?.addEventListener('click', () => go(1));
 
-  // Accesible por teclado
-  [prev, next].forEach(btn => btn?.addEventListener('keydown', e => {
+  [prev, next].forEach(btn => btn?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
   }));
 })();
 
-// Prefill del mensaje de contacto según el CTA de servicio
+/* =========================
+   CTA Servicios -> mensaje + scroll a #contacto
+========================= */
 (() => {
   const templates = {
     "Hardening para PYMES":
@@ -378,192 +336,30 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
       "Hola Javier, me interesa un Pentesting básico / evaluación de seguridad. Tengo definido el alcance y el entorno de pruebas. ¿Podemos coordinar fechas, ventanas de prueba y entregables?"
   };
 
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".cta-propuesta");
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.cta-propuesta');
     if (!btn) return;
 
-    const service = btn.dataset.service?.trim();
-    const textarea = document.getElementById("message");
-    if (!textarea) return;
+    e.preventDefault();
 
-    const msg = templates[service] ||
-      `Hola Javier, me interesa ${service || "un servicio"}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
-    textarea.value = msg;
-  });
-})();
+    const key   = btn.dataset.service?.trim();
+    const area  = document.getElementById('message');
+    const name  = document.getElementById('name');
+    const msg   = templates[key] ||
+      `Hola Javier, me interesa el servicio de ${key || 'un servicio'}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
 
-// --- CTA Servicios: sobrescribir mensaje del formulario en cada click ---
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.cta-propuesta');
-  if (!btn) return;
+    if (area) {
+      area.value = msg;
+      area.dispatchEvent(new Event('input', { bubbles: true }));
+      name?.focus({ preventScroll: true });
+    }
 
-  e.preventDefault();
-
-  // Toma el nombre del servicio desde data-service o, si no hay, del texto del botón
-  const servicio = (btn.dataset.service || btn.textContent || 'un servicio').trim();
-
-  // Plantilla de mensaje (edítala a tu gusto)
-  const texto = `Hola Javier, me interesa el servicio de ${servicio}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
-
-  // Sobrescribe SIEMPRE el textarea
-  const area = document.getElementById('message');
-  if (area) {
-    area.value = texto;
-    area.dispatchEvent(new Event('input', { bubbles: true })); // por si hay validaciones
-    area.focus({ preventScroll: true });
-  }
-
-  // Desplaza a #contacto con offset del header fijo
-  const header = document.querySelector('header.nav');
-  const offset = (header?.offsetHeight || 0) + 12;
-  const destino = document.getElementById('contacto');
-  if (destino) {
-    const top = destino.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  } else {
-    // fallback
-    location.hash = '#contacto';
-  }
-});
-
-// ===== Menú móvil: abrir/cerrar correctamente y liberar scroll =====
-(() => {
-  const toggle = document.getElementById('menuToggle');
-  const menu   = document.getElementById('mobileNav');
-  if (!toggle || !menu) return;
-
-  const open = () => {
-    menu.classList.add('open');
-    menu.setAttribute('aria-hidden', 'false');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('no-scroll');
-  };
-
-  const close = () => {
-    menu.classList.remove('open');
-    menu.setAttribute('aria-hidden', 'true');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('no-scroll');
-  };
-
-  const toggleMenu = () =>
-    menu.classList.contains('open') ? close() : open();
-
-  // Abrir/cerrar con click en hamburguesa
-  toggle.addEventListener('click', toggleMenu);
-
-  // Accesibilidad: Enter o Space en el botón
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleMenu();
+    const destino = document.getElementById('contacto');
+    if (destino) {
+      const top = destino.getBoundingClientRect().top + window.scrollY - headerOffset();
+      window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      location.hash = '#contacto';
     }
   });
-
-  // Cerrar al seleccionar cualquier enlace del menú
-  menu.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', () => {
-      // Se cierra antes; tu lógica de scroll con offset sigue funcionando
-      close();
-    });
-  });
-
-  // Cerrar con la tecla Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
-  });
-
-  // Cerrar si se hace click fuera del panel
-  document.addEventListener('click', (e) => {
-    if (!menu.classList.contains('open')) return;
-    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
-    close();
-  });
-
-  // Cerrar cuando cambia el hash (por si navegan por URL)
-  window.addEventListener('hashchange', close);
 })();
-// ===== Menú móvil: cerrar siempre al navegar y liberar el scroll =====
-(() => {
-  const toggle = document.getElementById('menuToggle');
-  const menu   = document.getElementById('mobileNav');
-  if (!toggle || !menu) return;
-
-  const setOpen = (isOpen) => {
-    menu.classList.toggle('open', isOpen);
-    menu.setAttribute('aria-hidden', String(!isOpen));
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.classList.toggle('no-scroll', isOpen);
-  };
-
-  const toggleMenu = () => setOpen(!menu.classList.contains('open'));
-  const closeSoon  = () => setTimeout(() => setOpen(false), 0);
-
-  // Abrir/cerrar con el botón
-  toggle.addEventListener('click', toggleMenu);
-
-  // Accesibilidad: Enter o Space en el botón
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
-  });
-
-  // Cerrar al tocar cualquier enlace del MENÚ móvil
-  menu.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', () => closeSoon());
-  });
-
-  // Cerrar con Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') setOpen(false);
-  });
-
-  // Cerrar si hacen click fuera del panel
-  document.addEventListener('click', (e) => {
-    if (!menu.classList.contains('open')) return;
-    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
-    setOpen(false);
-  });
-
-  // Cerrar cuando cambia el hash (por si navegan por URL o tu smooth-scroll lo actualiza)
-  window.addEventListener('hashchange', () => setOpen(false));
-})();
-
-// Toggle con el botón hamburguesa (click + teclado)
-if (menuToggle) {
-  menuToggle.addEventListener('click', toggleMobileNav);
-  menuToggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleMobileNav();
-    }
-  });
-}
-
-// Cerrar con ESC
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMobileNav();
-});
-
-// Cerrar al hacer click FUERA del panel abierto
-document.addEventListener('click', (e) => {
-  if (!mobileNav) return;
-  const clickedToggle = e.target.closest('#menuToggle');
-  const clickedPanel  = e.target.closest('#mobileNav');
-  if (!clickedToggle && !clickedPanel && mobileNav.classList.contains('open')) {
-    closeMobileNav();
-  }
-});
-
-// Cerrar al pasar a desktop
-window.addEventListener('resize', () => {
-  if (window.innerWidth >= 861) closeMobileNav();
-});
-
-// Cerrar el menú cuando navegas a una sección desde el propio menú
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('#mobileNav a[href^="#"]');
-  if (!link) return;
-  // si usas el “fix de anclas” global, no necesitas duplicar el scroll aquí.
-  // Sólo cierra el menú para liberar el scroll:
-  closeMobileNav();
-});

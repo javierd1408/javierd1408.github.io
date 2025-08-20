@@ -157,23 +157,43 @@ if (submitBtn) {
     alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
   });
 }
+// Congelar / restaurar scroll sin saltos (móvil)
+function freezeScroll(){
+  const y = window.scrollY || window.pageYOffset || 0;
+  document.body.dataset.scrollY = String(y);
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${y}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+}
+
+function unfreezeScroll(){
+  const y = parseInt(document.body.dataset.scrollY || '0', 10);
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.dataset.scrollY = '';
+  window.scrollTo(0, y);
+}
 
 function toggleMobileNav(){
   if (!mobileNav) return;
   const open = mobileNav.classList.toggle('open');
   mobileNav.setAttribute('aria-hidden', String(!open));
-  document.documentElement.style.overflow = open ? 'hidden' : '';
-  document.body.style.overflow = open ? 'hidden' : '';
   if (menuToggle) menuToggle.setAttribute('aria-expanded', String(open));
+  open ? freezeScroll() : unfreezeScroll();
 }
+
 // Cerrar de forma centralizada (libera scroll)
-function closeMobileNav () {
+function closeMobileNav(){
   if (!mobileNav) return;
   mobileNav.classList.remove('open');
   mobileNav.setAttribute('aria-hidden', 'true');
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
   if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+  unfreezeScroll();
 }
 
 // 1) Al hacer click en un enlace del *menú móvil*, navega con offset y cierra
@@ -508,3 +528,42 @@ document.addEventListener('click', (e) => {
   window.addEventListener('hashchange', () => setOpen(false));
 })();
 
+// Toggle con el botón hamburguesa (click + teclado)
+if (menuToggle) {
+  menuToggle.addEventListener('click', toggleMobileNav);
+  menuToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMobileNav();
+    }
+  });
+}
+
+// Cerrar con ESC
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
+// Cerrar al hacer click FUERA del panel abierto
+document.addEventListener('click', (e) => {
+  if (!mobileNav) return;
+  const clickedToggle = e.target.closest('#menuToggle');
+  const clickedPanel  = e.target.closest('#mobileNav');
+  if (!clickedToggle && !clickedPanel && mobileNav.classList.contains('open')) {
+    closeMobileNav();
+  }
+});
+
+// Cerrar al pasar a desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 861) closeMobileNav();
+});
+
+// Cerrar el menú cuando navegas a una sección desde el propio menú
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#mobileNav a[href^="#"]');
+  if (!link) return;
+  // si usas el “fix de anclas” global, no necesitas duplicar el scroll aquí.
+  // Sólo cierra el menú para liberar el scroll:
+  closeMobileNav();
+});

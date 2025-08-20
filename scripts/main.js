@@ -7,43 +7,58 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 /* =========================
-   Menú móvil accesible
+   Menú móvil (unificado y robusto)
 ========================= */
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav  = document.getElementById('mobileNav');
 
-function toggleMobileNav () {
+const openMenu = () => {
   if (!mobileNav) return;
-  const open = mobileNav.classList.toggle('open');
-  mobileNav.setAttribute('aria-hidden', String(!open));
-}
+  mobileNav.classList.add('open');
+  mobileNav.setAttribute('aria-hidden','false');
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+};
 
-if (menuToggle) {
-  menuToggle.addEventListener('click', toggleMobileNav);
-  menuToggle.addEventListener('keydown', (e)=>{
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleMobileNav();
-    }
-  });
-}
+const closeMenu = () => {
+  if (!mobileNav) return;
+  mobileNav.classList.remove('open');
+  mobileNav.setAttribute('aria-hidden','true');
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+};
 
-// Cerrar el menú móvil al hacer click en un enlace interno
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', (e)=>{
-    const href = a.getAttribute('href') || '';
-    if (!href.startsWith('#')) return;
-    const target = document.querySelector(href);
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior:'smooth', block:'start' });
-    }
-    if (mobileNav && mobileNav.classList.contains('open')) {
-      mobileNav.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden', 'true');
-    }
-  });
+const toggleMenu = () => {
+  if (!mobileNav) return;
+  mobileNav.classList.contains('open') ? closeMenu() : openMenu();
+};
+
+menuToggle?.addEventListener('click', toggleMenu);
+menuToggle?.addEventListener('keydown', (e)=>{
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
 });
+
+// Delegado: cerrar menú si hacemos click en cualquier ancla interna
+document.addEventListener('click', (e)=>{
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  if (mobileNav?.classList.contains('open')) closeMenu();
+});
+
+// Cerrar con Escape
+document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeMenu(); });
+
+// Cerrar si clic fuera del panel
+document.addEventListener('click', (e)=>{
+  if (!mobileNav?.classList.contains('open')) return;
+  if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
+  closeMenu();
+});
+
+// Cerrar al cambiar hash o pasar a desktop
+window.addEventListener('hashchange', closeMenu);
+window.addEventListener('resize', ()=>{ if (window.innerWidth > 880) closeMenu(); });
+
 
 /* =========================
    Efecto "reveal" al hacer scroll
@@ -144,11 +159,58 @@ if (submitBtn) {
 }
 
 function toggleMobileNav(){
+  if (!mobileNav) return;
   const open = mobileNav.classList.toggle('open');
   mobileNav.setAttribute('aria-hidden', String(!open));
   document.documentElement.style.overflow = open ? 'hidden' : '';
   document.body.style.overflow = open ? 'hidden' : '';
+  if (menuToggle) menuToggle.setAttribute('aria-expanded', String(open));
 }
+// Cerrar de forma centralizada (libera scroll)
+function closeMobileNav () {
+  if (!mobileNav) return;
+  mobileNav.classList.remove('open');
+  mobileNav.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+  if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+}
+
+// 1) Al hacer click en un enlace del *menú móvil*, navega con offset y cierra
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#mobileNav a[href^="#"]');
+  if (!link) return;
+
+  e.preventDefault();
+  const id = link.getAttribute('href').slice(1);
+  const el = document.getElementById(id);
+  if (el) {
+    const header = document.querySelector('header.nav');
+    const offset = (header?.offsetHeight || 0) + 12;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+  closeMobileNav();
+});
+
+// 2) Clic fuera del panel: cerrar
+document.addEventListener('click', (e) => {
+  if (!mobileNav?.classList.contains('open')) return;
+  const clickedToggle = e.target.closest('#menuToggle');
+  const insidePanel  = e.target.closest('#mobileNav');
+  if (!clickedToggle && !insidePanel) closeMobileNav();
+});
+
+// 3) Escape: cerrar
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
+// 4) Al pasar a escritorio: cerrar y liberar scroll
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 861) closeMobileNav();
+});
+
 
 /* Fix anclas con header fijo (drop-in, idempotente) */
 (() => {

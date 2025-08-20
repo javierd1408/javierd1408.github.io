@@ -977,3 +977,5 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
     border-radius: 14px;
   }
 }
+/* Bloquea/desbloquea el scroll del body cuando el menú móvil está abierto */
+body.no-scroll { overflow: hidden; }

@@ -344,4 +344,61 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// ===== Menú móvil: abrir/cerrar correctamente y liberar scroll =====
+(() => {
+  const toggle = document.getElementById('menuToggle');
+  const menu   = document.getElementById('mobileNav');
+  if (!toggle || !menu) return;
+
+  const open = () => {
+    menu.classList.add('open');
+    menu.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('no-scroll');
+  };
+
+  const close = () => {
+    menu.classList.remove('open');
+    menu.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('no-scroll');
+  };
+
+  const toggleMenu = () =>
+    menu.classList.contains('open') ? close() : open();
+
+  // Abrir/cerrar con click en hamburguesa
+  toggle.addEventListener('click', toggleMenu);
+
+  // Accesibilidad: Enter o Space en el botón
+  toggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+
+  // Cerrar al seleccionar cualquier enlace del menú
+  menu.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', () => {
+      // Se cierra antes; tu lógica de scroll con offset sigue funcionando
+      close();
+    });
+  });
+
+  // Cerrar con la tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+
+  // Cerrar si se hace click fuera del panel
+  document.addEventListener('click', (e) => {
+    if (!menu.classList.contains('open')) return;
+    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
+    close();
+  });
+
+  // Cerrar cuando cambia el hash (por si navegan por URL)
+  window.addEventListener('hashchange', close);
+})();
 

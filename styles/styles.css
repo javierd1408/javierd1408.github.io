@@ -915,3 +915,65 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
   }
   .cta-propuesta::before, .cta-propuesta::after{ display:none; }
 }
+/* ==== CTA “Solicitar propuesta” (móvil + desktop) ==== */
+#servicios .cta-row{
+  margin-top: 12px;
+  display: flex;
+}
+
+#servicios .cta-propuesta{
+  --g1:#17c964; --g2:#13b255; /* verde sobrio */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: 11px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  color:#041126; /* texto oscuro sobre verde */
+  background: linear-gradient(90deg,var(--g1),var(--g2));
+  box-shadow: 0 10px 26px rgba(23,201,100,.22);
+  transition: transform .16s ease, box-shadow .18s ease, filter .18s ease;
+  isolation:isolate; /* para el “shine” */
+  overflow:hidden;
+  border: none;
+}
+
+/* Shine diagonal */
+#servicios .cta-propuesta::before{
+  content:"";
+  position:absolute; inset:-1px;
+  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,.26) 35%, transparent 55%);
+  transform: translateX(-120%);
+  transition: transform .6s ease;
+  pointer-events:none;
+}
+
+#servicios .cta-propuesta:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(23,201,100,.28);
+  filter:saturate(1.04);
+}
+#servicios .cta-propuesta:hover::before{ transform: translateX(120%); }
+
+#servicios .cta-propuesta .arr{ transition: transform .16s ease; }
+#servicios .cta-propuesta:hover .arr{ transform: translateX(4px); }
+
+/* Foco accesible */
+#servicios .cta-propuesta:focus-visible{
+  outline: 3px solid rgba(23,201,100,.45);
+  outline-offset: 2px;
+}
+
+/* MÓVIL: botón ancho completo y con más padding */
+@media (max-width: 880px){
+  #servicios .cta-row{ display:block; }
+  #servicios .cta-propuesta{
+    display: flex;
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 14px;
+  }
+}

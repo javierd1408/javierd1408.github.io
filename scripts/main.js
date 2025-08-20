@@ -282,3 +282,30 @@ document.querySelectorAll('.service-cta').forEach(btn=>{
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
   }));
 })();
+
+// Prefill del mensaje de contacto según el CTA de servicio
+(() => {
+  const templates = {
+    "Hardening para PYMES":
+      "Hola Javier, me interesa el servicio de Hardening para PYMES. Contexto: equipos Windows/Linux, firewall/SSH, backups y monitoreo. ¿Podemos agendar una llamada? Puedo compartir nº de equipos/servidores, SO y prioridades.",
+    "Desarrollo Web Seguro":
+      "Hola Javier, quiero una propuesta de Desarrollo Web Seguro. Puedo detallar tipo de app (landing/ecommerce/dashboard), auth, integraciones y hosting. ¿Coordinamos una llamada para alcance/tiempos?",
+    "Consultoría y Formación":
+      "Hola Javier, busco Consultoría/Asesoría. Objetivo: evaluación rápida y plan de remediación/formación. Te paso objetivos, stack y plazos para estimación. ¿Agendamos una llamada breve?",
+    "Pentesting básico":
+      "Hola Javier, me interesa un Pentesting básico / evaluación de seguridad. Tengo definido el alcance y el entorno de pruebas. ¿Podemos coordinar fechas, ventanas de prueba y entregables?"
+  };
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".cta-propuesta");
+    if (!btn) return;
+
+    const service = btn.dataset.service?.trim();
+    const textarea = document.getElementById("message");
+    if (!textarea) return;
+
+    const msg = templates[service] ||
+      `Hola Javier, me interesa ${service || "un servicio"}. ¿Podemos agendar una llamada breve para evaluar alcance y tiempos?`;
+    textarea.value = msg;
+  });
+})();

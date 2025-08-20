@@ -401,4 +401,48 @@ document.addEventListener('click', (e) => {
   // Cerrar cuando cambia el hash (por si navegan por URL)
   window.addEventListener('hashchange', close);
 })();
+// ===== Menú móvil: cerrar siempre al navegar y liberar el scroll =====
+(() => {
+  const toggle = document.getElementById('menuToggle');
+  const menu   = document.getElementById('mobileNav');
+  if (!toggle || !menu) return;
+
+  const setOpen = (isOpen) => {
+    menu.classList.toggle('open', isOpen);
+    menu.setAttribute('aria-hidden', String(!isOpen));
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.classList.toggle('no-scroll', isOpen);
+  };
+
+  const toggleMenu = () => setOpen(!menu.classList.contains('open'));
+  const closeSoon  = () => setTimeout(() => setOpen(false), 0);
+
+  // Abrir/cerrar con el botón
+  toggle.addEventListener('click', toggleMenu);
+
+  // Accesibilidad: Enter o Space en el botón
+  toggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
+  });
+
+  // Cerrar al tocar cualquier enlace del MENÚ móvil
+  menu.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', () => closeSoon());
+  });
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  // Cerrar si hacen click fuera del panel
+  document.addEventListener('click', (e) => {
+    if (!menu.classList.contains('open')) return;
+    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
+    setOpen(false);
+  });
+
+  // Cerrar cuando cambia el hash (por si navegan por URL o tu smooth-scroll lo actualiza)
+  window.addEventListener('hashchange', () => setOpen(false));
+})();
 

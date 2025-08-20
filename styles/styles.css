@@ -979,3 +979,11 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 12px); }
 }
 /* Bloquea/desbloquea el scroll del body cuando el menú móvil está abierto */
 body.no-scroll { overflow: hidden; }
+/* Evitar scroll cuando el menú está abierto */
+body.no-scroll { overflow: hidden; }
+
+/* En móvil: que el panel no capture toques cuando está cerrado */
+@media (max-width: 880px){
+  .mobile-nav{ pointer-events: none; }      /* cerrado (o por defecto) */
+  .mobile-nav.open{ pointer-events: auto; } /* abierto */
+}

@@ -60,6 +60,7 @@ window.addEventListener('hashchange', closeMenu);
 window.addEventListener('resize', ()=>{ if (window.innerWidth > 880) closeMenu(); });
 
 
+
 /* =========================
    Efecto "reveal" al hacer scroll
 ========================= */
@@ -157,49 +158,54 @@ if (submitBtn) {
     alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
   });
 }
-/* =========================
-   Congelar / restaurar scroll (móvil)
-========================= */
-function freezeScroll(){
-  const y = window.scrollY || window.pageYOffset || 0;
-  document.body.dataset.scrollY = String(y);
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${y}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-}
-function unfreezeScroll(){
-  const y = parseInt(document.body.dataset.scrollY || '0', 10);
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.width = '';
-  document.body.dataset.scrollY = '';
-  window.scrollTo(0, y);
-}
 
 /* =========================
    Menú móvil (centralizado)
 ========================= */
-// const menuToggle = document.getElementById('menuToggle');
-// const mobileNav  = document.getElementById('mobileNav');
 
 function toggleMobileNav(){
   if (!mobileNav) return;
   const open = mobileNav.classList.toggle('open');
   mobileNav.setAttribute('aria-hidden', String(!open));
+  document.documentElement.style.overflow = open ? 'hidden' : '';
+  document.body.style.overflow = open ? 'hidden' : '';
   if (menuToggle) menuToggle.setAttribute('aria-expanded', String(open));
-  open ? freezeScroll() : unfreezeScroll();
 }
-function closeMobileNav(){
+
+// Cerrar de forma centralizada (libera scroll)
+function closeMobileNav () {
   if (!mobileNav) return;
   mobileNav.classList.remove('open');
   mobileNav.setAttribute('aria-hidden', 'true');
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
   if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
-  unfreezeScroll();
 }
+// Conectar el botón hamburguesa (click + teclado)
+if (typeof menuToggle !== 'undefined' && menuToggle) {
+  menuToggle.addEventListener('click', toggleMobileNav);
+  menuToggle.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMobileNav(); }
+  });
+}
+
+// 2) Clic fuera del panel: cerrar
+document.addEventListener('click', (e) => {
+  if (!mobileNav?.classList.contains('open')) return;
+  const clickedToggle = e.target.closest('#menuToggle');
+  const insidePanel  = e.target.closest('#mobileNav');
+  if (!clickedToggle && !insidePanel) closeMobileNav();
+});
+
+// 3) Escape: cerrar
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileNav();
+});
+
+// 4) Al pasar a escritorio: cerrar y liberar scroll
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 861) closeMobileNav();
+});
 
 /* =========================
    Anclas con header fijo (1 solo handler)
@@ -239,36 +245,6 @@ document.addEventListener('click', (e) => {
     closeMobileNav();
   }
 });
-
-/* =========================
-   Wiring ÚNICO del menú móvil
-========================= */
-(() => {
-  if (!menuToggle || !mobileNav) return;
-
-  // Botón hamburguesa
-  menuToggle.addEventListener('click', toggleMobileNav);
-  menuToggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMobileNav(); }
-  });
-
-  // ESC
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMobileNav();
-  });
-
-  // Click fuera del panel
-  document.addEventListener('click', (e) => {
-    if (!mobileNav.classList.contains('open')) return;
-    if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
-    closeMobileNav();
-  });
-
-  // Pasar a desktop
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 861) closeMobileNav();
-  });
-})();
 
 /* =========================
    Tilt en tarjetas de servicio (solo desktop)

@@ -7,59 +7,61 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 /* =========================
-   Menú móvil (unificado y robusto)
+   Menú móvil (único y ordenado)
 ========================= */
 const menuToggle = document.getElementById('menuToggle');
 const mobileNav  = document.getElementById('mobileNav');
 
-const openMenu = () => {
+function openMobileNav(){
   if (!mobileNav) return;
   mobileNav.classList.add('open');
   mobileNav.setAttribute('aria-hidden','false');
   document.documentElement.style.overflow = 'hidden';
   document.body.style.overflow = 'hidden';
-};
+  menuToggle?.setAttribute('aria-expanded','true');
+}
 
-const closeMenu = () => {
+function closeMobileNav(){
   if (!mobileNav) return;
   mobileNav.classList.remove('open');
   mobileNav.setAttribute('aria-hidden','true');
   document.documentElement.style.overflow = '';
   document.body.style.overflow = '';
-};
+  menuToggle?.setAttribute('aria-expanded','false');
+}
 
-const toggleMenu = () => {
+function toggleMobileNav(){
   if (!mobileNav) return;
-  mobileNav.classList.contains('open') ? closeMenu() : openMenu();
-};
+  mobileNav.classList.contains('open') ? closeMobileNav() : openMobileNav();
+}
 
-menuToggle?.addEventListener('click', toggleMenu);
-menuToggle?.addEventListener('keydown', (e)=>{
-  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
-});
+// Botón hamburguesa
+if (menuToggle){
+  menuToggle.addEventListener('click', toggleMobileNav);
+  menuToggle.addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMobileNav(); }
+  });
+}
 
-// Delegado: cerrar menú si hacemos click en cualquier ancla interna
-document.addEventListener('click', (e)=>{
-  const a = e.target.closest('a[href^="#"]');
-  if (!a) return;
-  if (mobileNav?.classList.contains('open')) closeMenu();
-});
-
-// Cerrar con Escape
-document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeMenu(); });
-
-// Cerrar si clic fuera del panel
+// Cerrar si haces click fuera del panel
 document.addEventListener('click', (e)=>{
   if (!mobileNav?.classList.contains('open')) return;
   if (e.target.closest('#mobileNav') || e.target.closest('#menuToggle')) return;
-  closeMenu();
+  closeMobileNav();
 });
 
-// Cerrar al cambiar hash o pasar a desktop
-window.addEventListener('hashchange', closeMenu);
-window.addEventListener('resize', ()=>{ if (window.innerWidth > 880) closeMenu(); });
+// Cerrar con Escape
+document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeMobileNav(); });
 
+// Cerrar al pasar a desktop
+window.addEventListener('resize', ()=>{ if (window.innerWidth >= 861) closeMobileNav(); });
 
+// Si navegas a una sección desde el menú móvil, cierra el panel.
+// (Tu handler global de anclas ya hace el scroll con offset)
+document.addEventListener('click', (e)=>{
+  const link = e.target.closest('#mobileNav a[href^="#"]');
+  if (link) closeMobileNav();
+});
 
 /* =========================
    Efecto "reveal" al hacer scroll

@@ -1708,3 +1708,66 @@ body.no-scroll { overflow: hidden; }
   color: #bff7d4;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
 }
+/* ====== Contacto (layout nuevo) ====== */
+.contact-wrap{
+  display:grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 24px;
+  align-items:start;
+}
+@media (max-width: 900px){
+  .contact-wrap{ grid-template-columns: 1fr; }
+}
+
+/* Panel informativo izquierdo */
+.contact-info{
+  background: radial-gradient(1200px 300px at 10% -20%, rgba(124,92,255,.12), transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 10px 26px rgba(3,8,20,0.45);
+}
+
+.contact-info .eyebrow{
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: .02em;
+  margin-bottom: 6px;
+}
+.contact-info .headline{
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+.contact-info .lede{
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.info-list{ list-style: none; margin: 0; padding: 0; }
+.info-row{
+  display:flex; gap: 12px; align-items: center;
+  padding: 10px 0;
+  border-top: 1px dashed rgba(255,255,255,.06);
+}
+.info-row:first-child{ border-top: 0; }
+
+.info-row .ico{
+  width: 42px; height: 42px; border-radius: 12px;
+  display:grid; place-items:center;
+  color:#0b1220;
+  background: linear-gradient(135deg, rgba(124,92,255,1), rgba(64,121,255,1));
+  box-shadow: 0 10px 24px rgba(64,121,255,.35);
+}
+.info-row .row-label{
+  font-size:.85rem; color: var(--muted); margin-bottom:2px;
+}
+.info-row a{
+  color:#eaf7ff; text-decoration:none; font-weight:700;
+}
+.info-row a:hover{ text-decoration:underline; }
+
+/* Formulario (derecha) — reutiliza tus estilos existentes */
+.contact-form{ padding: 4px; }
+/* Por si quedara el select en algún build anterior, lo ocultas a la fuerza */
+#ccode { display: none !important; }

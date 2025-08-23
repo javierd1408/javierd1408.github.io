@@ -445,34 +445,77 @@
 </section>
 
 
-
     <section id="contacto" class="block reveal">
-      <div class="section-title"><h2>Contacto</h2></div>
-      <div class="section-card">
-        <div class="contact-grid">
-          <div class="contact-form">
-            <p class="muted">¿Listo para empezar? Completa el formulario y te responderé.</p>
-            <select id="ccode" aria-label="Código país">
-              <option value="+58" selected>Venezuela (+58)</option>
-              <option value="+54">Argentina (+54)</option>
-              <option value="+57">Colombia (+57)</option>
-              <option value="+34">España (+34)</option>
-            </select>
-            <input type="tel" id="telefono" placeholder="Número de teléfono" />
-            <input type="text" id="name" placeholder="Tu nombre" />
-            <input type="email" id="email" placeholder="Tu correo" />
-            <textarea id="message" rows="6" placeholder="Mensaje..."></textarea>
-            <button type="submit" id="submitBtn">Enviar mensaje</button>
-          </div>
-          <aside>
-            <h3>Contacto directo</h3>
-            <div style="margin-top:8px;font-weight:800">jandres14031@hotmail.com</div>
-            <div style="margin-top:12px;color:var(--muted)">Disponible para trabajos remotos y presenciales (Caracas)</div>
-          </aside>
-        </div>
+  <div class="section-title"><h2>Contacto</h2></div>
+
+  <div class="section-card">
+    <div class="contact-wrap">
+      <!-- Panel informativo (izquierda en desktop) -->
+      <aside class="contact-info">
+        <p class="eyebrow">Trabajemos juntos</p>
+        <h3 class="headline">Contacto</h3>
+        <p class="lede">
+          ¿Tienes un proyecto en mente? Estoy disponible para nuevas oportunidades y colaboraciones.
+          Escríbeme y hagamos realidad tu idea.
+        </p>
+
+        <ul class="info-list">
+          <li class="info-row">
+            <span class="ico">
+              <!-- mail -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.6" />
+                <path d="M22 8l-10 6L2 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <div>
+              <div class="row-label">Email</div>
+              <a href="mailto:jandres14031@hotmail.com">jandres14031@hotmail.com</a>
+            </div>
+          </li>
+
+          <li class="info-row">
+            <span class="ico">
+              <!-- phone -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L9 10a16 16 0 0 0 5 5l.67-1.12a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <div class="row-label">Teléfono</div>
+              <a href="tel:+58">+58 (Venezuela)</a>
+            </div>
+          </li>
+
+          <li class="info-row">
+            <span class="ico">
+              <!-- pin -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s7-4.35 7-10a7 7 0 1 0-14 0c0 5.65 7 10 7 10z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="11" r="2.5" stroke="currentColor" stroke-width="1.6"/>
+              </svg>
+            </span>
+            <div>
+              <div class="row-label">Ubicación</div>
+              <span>Venezuela (Caracas)</span>
+            </div>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Formulario (derecha en desktop) -->
+      <div class="contact-form">
+        <p class="muted">¿Listo para empezar? Completa el formulario y te responderé.</p>
+
+        <input type="tel" id="telefono" placeholder="Número de teléfono" />
+        <input type="text" id="name" placeholder="Tu nombre" />
+        <input type="email" id="email" placeholder="Tu correo" />
+        <textarea id="message" rows="6" placeholder="Mensaje..."></textarea>
+        <button type="submit" id="submitBtn">Enviar mensaje</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</section>
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">

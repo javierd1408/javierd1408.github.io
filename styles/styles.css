@@ -1978,3 +1978,55 @@ input#telefono {
     margin-inline: auto;
   }
 }
+/* ===== HERO: orden + tamaños ===== */
+
+/* Móvil por defecto: pila con la foto primero */
+.hero .hero-grid{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;              /* separa las dos tarjetas */
+}
+
+/* Foto antes del texto en móvil */
+.hero .hero-grid .profile{
+  order: -1;
+}
+
+/* El chip deja de ocupar todo el ancho */
+.hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  width: auto;           /* << clave para que no sea 100% */
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Desktop: dos columnas y alturas iguales */
+@media (min-width: 1024px){
+  .hero .hero-grid{
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 420px; /* texto | foto */
+    gap: 24px;
+    align-items: stretch;
+  }
+  .hero .hero-grid .profile{ order: initial; }  /* vuelve a su sitio (derecha) */
+  .hero .hero-grid > *{ height: 100%; }
+
+  /* centra verticalmente el contenido de la tarjeta de la foto */
+  .hero .profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero .profile .photo img{
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    display: block;
+    margin-inline: auto;
+  }
+}

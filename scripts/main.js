@@ -412,3 +412,55 @@ document.addEventListener('click', (e) => {
     }
   });
 })();
+/* === Certificaciones: lightbox accesible === */
+(() => {
+  const grid = document.querySelector('.cert-grid');
+  if (!grid) return;
+
+  // Overlay único
+  const overlay = document.createElement('div');
+  overlay.className = 'cert-lightbox';
+  overlay.innerHTML = `
+    <button class="clb-close" aria-label="Cerrar">×</button>
+    <img alt="">
+    <a class="clb-download" target="_blank" rel="noopener">Abrir original</a>
+  `;
+  document.body.appendChild(overlay);
+
+  const imgEl = overlay.querySelector('img');
+  const closeBtn = overlay.querySelector('.clb-close');
+  const dl = overlay.querySelector('.clb-download');
+
+  const open = (src, alt) => {
+    imgEl.src = src;
+    imgEl.alt = alt || '';
+    dl.href = src;
+    overlay.classList.add('open');
+    document.body.classList.add('no-scroll');
+  };
+  const close = () => {
+    overlay.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+    imgEl.src = '';
+  };
+
+  grid.addEventListener('mousemove', (e)=>{
+    const card = e.target.closest('.cert-card');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width * 100;
+    card.style.setProperty('--mx', `${x}%`);
+  });
+
+  grid.addEventListener('click', (e)=>{
+    const thumb = e.target.closest('.cert-thumb');
+    if (!thumb) return;
+    const full = thumb.getAttribute('data-full') || thumb.src;
+    open(full, thumb.alt);
+  });
+
+  overlay.addEventListener('click', (e)=>{
+    if (e.target === overlay || e.target === closeBtn) close();
+  });
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') close(); });
+})();

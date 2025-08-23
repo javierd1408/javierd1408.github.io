@@ -300,59 +300,65 @@
 </section>
 </section>
 
-    <section id="proyectos" class="block reveal">
-  <div class="section-title"><h2>Proyectos</h2></div>
+   <section id="proyectos" class="block reveal">
+  <div class="section-title">
+    <h2>Proyectos</h2>
+  </div>
 
-  <div class="section-card carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <!-- PROYECTO 1 -->
-      <article class="proj">
-        <div class="img">
-          <img src="images/proj1.jpg" alt="Demo e-commerce de cursos" />
+  <div class="projects-carousel" id="projectsCarousel">
+    <button class="proj-arrow left" aria-label="Anterior" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="proj-track">
+      <!-- Proyecto 1 -->
+      <article class="proj-card">
+        <div class="proj-media">
+          <img loading="lazy" src="images/proj1.jpg" alt="E-commerce de cursos (demo)">
         </div>
-        <h3>PROYECTO DEMO: Web E-commerce de Cursos</h3>
-        <p class="muted">Tienda de cursos online con catálogo, detalle y checkout demo.</p>
-        <div class="chips" style="margin:10px 0">
-          <span class="chip">HTML</span>
-          <span class="chip">CSS</span>
-          <span class="chip">JavaScript</span>
+        <div class="proj-body">
+          <h3>PROYECTO DEMO: Web E-commerce de Cursos</h3>
+          <p class="muted">Tienda de cursos online con catálogo, detalle y checkout demo.</p>
+          <div class="chips">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+          </div>
+          <span class="badge badge-soft">Proyecto universitario</span>
         </div>
-        <span class="pill uni">Proyecto universitario</span>
       </article>
 
-      <!-- PROYECTO 2 -->
-      <article class="proj">
-        <div class="img">
-          <img src="images/proj2.jpg" alt="Sistema basado en roles con protección" />
+      <!-- Proyecto 2 -->
+      <article class="proj-card">
+        <div class="proj-media">
+          <img loading="lazy" src="images/proj2.jpg" alt="Sistema basado en roles">
         </div>
-        <h3>Sistema basado en roles con protección avanzada</h3>
-        <p class="muted">Autenticación por roles, controles de acceso y medidas de seguridad.</p>
-        <div class="chips" style="margin:10px 0">
-          <span class="chip">PHP</span>
-          <span class="chip">MySQL</span>
-          <span class="chip">HTML</span>
-          <span class="chip">CSS</span>
-          <span class="chip">JS</span>
-          <span class="chip">Anti SQL Injection</span>
-          <span class="chip">Password Hash</span>
+        <div class="proj-body">
+          <h3>Sistema basado en roles con protección avanzada</h3>
+          <p class="muted">Autenticación segura por roles, endurecido contra ataques comunes y gestión de sesiones.</p>
+          <div class="chips">
+            <span class="chip">PHP</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JS</span>
+            <span class="chip">Anti SQL Injection</span>
+            <span class="chip">Password Hash</span>
+          </div>
+          <span class="badge badge-soft">Proyecto universitario</span>
         </div>
-        <span class="pill uni">Proyecto universitario</span>
       </article>
     </div>
 
-    <!-- Flechas -->
-    <div class="arrow left" id="arrowLeft" title="Anterior" aria-label="Anterior" role="button" tabindex="0">
+    <button class="proj-arrow right" aria-label="Siguiente" type="button">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M15 18l-6-6 6-6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-    </div>
-    <div class="arrow right" id="arrowRight" title="Siguiente" aria-label="Siguiente" role="button" tabindex="0">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
+    </button>
   </div>
 </section>
+
 
 
     <section id="certificaciones" class="block reveal">

@@ -74,47 +74,27 @@ const io = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* =========================
-   Carrusel de proyectos
-========================= */
-const track = document.getElementById('carouselTrack');
-const left  = document.getElementById('arrowLeft');
-const right = document.getElementById('arrowRight');
+/* ==== Carrusel de Proyectos (nuevo) ==== */
+(() => {
+  const car   = document.getElementById('projectsCarousel');
+  if (!car) return;
 
-function getCardWidth () {
-  if (!track || !track.children.length) return 320;
-  const style = getComputedStyle(track);
-  const gap = parseInt(style.gap || style.getPropertyValue('gap')) || 16;
-  const first = track.children[0].getBoundingClientRect().width;
-  return Math.round(first + gap);
-}
+  const track = car.querySelector('.proj-track');
+  const prev  = car.querySelector('.proj-arrow.left');
+  const next  = car.querySelector('.proj-arrow.right');
 
-function scrollByCard (direction = 1) {
-  if (!track) return;
-  const w = getCardWidth();
-  track.scrollBy({ left: w * direction, behavior: 'smooth' });
-}
+  const step = () => Math.min(track.clientWidth * 0.9, 520);
+  const go   = (dir) => track.scrollBy({ left: dir * step(), behavior: 'smooth' });
 
-if (track && left && right) {
-  left.addEventListener('click',  ()=> scrollByCard(-1));
-  right.addEventListener('click', ()=> scrollByCard(1));
+  prev?.addEventListener('click', () => go(-1));
+  next?.addEventListener('click', () => go(1));
 
-  // Autoscroll cada 5s (pausa al hover)
-  let auto = setInterval(()=> scrollByCard(1), 5000);
-  track.addEventListener('mouseenter', ()=> clearInterval(auto));
-  track.addEventListener('mouseleave', ()=> {
-    auto = setInterval(()=> scrollByCard(1), 5000);
-  });
+  // Accesibilidad opcional:
+  [prev, next].forEach(btn => btn?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+  }));
+})();
 
-  // Teclas de flecha
-  document.addEventListener('keydown', (e)=>{
-    if (e.key === 'ArrowLeft')  left.click();
-    if (e.key === 'ArrowRight') right.click();
-  });
-
-  // Recalcula en resize (usa valores frescos en getCardWidth)
-  window.addEventListener('resize', ()=> {});
-}
 
 /* =========================
    Teléfono internacional (intl-tel-input)

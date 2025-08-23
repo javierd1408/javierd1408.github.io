@@ -1443,33 +1443,22 @@ body.no-scroll { overflow: hidden; }
   }
 }
 
-/* Lightbox */
-.cert-lightbox{
-  position: fixed; inset: 0; z-index: 1000;
-  display: grid; place-items: center;
-  background: rgba(0,0,0,.82);
-  padding: 18px;
-}
-.cert-lightbox .lb-inner img{
-  max-width: min(92vw, 1100px);
-  max-height: 88vh;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.6);
-}
 
-/* ==== Lightbox Certificaciones (estable) ==== */
+/* ==== Lightbox Certificaciones (seguro) ==== */
 .cert-lightbox{
+  display: none;                /* <- Oculto por defecto */
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
   background: rgba(6,12,20,.78);
   backdrop-filter: blur(2px) saturate(1.05);
 }
-.cert-lightbox.hidden{ display: none; }
+.cert-lightbox.active{          /* <- Se muestra solo con .active */
+  display: flex;
+}
 
 .cert-lightbox .inner{
   position: relative;
@@ -1507,7 +1496,12 @@ body.no-scroll { overflow: hidden; }
   background: linear-gradient(90deg,#17c964,#13b255);
   box-shadow: 0 12px 28px rgba(23,201,100,.28);
 }
+
 @media (max-width: 560px){
   .cert-lightbox{ padding: 14px; }
   .cert-lightbox .open-original{ font-size: .95rem; }
 }
+
+/* Para bloquear scroll del body cuando el lightbox está abierto */
+.no-scroll{ overflow: hidden; }
+

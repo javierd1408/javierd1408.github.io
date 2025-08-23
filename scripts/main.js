@@ -74,25 +74,116 @@ const io = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ==== Carrusel de Proyectos (nuevo) ==== */
+/* ==== Carrusel de Proyectos (unificado: desktop y móvil) ==== */
 (() => {
-  const car   = document.getElementById('projectsCarousel');
-  if (!car) return;
+  // Soporta ids/clases viejas y nuevas para que no falle según tu HTML
+  let root =
+    document.getElementById('projectsCarousel') ||
+    document.getElementById('projCarousel') ||
+    document.getElementById('proyectos'); // último recurso
 
-  const track = car.querySelector('.proj-track');
-  const prev  = car.querySelector('.proj-arrow.left');
-  const next  = car.querySelector('.proj-arrow.right');
+  // Si no hay wrapper, intenta detectar por el track directamente
+  let track =
+    root?.querySelector('.projects-track') ||
+    root?.querySelector('.proj-track') ||
+    document.getElementById('projectsTrack') ||
+    document.getElementById('carouselTrack');
+  if (!track) return;
 
-  const step = () => Math.min(track.clientWidth * 0.9, 520);
-  const go   = (dir) => track.scrollBy({ left: dir * step(), behavior: 'smooth' });
+  // Flechas (soporta nombres nuevos y antiguos)
+  let prev =
+    root?.querySelector('.proj-arrow.left') ||
+    root?.querySelector('.arrow.left') ||
+    document.getElementById('arrowLeft');
+  let next =
+    root?.querySelector('.proj-arrow.right') ||
+    root?.querySelector('.arrow.right') ||
+    document.getElementById('arrowRight');
 
+  // ¿El layout actual es horizontal tipo carrusel?
+  const isHorizontal = () => track.scrollWidth - track.clientWidth > 1;
+
+  const getGap = () => parseInt(getComputedStyle(track).gap || '0', 10) || 0;
+  const getStep = () => {
+    const card =
+      track.querySelector('.project-card') ||
+      track.querySelector('.proj') ||
+      track.firstElementChild;
+    if (!card) return track.clientWidth * 0.9;
+    const w = card.getBoundingClientRect().width;
+    return Math.max(220, Math.round(w + getGap()));
+  };
+
+  const go = (dir) => {
+    if (!isHorizontal()) return;
+    track.scrollBy({ left: dir * getStep(), behavior: 'smooth' });
+  };
+
+  // Estado de flechas (se ocultan en móvil/vertical)
+  const updateArrows = () => {
+    const horiz = isHorizontal();
+    const max = track.scrollWidth - track.clientWidth - 1;
+
+    if (prev && next) {
+      if (!horiz) {
+        prev.setAttribute('hidden', '');
+        next.setAttribute('hidden', '');
+      } else {
+        prev.removeAttribute('hidden');
+        next.removeAttribute('hidden');
+        prev.disabled = track.scrollLeft <= 0;
+        next.disabled = track.scrollLeft >= max;
+      }
+    }
+  };
+
+  // Click / teclado en flechas
   prev?.addEventListener('click', () => go(-1));
   next?.addEventListener('click', () => go(1));
+  [prev, next].forEach((btn) =>
+    btn?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        btn.click();
+      }
+    })
+  );
 
-  // Accesibilidad opcional:
-  [prev, next].forEach(btn => btn?.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-  }));
+  // Drag / swipe (funciona en desktop y móvil cuando es horizontal)
+  let dragging = false,
+    startX = 0,
+    startScroll = 0;
+
+  const onDown = (e) => {
+    if (!isHorizontal()) return;
+    dragging = true;
+    startX = (e.touches ? e.touches[0].clientX : e.clientX);
+    startScroll = track.scrollLeft;
+    track.classList.add('grabbing'); // opcional para cursor
+  };
+  const onMove = (e) => {
+    if (!dragging) return;
+    const x = (e.touches ? e.touches[0].clientX : e.clientX);
+    track.scrollLeft = startScroll - (x - startX);
+  };
+  const onUp = () => {
+    if (!dragging) return;
+    dragging = false;
+    track.classList.remove('grabbing');
+  };
+
+  track.addEventListener('mousedown', onDown);
+  track.addEventListener('touchstart', onDown, { passive: true });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, { passive: false });
+  window.addEventListener('mouseup', onUp);
+  window.addEventListener('touchend', onUp);
+
+  // Mantener flechas en sync
+  track.addEventListener('scroll', updateArrows);
+  window.addEventListener('resize', updateArrows);
+  // primer render
+  updateArrows();
 })();
 
 

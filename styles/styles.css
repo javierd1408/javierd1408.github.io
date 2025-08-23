@@ -987,3 +987,40 @@ body.no-scroll { overflow: hidden; }
   .mobile-nav{ pointer-events: none; }      /* cerrado (o por defecto) */
   .mobile-nav.open{ pointer-events: auto; } /* abierto */
 }
+
+/* ===== Proyectos: 1 tarjeta por vista en desktop ===== */
+@media (min-width: 901px){
+  .carousel{ position: relative; padding: 14px 56px; }
+  .carousel-track{
+    display:flex;
+    gap: 18px;
+    overflow: hidden;              /* ocultamos el extra para 1 por vista */
+    scroll-snap-type: x mandatory; /* el JS ya maneja flechas; snap ayuda */
+  }
+  .carousel-track .proj{
+    flex: 0 0 100%;                /* ocupa todo el ancho visible -> 1 card */
+    scroll-snap-align: center;
+  }
+  .carousel .arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:42px; height:42px; border-radius:10px;
+    background:rgba(2,6,23,.65); border:1px solid rgba(255,255,255,.08);
+    display:grid; place-items:center; cursor:pointer;
+    box-shadow:0 10px 24px rgba(0,0,0,.35); z-index:2;
+  }
+  .carousel .arrow.left{ left:10px; }
+  .carousel .arrow.right{ right:10px; }
+  .carousel .arrow:hover{ background:rgba(2,6,23,.78); }
+}
+
+/* Pill “Proyecto universitario” */
+.pill{
+  display:inline-block; padding:6px 10px; border-radius:999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  font-size:.85rem; color:#e6eef8;
+}
+.pill.uni{
+  background: rgba(124,92,255,.14);
+  border-color: rgba(124,92,255,.28);
+}

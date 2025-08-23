@@ -1838,3 +1838,8 @@ input#telefono {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+/* Espacio debajo del selector de teléfono (intl-tel-input) */
+#contacto .iti{
+  margin-bottom: 14px !important;  /* ajusta a 12–16px si lo quieres más/menos */
+}

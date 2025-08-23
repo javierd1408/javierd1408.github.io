@@ -1852,3 +1852,63 @@ input#telefono {
 
 /* Extra por si tu input está dentro de un wrapper de campo */
 .field:has(#telefono) { margin-bottom: 16px; }   /* opcional si tu navegador soporta :has() */
+/* ===== Footer “status” sin enlaces repetidos ===== */
+.site-footer.alt{
+  margin-top: 40px;
+  padding: 32px 0 22px;
+  border-top: 1px solid var(--glass-border, rgba(255,255,255,.08));
+  background: radial-gradient(1200px 500px at 20% -10%, rgba(124,92,255,.07), transparent 60%);
+}
+
+.site-footer.alt .foot-inner{
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:22px; flex-wrap:wrap;
+}
+
+/* Marca */
+.site-footer.alt .foot-brand{ display:flex; align-items:center; gap:14px; }
+.site-footer.alt .foot-badge{
+  width:42px; height:42px; display:grid; place-items:center; border-radius:12px;
+  font-weight:800; letter-spacing:.5px; color:#0b1220;
+  background: linear-gradient(135deg, #7c5cff, #17c964);
+  box-shadow: 0 12px 30px rgba(124,92,255,.30), 0 8px 22px rgba(23,201,100,.20);
+}
+.site-footer.alt .foot-id{ display:flex; flex-direction:column; line-height:1.15; }
+.site-footer.alt .foot-name{ font-size:1.05rem; }
+.site-footer.alt .foot-role{ font-size:.95rem; color: var(--muted, #a2b1c7); }
+
+/* Meta */
+.foot-meta{
+  display:grid; gap:10px;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  width: min(100%, 820px);
+}
+.foot-meta li{
+  list-style:none;
+  display:flex; align-items:center; gap:8px;
+  padding:10px 12px; border-radius:12px;
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+}
+.foot-meta .k{ font-weight:700; opacity:.95; }
+.foot-meta .v{ color:#e9f0ff; opacity:.9; }
+.foot-meta .ok{
+  background: linear-gradient(90deg, #17c964, #13b255);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  font-weight:800;
+}
+
+/* Copyright */
+.site-footer.alt .foot-copy{
+  margin-top:16px; padding-top:10px; text-align:center;
+  color: var(--muted, #a2b1c7); font-size:.95rem;
+  border-top:1px dashed rgba(255,255,255,.08);
+}
+
+/* Responsive */
+@media (max-width: 1024px){
+  .foot-meta{ grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+}
+@media (max-width: 640px){
+  .foot-meta{ grid-template-columns: 1fr; }
+}

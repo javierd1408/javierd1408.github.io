@@ -2030,3 +2030,65 @@ input#telefono {
     margin-inline: auto;
   }
 }
+
+/* ===== HERO real (según tu HTML) =====
+   <section id="inicio" class="block hero">
+     <div  class="hero-card"> ...texto... </div>
+     <aside class="hero-card profile"> ...foto... </aside>
+   ===================================== */
+
+/* MÓVIL – pila con la foto primero y separación entre tarjetas */
+#inicio.block.hero{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;                 /* separa las dos tarjetas en móvil */
+}
+
+/* Foto PRIMERO en móvil */
+#inicio.block.hero .hero-card.profile{
+  order: -1;
+}
+
+/* El chip “Disponible…” deja de ser barra completa */
+#inicio.block.hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  width: auto;              /* clave para que no ocupe 100% */
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+/* DESKTOP – dos columnas equilibradas y alturas iguales */
+@media (min-width: 1024px){
+  #inicio.block.hero{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 420px;  /* texto | foto */
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  /* vuelve la foto a la derecha en desktop */
+  #inicio.block.hero .hero-card.profile{ order: initial; }
+
+  /* que ambas tarjetas rellenen la misma altura */
+  #inicio.block.hero .hero-card{ height: 100%; }
+
+  /* centra verticalmente el contenido de la tarjeta de la foto */
+  #inicio.block.hero .hero-card.profile{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* tamaño/estética de la imagen */
+  #inicio.block.hero .profile .photo img{
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    display: block;
+    margin-inline: auto;
+  }
+}

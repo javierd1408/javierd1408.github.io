@@ -1946,3 +1946,35 @@ input#telefono {
     justify-content: center;
   }
 }
+/* ====== Hero (desktop): dos columnas con misma altura ====== */
+@media (min-width: 1024px){
+  .hero-grid{
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 420px; /* texto | foto */
+    gap: 24px;
+    align-items: stretch; /* estira ambas tarjetas a la misma altura */
+  }
+  .hero-grid > *{ height: 100%; }
+
+  /* Asegura que la tarjeta se estire y distribuya bien su contenido */
+  .hero-grid .hero-card{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Centrar verticalmente el contenido de la tarjeta de la foto */
+  .hero-grid .profile{
+    justify-content: center;
+  }
+
+  /* Límite razonable del avatar para que no deforme la tarjeta */
+  .hero-grid .profile .photo img{
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    display: block;
+    margin-inline: auto;
+  }
+}

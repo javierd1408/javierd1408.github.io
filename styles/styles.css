@@ -1912,3 +1912,39 @@ input#telefono {
 @media (max-width: 640px){
   .foot-meta{ grid-template-columns: 1fr; }
 }
+/* ==== Footer (desktop): ensanchar y equilibrar meta-cards ==== */
+/* Asegura que el contenedor del footer pueda crecer más en pantallas grandes */
+.site-footer .wrap,
+.site-footer .foot-wrap,
+footer .block {
+  width: min(1320px, 96vw);
+  margin-inline: auto;
+}
+
+/* Grid de los ítems del footer */
+.site-footer .foot-meta{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* mantenemos 3 columnas pero más anchas */
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* Un poco más de “cuerpo” a cada tarjeta para que respiren y queden parejas */
+.site-footer .meta-card{
+  min-height: 92px;              /* todas con altura mínima similar */
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* En pantallas XL, todavía un pelín más de ancho de contenedor */
+@media (min-width: 1440px){
+  .site-footer .wrap,
+  .site-footer .foot-wrap,
+  footer .block {
+    width: min(1400px, 96vw);
+  }
+}
+
+/* Mobile/Tablet se mantiene como lo tenías */

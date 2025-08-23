@@ -490,30 +490,63 @@ document.addEventListener('click', (e) => {
   });
 })();
 
-/* ===== Certificaciones: lightbox al tocar miniatura ===== */
+/* ==== Certificaciones: Lightbox ESTABLE ==== */
 (() => {
   const grid = document.getElementById('certGrid');
   if (!grid) return;
 
-  let overlay;
-  const close = () => { overlay?.remove(); overlay = null; document.removeEventListener('keydown', onKey); };
-  const onKey  = (e) => { if (e.key === 'Escape') close(); };
+  let lb = null;
 
+  function buildLightbox() {
+    lb = document.createElement('div');
+    lb.className = 'cert-lightbox hidden';
+    lb.innerHTML = `
+      <div class="inner">
+        <button type="button" class="close" aria-label="Cerrar">×</button>
+        <img alt="Certificado ampliado"/>
+      </div>
+      <a class="open-original" target="_blank" rel="noopener">Abrir original</a>
+    `;
+    document.body.appendChild(lb);
+
+    // Cerrar: clic en fondo
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) hide();
+    });
+    // Cerrar: botón ×
+    lb.querySelector('.close').addEventListener('click', hide);
+    // Cerrar: ESC
+    document.addEventListener('keydown', onEsc);
+  }
+
+  function onEsc(e) {
+    if (e.key === 'Escape') hide();
+  }
+
+  function show(src) {
+    if (!lb) buildLightbox();
+    const img = lb.querySelector('img');
+    const open = lb.querySelector('.open-original');
+    img.src = src;
+    img.alt = 'Certificado';
+    open.href = src;
+    lb.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide() {
+    if (!lb) return;
+    lb.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // Delegación: abrir al clicar miniatura
   grid.addEventListener('click', (e) => {
     const img = e.target.closest('.cert-thumb');
     if (!img) return;
-
-    overlay = document.createElement('div');
-    overlay.className = 'cert-lightbox';
-    overlay.innerHTML = `
-      <div class="lb-inner" role="dialog" aria-modal="true">
-        <img src="${img.dataset.full || img.src}" alt="${img.alt || ''}">
-      </div>`;
-    document.body.appendChild(overlay);
-
-    overlay.addEventListener('click', (ev) => {
-      if (!ev.target.closest('.lb-inner')) close(); else close(); // click en cualquier parte cierra
-    });
-    document.addEventListener('keydown', onKey);
+    e.preventDefault();
+    const src = img.getAttribute('data-full') || img.src;
+    show(src);
   });
 })();
+

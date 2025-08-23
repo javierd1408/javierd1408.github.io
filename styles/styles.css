@@ -1456,3 +1456,58 @@ body.no-scroll { overflow: hidden; }
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0,0,0,.6);
 }
+
+/* ==== Lightbox Certificaciones (estable) ==== */
+.cert-lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(6,12,20,.78);
+  backdrop-filter: blur(2px) saturate(1.05);
+}
+.cert-lightbox.hidden{ display: none; }
+
+.cert-lightbox .inner{
+  position: relative;
+  max-width: min(95vw, 1100px);
+  width: 100%;
+}
+.cert-lightbox img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.6);
+}
+
+.cert-lightbox .close{
+  position: absolute;
+  top: -12px; right: -12px;
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(8,12,20,.9);
+  color: #fff; font-size: 22px; line-height: 1;
+  display: grid; place-items: center;
+  cursor: pointer;
+}
+
+.cert-lightbox .open-original{
+  position: fixed;
+  right: 18px; bottom: 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #041126;
+  background: linear-gradient(90deg,#17c964,#13b255);
+  box-shadow: 0 12px 28px rgba(23,201,100,.28);
+}
+@media (max-width: 560px){
+  .cert-lightbox{ padding: 14px; }
+  .cert-lightbox .open-original{ font-size: .95rem; }
+}

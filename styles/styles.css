@@ -1633,3 +1633,78 @@ body.no-scroll { overflow: hidden; }
   padding: 7px 11px;
   font-size: .92rem;
 }
+/* ===== Certificaciones: tarjetas compactas estilo Servicios/Proyectos ===== */
+/* forzamos con mayor especificidad (#certificaciones …) */
+
+#certificaciones .certs-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* + columnas en pantallas muy anchas (opcional) */
+@media (min-width: 1600px){
+  #certificaciones .certs-grid{
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+  }
+}
+
+/* 2 columnas en desktop medio/tablet grande */
+@media (max-width: 1199px){
+  #certificaciones .certs-grid{
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+  }
+}
+
+/* 1 columna en móvil (sin cambios) */
+@media (max-width: 680px){
+  #certificaciones .certs-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* tarjeta */
+#certificaciones .cert-card{
+  border-radius: 14px;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 26px rgba(3,8,20,.45);
+}
+
+/* media compacta: menos alta que antes */
+#certificaciones .cert-media{
+  aspect-ratio: 16 / 10 !important;   /* ↓ altura */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a1326;
+}
+#certificaciones .cert-media img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;  /* evita que la imagen “desborde” en altura */
+  display: block;
+}
+
+/* cuerpo/typografía compacta */
+#certificaciones .cert-body{
+  padding: 10px 4px 8px;
+}
+#certificaciones .cert-body h3{
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+
+/* chip emisor más pequeño y verde translúcido */
+#certificaciones .issuer-row{ margin-top: 6px; }
+#certificaciones .issuer-chip{
+  font-size: .85rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(23,201,100,.14);
+  border: 1px solid rgba(23,201,100,.28);
+  color: #bff7d4;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}

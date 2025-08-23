@@ -1585,3 +1585,51 @@ body.no-scroll { overflow: hidden; }
   .certs-grid{ align-items: stretch; }
   .cert-card{ height:100%; }
 }
+/* ===== Certificaciones: tarjetas compactas estilo servicios ===== */
+
+/* Desktop ancho: 3 columnas, tarjetas más pequeñas */
+@media (min-width: 1200px){
+  .certs-grid{
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Desktop/Tablet mediano: 2 columnas (ya lo tenías, lo refuerzo) */
+@media (min-width: 901px) and (max-width: 1199px){
+  .certs-grid{
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    gap: 18px;
+  }
+}
+
+/* Misma estética que tus tarjetas: altura contenida del “banner” */
+.certs-grid .cert-card{
+  border-radius: 14px;
+}
+
+/* Reduce altura visual del certificado para que no domine la tarjeta */
+.certs-grid .cert-media{
+  aspect-ratio: 16 / 10;   /* antes 16/9; un poco más bajita */
+  background:#0a1326;
+}
+.certs-grid .cert-media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+
+/* Cuerpo más compacto */
+.certs-grid .cert-body{
+  padding: 12px 14px 16px;
+  gap: 8px;
+}
+.certs-grid .cert-body h3{
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Chip igual de vistoso pero sin crecer demasiado */
+.certs-grid .issuer-chip{
+  padding: 7px 11px;
+  font-size: .92rem;
+}

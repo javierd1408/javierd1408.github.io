@@ -490,61 +490,33 @@ document.addEventListener('click', (e) => {
   });
 })();
 
-/* ==== Certificaciones: Lightbox estable (desktop + móvil) ==== */
+/* ===== Certificaciones: Ver más / Ver menos (solo móvil) ===== */
 (() => {
-  const grid = document.getElementById('certGrid');
-  if (!grid) return;
+  const grid   = document.getElementById('certsGrid');
+  const toggle = document.getElementById('certsToggle');
+  if (!grid || !toggle) return;
 
-  // Crea el lightbox una sola vez
-  let lb = document.getElementById('certLightbox');
-  if (!lb) {
-    lb = document.createElement('div');
-    lb.id = 'certLightbox';
-    lb.className = 'cert-lightbox'; // oculto por defecto con CSS
-    lb.innerHTML = `
-      <div class="inner">
-        <button type="button" class="close" aria-label="Cerrar">×</button>
-        <img alt="Certificado ampliado"/>
-      </div>
-      <a class="open-original" target="_blank" rel="noopener">Abrir original</a>
-    `;
-    document.body.appendChild(lb);
-  }
-
-  const img   = lb.querySelector('img');
-  const close = lb.querySelector('.close');
-  const openO = lb.querySelector('.open-original');
-
-  const show = (src) => {
-    img.src = src;
-    img.alt = 'Certificado';
-    openO.href = src;
-    lb.classList.add('active');        // <- muestra
-    document.body.classList.add('no-scroll');
+  const setOpen = (isOpen) => {
+    grid.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.textContent = isOpen ? 'Ver menos' : 'Ver más';
   };
 
-  const hide = () => {
-    lb.classList.remove('active');     // <- oculta
-    document.body.classList.remove('no-scroll');
-    img.src = '';
-  };
-
-  // Abrir al clicar una miniatura
-  grid.addEventListener('click', (e) => {
-    const thumb = e.target.closest('.cert-thumb');
-    if (!thumb) return;
-    e.preventDefault();
-    const src = thumb.getAttribute('data-full') || thumb.src;
-    show(src);
+  toggle.addEventListener('click', () => {
+    const open = grid.getAttribute('aria-expanded') === 'true';
+    setOpen(!open);
   });
 
-  // Cerrar con ×, con ESC o con clic en el fondo
-  close.addEventListener('click', hide);
-  lb.addEventListener('click', (e) => { if (e.target === lb) hide(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  // Por si cambias de tamaño de pantalla
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 880) setOpen(true);   // en desktop, siempre abierto
+    else setOpen(false);                          // en móvil, inicia colapsado
+  });
 
-  // Seguridad: si por alguna razón el lightbox aparece visible al cargar, ocúltalo
-  window.addEventListener('load', hide);
+  // Estado inicial adecuado
+  if (window.innerWidth > 880) setOpen(true);
+  else setOpen(false);
 })();
+
 
 

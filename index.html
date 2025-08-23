@@ -401,32 +401,49 @@
     <section id="certificaciones" class="block reveal">
   <div class="section-title"><h2>Certificaciones</h2></div>
 
-  <div id="certGrid" class="cert-grid">
-    <!-- Tarjeta 1 -->
-    <figure class="cert-card">
-      <img class="cert-thumb"
-           src="images/cert1.jpg"
-           data-full="images/cert1.jpg"
-           alt="Network Defender Essentials + Ethical Hacking Essentials">
-      <figcaption>
-        <h3>Network Defender Essentials + Ethical Hacking Essentials</h3>
-        <div class="chips"><span class="chip">Lourtec</span><span class="chip">EC-Council</span></div>
-      </figcaption>
-    </figure>
+  <div class="section-card">
+    <div class="certs" id="certs">
+      <!-- GRID -->
+      <div class="certs-grid" id="certsGrid" aria-expanded="false">
+        <!-- Cert 1 -->
+        <article class="cert-card">
+          <figure class="cert-media">
+            <img src="images/cert1.jpg"
+                 alt="Network Defender Essentials & Ethical Hacking Essentials — LOURTEC & EC-COUNCIL">
+          </figure>
+          <div class="cert-body">
+            <h3>Network Defender Essentials & Ethical Hacking Essentials</h3>
+            <div class="cert-issuer">
+              <span class="issuer-chip">LOURTEC &amp; EC-COUNCIL</span>
+            </div>
+          </div>
+        </article>
 
-    <!-- Tarjeta 2 -->
-    <figure class="cert-card">
-      <img class="cert-thumb"
-           src="images/cert2.jpg"
-           data-full="images/cert2.jpg"
-           alt="Certified Cybersecurity Technician">
-      <figcaption>
-        <h3>Certified Cybersecurity Technician</h3>
-        <div class="chips"><span class="chip">Lourtec</span><span class="chip">EC-Council</span></div>
-      </figcaption>
-    </figure>
+        <!-- Cert 2 -->
+        <article class="cert-card">
+          <figure class="cert-media">
+            <img src="images/cert2.jpg"
+                 alt="Certified Cybersecurity Technician — LOURTEC & EC-COUNCIL">
+          </figure>
+          <div class="cert-body">
+            <h3>Certified Cybersecurity Technician</h3>
+            <div class="cert-issuer">
+              <span class="issuer-chip">LOURTEC &amp; EC-COUNCIL</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Toggle móvil -->
+      <div class="certs-more">
+        <button id="certsToggle" class="certs-toggle" type="button" aria-expanded="false">
+          Ver más
+        </button>
+      </div>
+    </div>
   </div>
 </section>
+
 
 
     <section id="contacto" class="block reveal">

@@ -1912,3 +1912,37 @@ input#telefono {
 @media (max-width: 640px){
   .foot-meta{ grid-template-columns: 1fr; }
 }
+/* ===== Reset de emergencia para móvil (revierte cualquier ensanche) ===== */
+@media (max-width: 880px){
+  footer.site-footer .wrap,
+  footer.site-footer .foot-wrap,
+  footer.site-footer .block{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
+  }
+}
+
+/* ===== Footer (sólo desktop) ===== */
+@media (min-width: 1024px){
+  footer.site-footer .foot-wrap{
+    max-width: 1240px;   /* usa el ancho que tenías originalmente, no toca el resto del sitio */
+    width: 96vw;
+    margin: 0 auto;
+  }
+
+  footer.site-footer .foot-meta{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  footer.site-footer .meta-card{
+    min-height: 92px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

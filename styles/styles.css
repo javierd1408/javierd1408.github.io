@@ -1368,3 +1368,91 @@ body.no-scroll { overflow: hidden; }
   background: linear-gradient(90deg,#17c964,#13b255); color:#041126;
   box-shadow: 0 12px 28px rgba(23,201,100,.28);
 }
+/* ===== Certificaciones: grid compacto + lightbox + plegado móvil ===== */
+.cert-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+@media (min-width: 1000px){
+  .cert-grid{ grid-template-columns: repeat(3, minmax(260px, 1fr)); gap: 18px; }
+}
+@media (min-width: 1400px){
+  .cert-grid{ grid-template-columns: repeat(4, minmax(260px, 1fr)); }
+}
+
+.cert-card{
+  background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+  border: 1px solid var(--glass-border, rgba(255,255,255,.08));
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 10px 26px rgba(3,8,20,.35);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.cert-card:hover{ transform: translateY(-3px); box-shadow: 0 18px 38px rgba(3,8,20,.5); border-color: rgba(255,255,255,.14); }
+
+.cert-thumb{
+  width: 100%;
+  aspect-ratio: 16 / 10;           /* miniatura estable */
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  filter: saturate(.94);
+  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+}
+.cert-card:hover .cert-thumb{ transform: scale(1.015); filter: saturate(1); }
+
+.cert-card figcaption{ margin-top: 10px; }
+.cert-card figcaption strong{ display:block; font-size: .98rem; line-height: 1.2; }
+.cert-card .issuer{
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: .82rem;
+  background: rgba(23, 201, 100, .14);   /* verde suave (como tus CTAs) */
+  color: #d9ffe8;
+  border: 1px solid rgba(23, 201, 100, .35);
+}
+
+/* Plegado en móvil: máximo ~2 filas y degradado inferior */
+.cert-wrap.collapsed .cert-grid{
+  max-height: 520px;                /* ajusta si quieres ver más/menos */
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(#000 80%, transparent);
+          mask-image: linear-gradient(#000 80%, transparent);
+}
+.cert-more{
+  margin: 12px auto 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(2,6,23,.55);
+  backdrop-filter: blur(6px);
+  color:#eaf7f0;
+  cursor: pointer;
+}
+@media (min-width: 881px){
+  .cert-more{ display:none; }       /* en desktop no se muestra el botón */
+  .cert-wrap.collapsed .cert-grid{
+    max-height: none; overflow: visible; -webkit-mask-image:none; mask-image:none;
+  }
+}
+
+/* Lightbox */
+.cert-lightbox{
+  position: fixed; inset: 0; z-index: 1000;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.82);
+  padding: 18px;
+}
+.cert-lightbox .lb-inner img{
+  max-width: min(92vw, 1100px);
+  max-height: 88vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+}

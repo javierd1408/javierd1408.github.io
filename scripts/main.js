@@ -464,3 +464,56 @@ document.addEventListener('click', (e) => {
   });
   document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') close(); });
 })();
+/* ===== Certificaciones: plegado móvil "Ver más / Ver menos" ===== */
+(() => {
+  const wrap = document.getElementById('certWrap');
+  const btn  = document.getElementById('certMore');
+  if (!wrap || !btn) return;
+
+  const mq = window.matchMedia('(max-width: 880px)');
+  const apply = () => {
+    const isMobile = mq.matches;
+    // Mostrar botón sólo en móvil
+    btn.hidden = !isMobile;
+    wrap.classList.toggle('collapsed', isMobile && !btn.dataset.expanded);
+    btn.setAttribute('aria-expanded', btn.dataset.expanded ? 'true' : 'false');
+    btn.textContent = btn.dataset.expanded ? 'Ver menos' : 'Ver más';
+  };
+  apply();
+  mq.addEventListener?.('change', apply);
+  window.addEventListener('resize', apply);
+
+  btn.addEventListener('click', () => {
+    const expanded = btn.dataset.expanded === 'true';
+    btn.dataset.expanded = String(!expanded);
+    apply();
+  });
+})();
+
+/* ===== Certificaciones: lightbox al tocar miniatura ===== */
+(() => {
+  const grid = document.getElementById('certGrid');
+  if (!grid) return;
+
+  let overlay;
+  const close = () => { overlay?.remove(); overlay = null; document.removeEventListener('keydown', onKey); };
+  const onKey  = (e) => { if (e.key === 'Escape') close(); };
+
+  grid.addEventListener('click', (e) => {
+    const img = e.target.closest('.cert-thumb');
+    if (!img) return;
+
+    overlay = document.createElement('div');
+    overlay.className = 'cert-lightbox';
+    overlay.innerHTML = `
+      <div class="lb-inner" role="dialog" aria-modal="true">
+        <img src="${img.dataset.full || img.src}" alt="${img.alt || ''}">
+      </div>`;
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (ev) => {
+      if (!ev.target.closest('.lb-inner')) close(); else close(); // click en cualquier parte cierra
+    });
+    document.addEventListener('keydown', onKey);
+  });
+})();

@@ -402,39 +402,49 @@
   <div class="section-title"><h2>Certificaciones</h2></div>
 
   <div class="section-card">
-    <div class="cert-grid">
-      <!-- Cert 1 -->
-      <figure class="cert-card">
-        <img
-          class="cert-thumb"
-          src="images/cert1.jpg"
-          data-full="images/cert1.jpg"
-          alt="Network Defender & Ethical Hacking Essentials — Loyntec"
-          loading="lazy"
-        />
-        <figcaption>
-          <strong>Network Defender & Ethical Hacking Essentials</strong>
-          <span class="issuer">Loyntec</span>
-        </figcaption>
-      </figure>
+    <!-- Wrap + grid + botón (móvil) -->
+    <div class="cert-wrap collapsed" id="certWrap">
+      <div class="cert-grid" id="certGrid">
 
-      <!-- Cert 2 -->
-      <figure class="cert-card">
-        <img
-          class="cert-thumb"
-          src="images/cert2.jpg"
-          data-full="images/cert2.jpg"
-          alt="Certified Cybersecurity Technician — Loyntec"
-          loading="lazy"
-        />
-        <figcaption>
-          <strong>Certified Cybersecurity Technician</strong>
-          <span class="issuer">Loyntec</span>
-        </figcaption>
-      </figure>
+        <!-- Cert #1 -->
+        <figure class="cert-card">
+          <img
+            class="cert-thumb"
+            src="images/cert1.jpg"
+            data-full="images/cert1.jpg"
+            alt="Network Defender Essentials & Ethical Hacking Essentials — LOURTEC / EC-COUNCIL"
+          />
+          <figcaption>
+            <strong>Network Defender Essentials & Ethical Hacking Essentials</strong>
+            <span class="issuer">LOURTEC & EC-COUNCIL</span>
+          </figcaption>
+        </figure>
+
+        <!-- Cert #2 -->
+        <figure class="cert-card">
+          <img
+            class="cert-thumb"
+            src="images/cert2.jpg"
+            data-full="images/cert2.jpg"
+            alt="Certified Cybersecurity Technician — LOURTEC / EC-COUNCIL"
+          />
+          <figcaption>
+            <strong>Certified Cybersecurity Technician</strong>
+            <span class="issuer">LOURTEC & EC-COUNCIL</span>
+          </figcaption>
+        </figure>
+
+        <!-- Si agregas más, repite <figure class="cert-card">…</figure> -->
+      </div>
+
+      <!-- Botón para plegado en móvil -->
+      <button type="button" class="cert-more" id="certMore" aria-expanded="false">
+        Ver más
+      </button>
     </div>
   </div>
 </section>
+
 
 
     <section id="contacto" class="block reveal">

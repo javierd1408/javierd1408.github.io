@@ -1771,3 +1771,70 @@ body.no-scroll { overflow: hidden; }
 .contact-form{ padding: 4px; }
 /* Por si quedara el select en algún build anterior, lo ocultas a la fuerza */
 #ccode { display: none !important; }
+
+/* ==== intl-tel-input: ancho completo y tema oscuro ==== */
+
+/* El wrapper del plugin toma todo el ancho del contenedor */
+.iti { width: 100% !important; }
+
+/* Asegura que el input ocupe 100% igual que nombre/correo */
+.iti input[type="tel"],
+input#telefono {
+  width: 100% !important;
+  display: block;
+}
+
+/* Botón/área de bandera (a la izquierda) con look dark-glass */
+.iti__flag-container .iti__selected-flag {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  transition: background .2s ease, border-color .2s ease;
+}
+.iti__flag-container .iti__selected-flag:hover {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.14);
+}
+
+/* Dropdown: fondo oscuro, tipografía clara y sombra suave */
+.iti__country-list {
+  background: #0b1220; /* tu dark base */
+  color: #e6edf3;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+
+/* Items del dropdown */
+.iti__country {
+  padding: 8px 12px;
+}
+.iti__country.iti__highlight {
+  background: rgba(255,255,255,.06);
+}
+
+/* Colores de nombre y código */
+.iti__country-name { color: #e6edf3; }
+.iti__dial-code    { color: #9dd6c7; } /* un verde suave para resaltar */
+
+/* Divisor del dropdown */
+.iti__divider {
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* Scrollbar del dropdown (WebKit) */
+.iti__country-list::-webkit-scrollbar { width: 10px; }
+.iti__country-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.18);
+  border-radius: 999px;
+}
+.iti__country-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Cuando usas separateDialCode, el input queda con borde derecho redondeado */
+.iti--separate-dial-code input[type="tel"] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

@@ -1843,3 +1843,12 @@ input#telefono {
 #contacto .iti{
   margin-bottom: 14px !important;  /* ajusta a 12–16px si lo quieres más/menos */
 }
+/* Separación debajo del campo de teléfono (intl-tel-input) */
+.iti.iti--allow-dropdown,
+.iti.iti--separate-dial-code {
+  margin-bottom: 16px !important; /* ajusta 12–20px a gusto */
+  display: block;                  /* asegura que el margen haga efecto */
+}
+
+/* Extra por si tu input está dentro de un wrapper de campo */
+.field:has(#telefono) { margin-bottom: 16px; }   /* opcional si tu navegador soporta :has() */

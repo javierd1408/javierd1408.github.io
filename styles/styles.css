@@ -1228,3 +1228,72 @@ body.no-scroll { overflow: hidden; }
   .proj-arrow{ display:none; }
   .project-card{ min-width:unset; }
 }
+/* ===== Proyectos – móvil en carrusel ===== */
+@media (max-width: 880px){
+  /* el wrapper puede llamarse .projects-carousel o #projectsCarousel */
+  .projects-carousel .proj-track,
+  #projectsCarousel .proj-track,
+  .projects-carousel .projects-track,
+  #projectsCarousel .projects-track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 6px 12px;
+  }
+
+  /* cada tarjeta como slide */
+  .projects-carousel .project-card,
+  #projectsCarousel .project-card,
+  .projects-carousel .proj,
+  #projectsCarousel .proj {
+    min-width: 86%;
+    scroll-snap-align: center;
+  }
+
+  /* oculta flechas en móvil (se navega por swipe/drag) */
+  .projects-carousel .proj-arrow,
+  #projectsCarousel .proj-arrow {
+    display: none !important;
+  }
+}
+
+/* asegurar proporción de la imagen en todas las vistas */
+.project-card .thumb,
+.project-card .img {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.project-card .thumb img,
+.project-card .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== “Proyecto universitario” como pill pequeña, NO botón ===== */
+.proj-badge,
+.badge.uni{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: #17c964;                                  /* verde */
+  background: rgba(23,201,100,.12);               /* translúcido */
+  border: 1px solid rgba(23,201,100,.22);
+  box-shadow: 0 0 0 transparent;
+  text-decoration: none;
+  cursor: default;
+  pointer-events: none;                            /* evita parecer CTA */
+}
+.proj-badge .dot,
+.badge.uni .dot{
+  width: 6px; height: 6px; border-radius: 999px;
+  background: #17c964;
+  box-shadow: 0 0 6px rgba(23,201,100,.7);
+}

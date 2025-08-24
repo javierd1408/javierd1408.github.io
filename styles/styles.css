@@ -2223,3 +2223,12 @@ input#telefono {
     white-space: nowrap;
   }
 }
+/* Hero ▸ chip aún más corto en desktop */
+@media (min-width: 1024px){
+  #inicio.block.hero .kicker{
+    max-width: 240px !important;  /* prueba 240; si lo quieres aún menor, 220 */
+    white-space: normal;           /* permite 2 líneas si hace falta */
+    line-height: 1.15;
+    padding: 8px 12px;
+  }
+}

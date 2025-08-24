@@ -2192,3 +2192,10 @@ input#telefono {
   max-width: min(520px, 100%);
   margin-bottom: 10px;
 }
+/* Chip compacto (opcional) */
+#inicio.block.hero .kicker{
+  display: inline-flex;
+  width: auto !important;
+  max-width: min(520px, 100%);
+  margin-bottom: 10px;
+}

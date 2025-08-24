@@ -667,5 +667,87 @@ document.addEventListener('click', (e) => {
     e.preventDefault(); open('terms');
   });
 })();
+// === Legales: abrir modal desde los nuevos links ===
+(function () {
+  function openLegalModal(which) {
+    // 1) Si tienes ya una función global
+    if (typeof window.openLegal === 'function') {
+      window.openLegal(which);
+      return;
+    }
+    // 2) Intentar IDs habituales de modales ya existentes
+    const targets = {
+      privacy: ['legal-privacy', 'privacyModal', 'modalPrivacy'],
+      terms:   ['legal-terms', 'termsModal', 'modalTerms']
+    };
+    for (const id of targets[which]) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.add('open');                       // o el toggle que uses
+        document.documentElement.style.overflow = 'hidden';
+        return;
+      }
+    }
+    // 3) Fallback: modal simple generado si no hay ninguno
+    ensureLegalFallback();
+    fillLegalFallback(which);
+    document.getElementById('legal-fallback').classList.add('open');
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function ensureLegalFallback() {
+    if (document.getElementById('legal-fallback')) return;
+    document.body.insertAdjacentHTML('beforeend', `
+      <div id="legal-fallback" class="legal-modal">
+        <div class="backdrop"></div>
+        <div class="legal-box">
+          <button class="legal-close" aria-label="Cerrar">✕</button>
+          <div class="legal-body"></div>
+        </div>
+      </div>
+    `);
+    const root = document.getElementById('legal-fallback');
+    root.querySelector('.backdrop').addEventListener('click', closeFallback);
+    root.querySelector('.legal-close').addEventListener('click', closeFallback);
+    function closeFallback(){
+      root.classList.remove('open');
+      document.documentElement.style.overflow = '';
+    }
+  }
+
+  function fillLegalFallback(which){
+    const body = document.querySelector('#legal-fallback .legal-body');
+    if (!body) return;
+    if (which === 'privacy') {
+      body.innerHTML = `
+        <h3>Política de Privacidad</h3>
+        <ul>
+          <li><strong>Datos que puedo recibir:</strong> nombre, email, teléfono (opcional) y mensaje.</li>
+          <li><strong>Finalidad:</strong> responder a tus consultas y propuestas de trabajo.</li>
+          <li><strong>Conservación:</strong> solo el tiempo necesario para dar seguimiento.</li>
+          <li><strong>Tus derechos:</strong> acceso, rectificación o eliminación vía <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.</li>
+        </ul>
+      `;
+    } else {
+      body.innerHTML = `
+        <h3>Términos y Condiciones</h3>
+        <ul>
+          <li>Este sitio es un portafolio personal, sin venta directa de servicios desde la web.</li>
+          <li>El contenido puede cambiar sin previo aviso.</li>
+          <li>Las marcas y logos pertenecen a sus respectivos dueños.</li>
+          <li>Contacto: <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.</li>
+        </ul>
+      `;
+    }
+  }
+
+  // Enlazar clicks de los nuevos links
+  document.querySelectorAll('.legal-link[data-legal]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openLegalModal(a.dataset.legal);
+    });
+  });
+})();
 
 

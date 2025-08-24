@@ -635,4 +635,37 @@ document.addEventListener('click', (e) => {
   document.getElementById('openTerms')  ?.addEventListener('click', (e)=>{ e.preventDefault(); open('terms');   });
 })();
 
+// === Legales: abrir modal desde los nuevos links del footer ===
+(function () {
+  const open = (which) => {
+    // 1) Si tienes una función global ya hecha:
+    if (typeof window.openLegal === 'function') {
+      window.openLegal(which);
+      return;
+    }
+    // 2) Fallback: "simular clic" sobre IDs que hayas usado antes:
+    const map = {
+      privacy: ['btnPriv', 'openPrivacy', 'legalPrivacyBtn'],
+      terms:   ['btnTerms', 'openTerms', 'legalTermsBtn']
+    };
+    for (const id of map[which]) {
+      const el = document.getElementById(id);
+      if (el) { el.click(); return; }
+    }
+    // 3) Último recurso: mostrar un dialog genérico si existe:
+    const dlg = document.getElementById('legalDialog');
+    if (dlg) {
+      dlg.classList.add('open');
+      document.documentElement.style.overflow = 'hidden';
+    }
+  };
+
+  document.getElementById('legalOpenPrivacy')?.addEventListener('click', (e) => {
+    e.preventDefault(); open('privacy');
+  });
+  document.getElementById('legalOpenTerms')?.addEventListener('click', (e) => {
+    e.preventDefault(); open('terms');
+  });
+})();
+
 

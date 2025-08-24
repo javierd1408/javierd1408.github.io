@@ -2679,3 +2679,99 @@ input#telefono {
   .modal-content{ padding: 28px 32px; }
   .modal-content ul{ padding-left: 1.2rem; }
 }
+/* ===== Footer · fila inferior y línea a todo el ancho ===== */
+.site-footer .foot-bottom,
+footer .legal-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto; /* izq: copyright — der: legales */
+  align-items: center;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+/* Línea superior que cruza TODA la fila inferior */
+.site-footer .foot-bottom::before,
+footer .legal-row::before {
+  content: "";
+  position: absolute;
+  left: 0;         /* ocupa todo el contenedor de la fila */
+  right: 0;
+  top: -18px;      /* sepárala del contenido inferior */
+  height: 1px;
+  /* línea suave y elegante */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,.18) 15%,
+    rgba(255,255,255,.28) 50%,
+    rgba(255,255,255,.18) 85%,
+    transparent 100%
+  );
+}
+
+/* Contenedor de los dos botones legales (derecha) */
+.site-footer .foot-legal,
+footer .foot-legal {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Puntero visual del separador · (•) si lo usas como span */
+.site-footer .foot-legal .dot,
+footer .foot-legal .dot {
+  width: 4px; height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.4);
+}
+
+/* ===== Footer · grid superior y tarjetas ===== */
+.site-footer .foot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* izquierda: secciones · derecha: contacto */
+  gap: 22px;
+}
+
+/* Evita recortes en móvil (y en general) */
+.site-footer .foot-col,
+.site-footer .mini-card {
+  overflow: visible;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  /* apilar tarjetas del footer */
+  .site-footer .foot-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* el bloque de contacto no se corta y respira bien */
+  .site-footer .foot-col.contact .mini-card,
+  .site-footer .mini-card {
+    min-height: auto;
+    padding-bottom: 14px;
+  }
+
+  /* fila inferior centrada en móvil */
+  .site-footer .foot-bottom,
+  footer .legal-row {
+    grid-template-columns: 1fr;     /* copyright arriba, legales abajo */
+    justify-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .site-footer .foot-bottom::before,
+  footer .legal-row::before {
+    left: 0; right: 0; top: -16px;  /* pequeña corrección de posición */
+  }
+
+  .site-footer .foot-legal,
+  footer .foot-legal {
+    justify-content: center;
+  }
+}

@@ -2092,3 +2092,56 @@ input#telefono {
     margin-inline: auto;
   }
 }
+
+/* ===== FIX HERO (usa tus clases reales) =============================== */
+/* Desktop: dos columnas equilibradas, misma altura */
+#inicio.block.hero{
+  display: grid !important;                 /* forzamos el layout */
+  grid-template-columns: minmax(0,1fr) 420px;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* La tarjeta de la foto centrada verticalmente */
+#inicio.block.hero > .hero-card{ height: 100%; }
+#inicio.block.hero > .hero-card.profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Foto: tamaño y centrado */
+#inicio.block.hero .hero-card.profile .photo{
+  display: flex;
+  justify-content: center;
+}
+#inicio.block.hero .hero-card.profile .photo img{
+  max-width: 220px;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+/* Chip “Disponible…” corto (no barra larga) */
+#inicio.block.hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  width: auto !important;                   /* clave para romper el 100% previo */
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Móvil: foto primero, separación entre tarjetas */
+@media (max-width: 880px){
+  #inicio.block.hero{
+    display: flex !important;
+    flex-direction: column;
+  }
+  #inicio.block.hero > .hero-card.profile{ order: -1; } /* foto arriba */
+  #inicio.block.hero > .hero-card + .hero-card.profile,
+  #inicio.block.hero > .hero-card.profile + .hero-card{
+    margin-top: 18px;                        /* separación entre tarjetas */
+  }
+}

@@ -2199,3 +2199,27 @@ input#telefono {
   max-width: min(520px, 100%);
   margin-bottom: 10px;
 }
+/* Hero: chip angosto en 2 líneas (desktop) */
+@media (min-width: 1024px){
+  #inicio.block.hero .kicker{
+    display: inline-block;           /* permite que el texto envuelva */
+    max-width: 270px;                /* ajusta a tu gusto: 240–300 */
+    white-space: normal;             /* permite saltos de línea */
+    text-align: left;                /* o center si lo prefieres */
+    padding: 10px 14px;              /* pill más compacto */
+    border-radius: 999px;
+    margin-bottom: 12px;
+    font-size: .95rem;               /* opcional, un poco más chico */
+    line-height: 1.2;                /* compacto sin pegarse */
+  }
+}
+
+/* En móviles lo dejamos natural (una línea) */
+@media (max-width: 1023px){
+  #inicio.block.hero .kicker{
+    display: inline-flex;
+    width: auto;
+    max-width: none;
+    white-space: nowrap;
+  }
+}

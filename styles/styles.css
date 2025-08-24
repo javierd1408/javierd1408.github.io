@@ -2145,3 +2145,50 @@ input#telefono {
     margin-top: 18px;                        /* separación entre tarjetas */
   }
 }
+/* ===== Hero Desktop: ocupar 100% del ancho sin espacio sobrante ===== */
+@media (min-width: 961px){
+  /* 2 columnas que realmente llenan el ancho */
+  #inicio.block.hero{
+    display: flex !important;
+    gap: 24px;                 /* separa un poco las columnas */
+    align-items: stretch;
+  }
+
+  /* Columna de texto: 60% del contenedor (sin max-width que la limite) */
+  #inicio.block.hero > .hero-card{
+    flex: 0 0 60%;
+    max-width: none !important;
+  }
+
+  /* Columna de foto: 40% del contenedor */
+  #inicio.block.hero > .hero-card.profile{
+    flex: 0 0 40%;
+    min-width: 380px;          /* evita que colapse en intermedios */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* centrado vertical del contenido */
+  }
+
+  /* La imagen se adapta dentro de su tarjeta sin dejar huecos raros */
+  #inicio.block.hero .hero-card.profile .photo{
+    display: flex;
+    justify-content: center;
+  }
+  #inicio.block.hero .hero-card.profile .photo img{
+    width: 100%;
+    max-width: 260px;          /* controla tamaño visual de la foto */
+    height: auto;
+    border-radius: 18px;
+  }
+}
+
+/* Chip "Disponible para proyectos" más corto (opcional) */
+#inicio.block.hero .kicker{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  width: auto !important;
+  max-width: min(520px, 100%);
+  margin-bottom: 10px;
+}

@@ -750,4 +750,60 @@ document.addEventListener('click', (e) => {
   });
 })();
 
+/* ===== Modales legales (Privacidad / Términos) ===== */
+(() => {
+  if (window.__legalModalsInit) return;  // evita doble init
+  window.__legalModalsInit = true;
+
+  const openBtns = document.querySelectorAll('[data-modal]');
+  const modals = {
+    privacy: document.getElementById('modal-privacy'),
+    terms: document.getElementById('modal-terms')
+  };
+
+  let lastFocus = null;
+
+  function lockScroll(lock) {
+    document.documentElement.style.overflow = lock ? 'hidden' : '';
+    document.body.style.overflow = lock ? 'hidden' : '';
+  }
+
+  function openModal(key){
+    const modal = modals[key];
+    if(!modal) return;
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    lockScroll(true);
+    modal.querySelector('.modal-dialog')?.focus();
+  }
+
+  function closeModal(modal){
+    modal.classList.remove('open');
+    lockScroll(false);
+    lastFocus?.focus();
+  }
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(btn.dataset.modal);
+    });
+  });
+
+  Object.values(modals).forEach(modal => {
+    modal?.addEventListener('click', (e) => {
+      if (e.target.matches('[data-close], .modal-backdrop')) {
+        closeModal(modal);
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      const open = document.querySelector('.modal.open');
+      if (open) closeModal(open);
+    }
+  });
+})();
+
 

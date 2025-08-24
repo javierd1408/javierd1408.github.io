@@ -568,50 +568,48 @@
     <div class="foot-bottom">
       <span>© 2025 Javier Durán. Todos los derechos reservados.</span>
       <div class="legal-fab">
-  <a class="legal-link" data-legal="privacy" href="#legal-privacy">Política de Privacidad</a>
+  <a class="legal-link" data-modal="privacy" href="#privacy">Política de Privacidad</a>
   <span class="legal-sep" aria-hidden="true">•</span>
-  <a class="legal-link" data-legal="terms" href="#legal-terms">Términos y Condiciones</a>
+  <a class="legal-link" data-modal="terms" href="#terms">Términos y Condiciones</a>
 </div>
 </footer>
 
-<!-- ===== Modales legales (al final del body) ===== -->
-<!-- Política de Privacidad -->
-<div class="modal" id="modal-privacy" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+<!-- Modal: Política de Privacidad -->
+<div id="modal-privacy" class="modal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-dialog" tabindex="-1">
-    <button class="modal-close" data-close aria-label="Cerrar">×</button>
-    <h3 id="privacy-title">Política de Privacidad</h3>
-    <div class="modal-body">
-      <p>Esta política describe cómo se recopila, usa y protege la información que puedas enviar a través del formulario de contacto o interacciones en este sitio.</p>
+    <button class="modal-close" data-close aria-label="Cerrar">✕</button>
+    <div class="modal-content">
+      <h3 id="privacyTitle">Política de Privacidad</h3>
       <ul>
         <li><strong>Datos que puedo recibir:</strong> nombre, email, teléfono (opcional) y mensaje.</li>
-        <li><strong>Finalidad:</strong> responder a tus consultas y propuestas de trabajo. No se comparten datos con terceros.</li>
-        <li><strong>Conservación:</strong> solo mientras sea necesario para responder y dar seguimiento.</li>
-        <li><strong>Tus derechos:</strong> solicitar acceso, rectificación o eliminación contactándome por email.</li>
+        <li><strong>Finalidad:</strong> responder a tus consultas y propuestas de trabajo.</li>
+        <li><strong>Conservación:</strong> solo el tiempo necesario para dar seguimiento.</li>
+        <li><strong>Tus derechos:</strong> acceso, rectificación o eliminación vía
+          <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.
+        </li>
       </ul>
-      <p>Si tienes dudas sobre esta política, escríbeme a <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.</p>
     </div>
   </div>
 </div>
 
-<!-- Términos y Condiciones -->
-<div class="modal" id="modal-terms" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+<!-- Modal: Términos y Condiciones -->
+<div id="modal-terms" class="modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
   <div class="modal-backdrop" data-close></div>
   <div class="modal-dialog" tabindex="-1">
-    <button class="modal-close" data-close aria-label="Cerrar">×</button>
-    <h3 id="terms-title">Términos y Condiciones</h3>
-    <div class="modal-body">
-      <p>El uso de este sitio implica la aceptación de los siguientes términos:</p>
+    <button class="modal-close" data-close aria-label="Cerrar">✕</button>
+    <div class="modal-content">
+      <h3 id="termsTitle">Términos y Condiciones</h3>
       <ul>
-        <li>El contenido tiene fines informativos y puede cambiar sin previo aviso.</li>
-        <li>Queda prohibido reutilizar marcas/gráficos sin autorización.</li>
-        <li>Enlaces externos pueden llevar a sitios de terceros; no me hago responsable por su contenido o prácticas.</li>
-        <li>El envío de un mensaje no implica relación contractual hasta que ambas partes lo acuerden explícitamente.</li>
+        <li>Este sitio es un portafolio personal, sin venta directa de servicios desde la web.</li>
+        <li>El contenido puede cambiar sin previo aviso.</li>
+        <li>Las marcas y logos pertenecen a sus respectivos dueños.</li>
+        <li>Contacto: <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.</li>
       </ul>
-      <p>Para consultas sobre estos términos, contáctame a <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>.</p>
     </div>
   </div>
 </div>
+
 
 
   <!-- intl-tel-input JS -->

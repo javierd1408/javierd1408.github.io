@@ -2612,3 +2612,70 @@ input#telefono {
 @media (min-width:1024px){
   .legal-modal .legal-box{ padding:28px 32px; }
 }
+/* === Enlaces legales (chips) === */
+.legal-fab{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.legal-link{
+  display:inline-flex; align-items:center;
+  padding:8px 12px;
+  border:1px solid var(--line, rgba(255,255,255,.08));
+  background: var(--surface-2, rgba(255,255,255,.04));
+  color: var(--text, #e6edf3);
+  border-radius:12px;
+  font-size:.95rem; text-decoration:none;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.legal-link:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.16);
+}
+.legal-sep{ opacity:.45 }
+
+/* En móvil centradas */
+@media (max-width: 720px){
+  .legal-fab{
+    position: static;
+    margin-top: 16px;
+    justify-content: center;
+  }
+}
+
+/* === Modal base (compatible con tu JS que usa .modal.open) === */
+.modal{ position:fixed; inset:0; display:none; z-index:9999; }
+.modal.open{ display:block; }
+.modal-backdrop{
+  position:absolute; inset:0;
+  background:rgba(0,0,0,.6);
+  backdrop-filter: blur(2px);
+}
+.modal-dialog{
+  position:relative;
+  max-width: 880px;
+  width: min(92vw, 880px);
+  margin: clamp(12px, 6vh, 64px) auto;
+  outline:none;
+}
+.modal-close{
+  position:absolute; right:10px; top:10px;
+  width:36px; height:36px; border-radius:10px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:#cfd9e3;
+}
+.modal-content{
+  background:#0b1220; color:#e6edf3;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:20px 22px; /* móvil */
+}
+
+/* Más aire en desktop (y bullets más separados del borde) */
+@media (min-width: 1024px){
+  .modal-content{ padding: 28px 32px; }
+  .modal-content ul{ padding-left: 1.2rem; }
+}

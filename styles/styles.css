@@ -2232,3 +2232,11 @@ input#telefono {
     padding: 8px 12px;
   }
 }
+/* Hero ▸ chip compacto al tamaño del texto */
+#inicio.block.hero .hero-card .kicker.available{
+  display: inline-flex !important;
+  width: max-content !important;      /* o: width: fit-content; */
+  max-width: none !important;
+  padding: 8px 12px !important;
+  line-height: 1.15;
+}

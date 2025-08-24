@@ -2775,3 +2775,94 @@ footer .foot-legal .dot {
     justify-content: center;
   }
 }
+/* ========= Footer · Grid superior (tarjetas) ========= */
+.site-footer .foot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Secciones — Contacto */
+  gap: 22px;
+}
+
+/* Si alguna columna no tiene .mini-card por error, la forzamos */
+.site-footer .foot-col.contact:not(.mini-card),
+.site-footer .foot-col:not(.mini-card) {
+  border: 1px solid rgba(255,255,255,.08);
+  background: radial-gradient(120% 120% at 10% -10%, rgba(255,255,255,.04), rgba(0,0,0,0) 60%);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25) inset, 0 5px 18px rgba(0,0,0,.25);
+}
+
+/* ========= Footer · Fila inferior (copyright + legales) ========= */
+.site-footer .foot-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 26px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.18); /* línea limpia, full width del contenedor */
+}
+
+/* Contenedor de los dos botones legales (derecha en desktop) */
+.site-footer .foot-legal {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* Botones legales (los que abren los modales) */
+.site-footer .foot-legal [data-modal] {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  color: #e9eef9;
+  text-decoration: none;
+  line-height: 1;
+  transition: background .2s ease, border-color .2s ease, transform .05s ease;
+}
+
+.site-footer .foot-legal [data-modal]:hover {
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.12);
+}
+
+.site-footer .foot-legal [data-modal]:active {
+  transform: translateY(1px);
+}
+
+/* ========= Responsive ========= */
+@media (max-width: 860px) {
+  /* apilar tarjetas del footer en móvil */
+  .site-footer .foot-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* por si alguna tarjeta se veía “cortada” */
+  .site-footer .foot-col,
+  .site-footer .mini-card {
+    overflow: visible;
+  }
+
+  /* fila inferior centrada */
+  .site-footer .foot-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .site-footer .foot-legal {
+    justify-content: center;
+  }
+
+  /* pequeñas reducciones de padding en móvil */
+  .site-footer .foot-col.contact:not(.mini-card),
+  .site-footer .foot-col:not(.mini-card) {
+    padding: 16px;
+  }
+}

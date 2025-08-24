@@ -135,7 +135,7 @@
 
           <div style="margin-top:12px">
             <div style="font-size:.85rem;color:var(--muted)">Contacto</div>
-            <div style="font-weight:800;margin-top:6px">jandres14031@hotmail.com</div>
+            <div style="font-weight:800;margin-top:6px">javiiidurandev@gmail.com</div>
             <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
               <a class="icon-btn" href="https://github.com/javierd1408" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.77c0 4.95 3.2 9.14 7.63 10.61.56.1.76-.24.76-.53 0-.26-.01-1-.01-1.95-3.1.67-3.76-1.5-3.76-1.5-.5-1.29-1.22-1.63-1.22-1.63-.99-.68.07-.67.07-.67 1.1.08 1.69 1.13 1.69 1.13.97 1.66 2.55 1.18 3.17.9.1-.71.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .94-.3 3.07 1.15a10.6 10.6 0 012.8-.38c.95 0 1.91.13 2.8.38 2.13-1.45 3.07-1.15 3.07-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.52.39.33.73.98.73 1.98 0 1.43-.01 2.58-.01 2.94 0 .29.2.64.77.53C19.05 20.9 22.25 16.71 22.25 11.77 22.25 5.48 17.27.5 12 .5z" fill="#e6eef8"/></svg>
@@ -471,7 +471,7 @@
             </span>
             <div>
               <div class="row-label">Email</div>
-              <a href="mailto:jandres14031@hotmail.com">jandres14031@hotmail.com</a>
+              <a href="mailto:javiiidurandev@gmail.com">javiiidurandev@gmail.com</a>
             </div>
           </li>
 
@@ -516,28 +516,94 @@
       </div>
     </div>
   </div>
-<footer class="site-footer alt">
-  <div class="container foot-inner">
-    <div class="foot-brand" aria-label="Firma">
-      <span class="foot-badge">JD</span>
-      <span class="foot-id">
-        <strong class="foot-name">Javier Durán</strong>
-        <span class="foot-role">Fullstack Developer • Analista Junior Cybersecurity</span>
-      </span>
+<footer class="site-footer" id="footer">
+  <div class="wrap foot-wrap">
+    <div class="foot-grid">
+      <!-- Marca / breve tagline -->
+      <section class="mini-card foot-brand">
+        <div class="brand-row">
+          <div class="brand-badge">JD</div>
+          <div class="brand-text">
+            <strong>Javier Durán</strong><br />
+            <span class="muted">Fullstack Developer • Analista Junior Cybersecurity</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Secciones -->
+      <nav class="mini-card foot-col" aria-label="Secciones">
+        <h4>Secciones</h4>
+        <ul class="foot-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#certificaciones">Certificaciones</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Contacto (compacto, no repetitivo) -->
+      <section class="mini-card foot-col" aria-label="Contacto">
+        <h4>Contacto</h4>
+        <ul class="foot-links">
+          <li><a href="mailto:jandres14031@hotmail.com">jandres14031@hotmail.com</a></li>
+          <li><a href="https://github.com/javierd1408" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </section>
     </div>
 
-    <ul class="foot-meta" aria-label="Estado y datos rápidos">
-      <li><span class="k">Disponibilidad</span><span class="v ok">Abierto a proyectos</span></li>
-      <li><span class="k">Ubicación</span><span class="v">Caracas (GMT-4)</span></li>
-      <li><span class="k">Idiomas</span><span class="v">Español / Inglés</span></li>
-      <li><span class="k">Stack Principal</span><span class="v">JS • Node.js • React • CSS • Python</span></li>
-      <li><span class="k">Certificaciones</span><span class="v">LOURTEC & EC-COUNCIL</span></li>
-      <li><span class="k">Respuesta</span><span class="v">24–48 h</span></li>
-    </ul>
+    <div class="foot-bottom">
+      <span>© 2025 Javier Durán. Todos los derechos reservados.</span>
+      <div class="mobile-legal">
+  <button type="button" data-modal="privacy">Política de Privacidad</button>
+  <span class="sep" aria-hidden="true">•</span>
+  <button type="button" data-modal="terms">Términos y Condiciones</button>
+</div>
+    </div>
   </div>
-
-  <div class="container foot-copy">© <span id="year"></span> Javier Durán. Todos los derechos reservados.</div>
 </footer>
+
+<!-- ===== Modales legales (al final del body) ===== -->
+<!-- Política de Privacidad -->
+<div class="modal" id="modal-privacy" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" tabindex="-1">
+    <button class="modal-close" data-close aria-label="Cerrar">×</button>
+    <h3 id="privacy-title">Política de Privacidad</h3>
+    <div class="modal-body">
+      <p>Esta política describe cómo se recopila, usa y protege la información que puedas enviar a través del formulario de contacto o interacciones en este sitio.</p>
+      <ul>
+        <li><strong>Datos que puedo recibir:</strong> nombre, email, teléfono (opcional) y mensaje.</li>
+        <li><strong>Finalidad:</strong> responder a tus consultas y propuestas de trabajo. No se comparten datos con terceros.</li>
+        <li><strong>Conservación:</strong> solo mientras sea necesario para responder y dar seguimiento.</li>
+        <li><strong>Tus derechos:</strong> solicitar acceso, rectificación o eliminación contactándome por email.</li>
+      </ul>
+      <p>Si tienes dudas sobre esta política, escríbeme a <a href="mailto:jandres14031@hotmail.com">jandres14031@hotmail.com</a>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Términos y Condiciones -->
+<div class="modal" id="modal-terms" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-dialog" tabindex="-1">
+    <button class="modal-close" data-close aria-label="Cerrar">×</button>
+    <h3 id="terms-title">Términos y Condiciones</h3>
+    <div class="modal-body">
+      <p>El uso de este sitio implica la aceptación de los siguientes términos:</p>
+      <ul>
+        <li>El contenido tiene fines informativos y puede cambiar sin previo aviso.</li>
+        <li>Queda prohibido reutilizar marcas/gráficos sin autorización.</li>
+        <li>Enlaces externos pueden llevar a sitios de terceros; no me hago responsable por su contenido o prácticas.</li>
+        <li>El envío de un mensaje no implica relación contractual hasta que ambas partes lo acuerden explícitamente.</li>
+      </ul>
+      <p>Para consultas sobre estos términos, contáctame a <a href="mailto:jandres14031@hotmail.com">jandres14031@hotmail.com</a>.</p>
+    </div>
+  </div>
+</div>
+
 
   <!-- intl-tel-input JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>

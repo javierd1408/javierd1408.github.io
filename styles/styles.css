@@ -2240,3 +2240,125 @@ input#telefono {
   padding: 8px 12px !important;
   line-height: 1.15;
 }
+
+/* ===== Footer compacto con mini-cards (desktop + móvil) ===== */
+.site-footer {
+  margin-top: 56px;
+  padding: 28px 0 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.site-footer .wrap,
+.site-footer .foot-wrap { width: min(1160px, 92vw); margin-inline: auto; }
+
+.site-footer .foot-grid{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.site-footer .mini-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}
+
+.site-footer .foot-brand .brand-row{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.site-footer .brand-badge{
+  width: 44px; height: 44px; border-radius: 12px;
+  display: grid; place-items: center;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6F6CFD, #00DCA6);
+  color: #0b1220;
+}
+.site-footer .brand-text .muted{ color: var(--muted, #9aa8b5); }
+
+.site-footer .foot-col h4{ margin: 0 0 10px; font-size: 1rem; }
+.site-footer .foot-links{ list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.site-footer .foot-links a{ color: var(--text, #dbe7f5); text-decoration: none; }
+.site-footer .foot-links a:hover{ text-decoration: underline; }
+
+.site-footer .foot-bottom{
+  margin-top: 20px;
+  padding-top: 14px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+  color: var(--muted, #9aa8b5);
+  flex-wrap: wrap;
+}
+.site-footer .legal-links .linklike{
+  background: none; border: none; padding: 0; color: var(--text, #dbe7f5);
+  cursor: pointer; font: inherit;
+}
+.site-footer .legal-links .linklike:hover{ text-decoration: underline; }
+.site-footer .legal-links .sep{ opacity: .6; margin: 0 8px; }
+
+/* Responsive footer */
+@media (max-width: 900px){
+  .site-footer .foot-grid{ grid-template-columns: 1fr; }
+  .site-footer .mini-card{ padding: 14px; }
+  .site-footer .foot-bottom{ gap: 8px; }
+}
+
+/* ===== Modales accesibles (cooperan con menú móvil) ===== */
+.modal{
+  position: fixed; inset: 0;
+  display: none;          /* se activa con .open */
+  z-index: 9999;          /* por encima del menú móvil */
+}
+.modal.open{ display: block; }
+
+.modal-backdrop{
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(2px);
+}
+
+.modal-dialog{
+  position: relative;
+  max-width: min(780px, 92vw);
+  margin: 8vh auto;
+  background: rgba(10,14,22,0.96);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 20px 18px 18px;
+  color: #dbe7f5;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  max-height: 84vh;
+  overflow: auto;
+}
+.modal-dialog h3{ margin: 6px 0 12px; }
+.modal-body{ display: grid; gap: 10px; line-height: 1.6; }
+
+.modal-close{
+  position: absolute; right: 10px; top: 10px;
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: #fff; cursor: pointer;
+  font-size: 22px; line-height: 1;
+}
+.modal-close:hover{ background: rgba(255,255,255,0.08); }
+
+/* ===== (OPCIONAL) Links legales dentro del menú móvil ===== */
+#mobileNav .mobile-legal{
+  margin-top: 12px; padding-top: 10px;
+  border-top: 1px dashed rgba(255,255,255,0.08);
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+#mobileNav .mobile-legal button{
+  background: none; border: none; padding: 0;
+  color: var(--text, #dbe7f5); opacity: .9;
+  font: inherit; cursor: pointer;
+}
+#mobileNav .mobile-legal button:hover{ text-decoration: underline; }

@@ -518,5 +518,106 @@ document.addEventListener('click', (e) => {
   else setOpen(false);
 })();
 
+/* ===== Modales legales (Privacidad / Términos) — cooperan con menú móvil ===== */
+(() => {
+  const openBtns = document.querySelectorAll('[data-modal]');
+  const modals = {
+    privacy: document.getElementById('modal-privacy'),
+    terms: document.getElementById('modal-terms')
+  };
+
+  // Para no pelear con el menú móvil, llevamos un contador de locks
+  let modalLockCount = 0;
+  let lastFocus = null;
+
+  const html = document.documentElement;
+  const body = document.body;
+
+  const isMobileNavOpen = () => {
+    const nav = document.getElementById('mobileNav');
+    return !!nav && nav.classList.contains('open');
+  };
+
+  function lockScroll(lock){
+    if (lock){
+      modalLockCount++;
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+    } else {
+      modalLockCount = Math.max(0, modalLockCount - 1);
+      // Solo libera si ningún modal mantiene lock y el menú NO está abierto
+      if (modalLockCount === 0 && !isMobileNavOpen()){
+        html.style.overflow = '';
+        body.style.overflow = '';
+      }
+    }
+  }
+
+  function getFocusable(container){
+    return container.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    );
+  }
+
+  function trapFocus(e, dialog){
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusable(dialog);
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first){
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last){
+      e.preventDefault(); first.focus();
+    }
+  }
+
+  function openModal(key){
+    const modal = modals[key];
+    if (!modal) return;
+    lastFocus = document.activeElement;
+    modal.classList.add('open');
+    lockScroll(true);
+    const dialog = modal.querySelector('.modal-dialog');
+    dialog?.focus();
+
+    // focus-trap
+    modal.__trap = (ev) => trapFocus(ev, dialog);
+    modal.addEventListener('keydown', modal.__trap);
+  }
+
+  function closeModal(modal){
+    if (!modal) return;
+    modal.classList.remove('open');
+    // libera scroll solo si corresponde
+    lockScroll(false);
+
+    // quita focus-trap
+    if (modal.__trap) modal.removeEventListener('keydown', modal.__trap);
+    lastFocus?.focus();
+  }
+
+  openBtns.forEach(btn => {
+    btn.addEventListener('click', () => openModal(btn.dataset.modal));
+  });
+
+  // Cerrar con backdrop o botón [data-close]
+  Object.values(modals).forEach(modal => {
+    if (!modal) return;
+    modal.addEventListener('click', (e) => {
+      if (e.target.matches('[data-close], .modal-backdrop')) {
+        closeModal(modal);
+      }
+    });
+  });
+
+  // ESC global cierra el modal superior
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      const open = document.querySelector('.modal.open');
+      if (open) closeModal(open);
+    }
+  });
+})();
 
 

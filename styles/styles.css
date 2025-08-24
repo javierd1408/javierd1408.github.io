@@ -2362,3 +2362,68 @@ input#telefono {
   font: inherit; cursor: pointer;
 }
 #mobileNav .mobile-legal button:hover{ text-decoration: underline; }
+/* ====== Footer: legales como pills ====== */
+.legal-row{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin-top:14px;
+}
+.legal-link{
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:8px 12px;
+  border:1px solid var(--line, rgba(255,255,255,.08));
+  background: var(--surface-2, rgba(255,255,255,.04));
+  color: var(--text, #e6edf3);
+  border-radius:12px;
+  font-size:.95rem; text-decoration:none;
+  transition:transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.legal-link:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.16);
+}
+.legal-sep{ opacity:.4 }
+
+/* ====== Footer: iconos sociales redondos ====== */
+.foot-contact .socials{ display:flex; gap:10px; margin-top:8px; }
+.social-icon{
+  width:40px; height:40px; border-radius:999px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background: var(--chip-bg, rgba(255,255,255,.06));
+  border:1px solid var(--line, rgba(255,255,255,.08));
+  box-shadow: 0 2px 10px rgba(0,0,0,.18) inset, 0 0 0 1px rgba(255,255,255,.02);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.social-icon:hover{
+  transform: translateY(-1px);
+  background: rgba(0,0,0,.18);
+  border-color: rgba(255,255,255,.16);
+}
+.social-icon svg{ width:20px; height:20px; fill: #cfd9e3; }
+
+/* Un pelín de separación al email para que respire con los iconos */
+.foot-contact .foot-mail{ display:inline-block; margin-bottom:6px; }
+
+/* ====== Modal legal: más aire en desktop ====== */
+#legalDialog .modal-card,
+.modal-card.legal{
+  /* por si tu selector fuera el segundo, cubrimos ambos */
+  max-width: 920px;
+}
+
+#legalDialog .modal-body{
+  padding: 22px 20px;
+}
+#legalDialog .modal-body ul{
+  padding-left: 1.25rem;  /* separa bullets del borde */
+}
+#legalDialog .modal-body li{
+  margin: 10px 0;
+}
+
+/* solo desktop */
+@media (min-width: 1024px){
+  #legalDialog .modal-body{ padding: 34px 38px; } /* más aire */
+  #legalDialog .modal-body ul{ padding-left: 1.5rem; }
+  #legalDialog .modal-body li{ margin: 12px 0; }
+}

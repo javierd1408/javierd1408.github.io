@@ -620,4 +620,19 @@ document.addEventListener('click', (e) => {
   });
 })();
 
+// Botones legales (IDs de compatibilidad)
+(function(){
+  const open = (type) => {
+    // Si ya tienes una función existente, llama a esa.
+    // Si no, simulamos click a los antiguos IDs (ajusta si cambian):
+    const legacy = (type === 'privacy' ? document.getElementById('btnPriv') : document.getElementById('btnTerms'));
+    if (legacy) { legacy.click(); return; }
+    // Si no hay legacy, pero tienes una función openLegal(type), úsala:
+    if (typeof window.openLegal === 'function') { window.openLegal(type); }
+  };
+
+  document.getElementById('openPrivacy')?.addEventListener('click', (e)=>{ e.preventDefault(); open('privacy'); });
+  document.getElementById('openTerms')  ?.addEventListener('click', (e)=>{ e.preventDefault(); open('terms');   });
+})();
+
 

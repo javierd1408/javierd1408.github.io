@@ -1,0 +1,21 @@
+<!-- images/favicon.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <!-- De cian a verde para hacer match con tu UI -->
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Escudo (seguridad) -->
+  <path fill="url(#g)" d="M32 8l18 8v14c0 12-9 20-18 26C23 50 14 42 14 30V16l18-8z"/>
+  <!-- Borde suave del escudo para más contraste en fondos claros -->
+  <path fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1"
+        d="M32 8l18 8v14c0 12-9 20-18 26C23 50 14 42 14 30V16l18-8z"/>
+
+  <!-- Símbolo de código: < / > -->
+  <polygon fill="#fff" points="26,22 18,32 26,42 28.5,39 22.5,32 28.5,25"/>
+  <rect x="30" y="24" width="4" height="16" rx="1" ry="1" fill="#fff" transform="rotate(20 32 32)"/>
+  <polygon fill="#fff" points="38,22 46,32 38,42 35.5,39 41.5,32 35.5,25"/>
+</svg>

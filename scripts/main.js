@@ -806,4 +806,94 @@ document.addEventListener('click', (e) => {
   });
 })();
 
+(() => {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const phoneInput = document.querySelector('#telefono');
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('formStatus');
+
+  // Reutiliza o inicializa intl-tel-input si está disponible
+  let iti = null;
+  if (window.intlTelInput && phoneInput) {
+    // Si ya lo inicializaste antes, puedes omitir esto
+    if (!phoneInput.classList.contains('iti-initialized')) {
+      iti = window.intlTelInput(phoneInput, {
+        preferredCountries: ['ve','ar','co','cl','us','es'],
+        separateDialCode: true,
+        utilsScript:
+          'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
+      });
+      phoneInput.classList.add('iti-initialized');
+    } else {
+      // si ya estaba, intenta obtener la instancia
+      try { iti = window.intlTelInputGlobals.getInstance(phoneInput); } catch (_) {}
+    }
+  }
+
+  function setStatus(msg, type = 'info') {
+    if (!status) return;
+    status.textContent = msg;
+    status.className = 'form-status ' + type;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    setStatus('');
+
+    const name = form.name?.value?.trim();
+    const email = form.email?.value?.trim();
+    const message = form.message?.value?.trim();
+
+    if (!name || !email || !message) {
+      setStatus('Por favor completa nombre, correo y mensaje.', 'error');
+      return;
+    }
+    // Honeypot: si se rellena, probablemente es bot
+    if (form._gotcha && form._gotcha.value) {
+      setStatus('Algo salió mal. Intenta nuevamente.', 'error');
+      return;
+    }
+
+    // Teléfono final en formato internacional si es posible
+    let phoneFinal = phoneInput?.value?.trim() || '';
+    try {
+      if (iti && phoneInput.value) phoneFinal = iti.getNumber(); // E.164
+    } catch (_) {}
+
+    const fd = new FormData(form);
+    fd.set('telefono', phoneFinal); // asegúrate de enviar el número completo
+
+    // UI: bloquea botón
+    const prev = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: fd
+      });
+
+      if (resp.ok) {
+        setStatus('¡Mensaje enviado! Te responderé pronto.', 'success');
+        form.reset();
+        if (iti) iti.setNumber('');
+      } else {
+        const data = await resp.json().catch(() => ({}));
+        const err = data?.errors?.[0]?.message ||
+                    'No pude enviar el formulario. Intenta más tarde.';
+        setStatus(err, 'error');
+      }
+    } catch (err) {
+      setStatus('No hay conexión. Intenta en unos minutos.', 'error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = prev;
+    }
+  });
+})();
+
 

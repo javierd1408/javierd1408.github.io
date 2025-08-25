@@ -2740,6 +2740,24 @@ input#telefono {
     height: clamp(110px, 40vw, 180px);
   }
 }
+/* Honeypot oculto */
+.hp {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+/* Estado accesible del formulario */
+.form-status {
+  margin-top: .75rem;
+  font-size: .95rem;
+  color: var(--muted);
+}
+.form-status.success { color: #22c55e; }
+.form-status.error   { color: #f87171; }
 
 
 

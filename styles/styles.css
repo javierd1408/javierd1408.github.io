@@ -2866,3 +2866,27 @@ footer .foot-legal .dot {
     padding: 16px;
   }
 }
+/* --- FIX mínimo: línea divisora del footer --- */
+
+/* 1) Elimina cualquier pseudo-línea previa que esté estorbando */
+.site-footer .foot-bottom::before,
+.site-footer .foot-bottom::after,
+.site-footer::after,
+.site-footer::before {
+  content: none !important;
+}
+
+/* 2) Dibuja la línea con border-top en la fila inferior del footer */
+.site-footer .foot-bottom {
+  display: flex;              /* conserva layout actual */
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;           /* espacio entre tarjetas y la línea */
+  padding-top: 14px;          /* espacio por debajo de la línea */
+  border-top: 1px solid rgba(255,255,255,.18); /* la línea en sí */
+}
+
+/* 3) Mantén los botones legales a la derecha sin pisar la línea */
+.site-footer .foot-legal { 
+  margin-left: auto; 
+}

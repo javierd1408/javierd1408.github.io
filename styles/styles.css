@@ -2704,3 +2704,28 @@ input#telefono {
 .site-footer .foot-legal { 
   margin-left: auto; 
 }
+/* ===== Divider del footer (SOLO DESKTOP) ===== */
+@media (min-width: 881px){
+  .site-footer .foot-bottom{
+    position: relative;
+    padding-top: 14px;   /* da espacio para la línea */
+    /* no cambia layout; conserva lo que ya tienes */
+  }
+
+  .site-footer .foot-bottom::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,.12) 12%,
+      rgba(255,255,255,.12) 88%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+}

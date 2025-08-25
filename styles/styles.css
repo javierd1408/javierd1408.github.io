@@ -2729,3 +2729,30 @@ input#telefono {
     pointer-events: none;
   }
 }
+/* ===== Footer: línea divisora sobre los botones legales (SOLO DESKTOP) ===== */
+@media (min-width: 861px){
+  /* usa la clase que tengas para la fila donde están © y los 2 botones legales */
+  .site-footer .foot-legal-row {
+    /* si el footer usa grid, que esta fila abarque todas las columnas */
+    grid-column: 1 / -1;
+
+    /* que el contenedor sea de ancho completo */
+    display: flex !important;
+    width: 100%;
+
+    /* separaciones y la línea */
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+
+    /* layout: © a la izquierda, botones a la derecha */
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* el texto de copyright empuja los botones hacia la derecha */
+  .site-footer .foot-legal-row .copyright{
+    margin-right: auto;
+    color: var(--muted, #9aa4b2);
+  }
+}

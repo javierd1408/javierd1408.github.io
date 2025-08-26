@@ -2704,6 +2704,44 @@ input#telefono {
 .site-footer .foot-legal { 
   margin-left: auto; 
 }
+/* ===== Graffiti debajo del nombre en la card de marca del footer ===== */
+.site-footer .mini-card.foot-brand .brand-inline{
+  margin-top: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Integración suave con tu tema */
+  background:
+    radial-gradient(120% 120% at 50% 50%,
+      rgba(99,102,241,.10) 0%,
+      rgba(16,185,129,.08) 45%,
+      rgba(2,6,23,0) 70%);
+
+  /* Altura responsiva que aprovecha el hueco sin desbordar */
+  height: clamp(120px, 22vw, 220px);
+}
+
+.site-footer .mini-card.foot-brand .brand-inline img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;               /* no recorta el lettering */
+  filter: drop-shadow(0 6px 22px rgba(0,0,0,.35));
+  transform: translateZ(0);
+}
+
+/* Un poco más compacto en móviles */
+@media (max-width: 640px){
+  .site-footer .mini-card.foot-brand .brand-inline{
+    height: clamp(110px, 40vw, 180px);
+  }
+}
+.form-status { margin-top: 10px; font-size: .95rem; color: var(--muted, #99a3ad); }
+.form-status.success { color: #4cd97b; }
+.form-status.error   { color: #ff7b7b; }
 
 
 

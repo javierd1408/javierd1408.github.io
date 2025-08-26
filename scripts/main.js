@@ -203,34 +203,81 @@ if (phoneInput && window.intlTelInput) {
   // const fullNumber = iti.getNumber();
 }
 
-/* =========================
-   "Formulario" sin <form> (handler por click)
-========================= */
-const submitBtn = document.getElementById('submitBtn');
-if (submitBtn) {
-  submitBtn.addEventListener('click', (e)=>{
+/* ===== Envío real a Formspree (reemplaza el handler demo) ===== */
+(() => {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const statusEl = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+  const telEl = document.getElementById('telefono');
+
+  function setStatus(msg, type = 'info') {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.className = `form-status ${type}`;
+  }
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name  = (document.getElementById('name')   ?.value || '').trim() || 'Sin nombre';
-    const email = (document.getElementById('email')  ?.value || '').trim() || 'No especificado';
-    const telEl = document.getElementById('telefono');
+    // Honeypot anti-spam
+    const hp = form.querySelector('input[name="_gotcha"]');
+    if (hp && hp.value.trim()) return;
 
-    // Si está activo intl-tel-input, intenta tomar el número formateado
-    let tel = '';
+    // Validación mínima
+    const name = form.name?.value?.trim();
+    const email = form.email?.value?.trim();
+    const message = form.message?.value?.trim();
+    if (!name || !email || !message) {
+      setStatus('Por favor completa nombre, correo y mensaje.', 'error');
+      return;
+    }
+
+    // Construye payload
+    const fd = new FormData(form);
+
+    // Toma el E.164 de intl-tel-input si está activo
     try {
       if (window.intlTelInputGlobals && telEl) {
         const inst = window.intlTelInputGlobals.getInstance(telEl);
-        tel = inst ? inst.getNumber() : (telEl.value || '');
+        const e164 = inst ? inst.getNumber() : telEl.value;
+        if (e164) fd.set('telefono', e164);
+      }
+    } catch {}
+
+    submitBtn?.setAttribute('disabled', 'true');
+    setStatus('Enviando…', 'info');
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' }
+      });
+
+      if (res.ok) {
+        setStatus('¡Gracias! Te responderé pronto. ✅', 'success');
+        form.reset();
+        // Limpia el tel del plugin
+        try {
+          const inst = window.intlTelInputGlobals?.getInstance(telEl);
+          inst && inst.setNumber('');
+        } catch {}
       } else {
-        tel = telEl ? telEl.value : '';
+        const data = await res.json().catch(() => ({}));
+        const msg = data?.errors?.[0]?.message
+          || 'No se pudo enviar. Inténtalo de nuevo.';
+        setStatus(msg, 'error');
       }
     } catch {
-      tel = telEl ? telEl.value : '';
+      setStatus('Error de red. Inténtalo nuevamente.', 'error');
+    } finally {
+      submitBtn?.removeAttribute('disabled');
     }
-
-    alert(`Mensaje demo recibido.\n\nNombre: ${name}\nEmail: ${email}\nTel: ${tel}\n\n(Esto es una demo; integraré el envío real cuando lo decidas.)`);
   });
-}
+})();
+
 
 /* =========================
    Menú móvil (centralizado)
@@ -805,95 +852,4 @@ document.addEventListener('click', (e) => {
     }
   });
 })();
-
-(() => {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
-
-  const phoneInput = document.querySelector('#telefono');
-  const btn = document.getElementById('submitBtn');
-  const status = document.getElementById('formStatus');
-
-  // Reutiliza o inicializa intl-tel-input si está disponible
-  let iti = null;
-  if (window.intlTelInput && phoneInput) {
-    // Si ya lo inicializaste antes, puedes omitir esto
-    if (!phoneInput.classList.contains('iti-initialized')) {
-      iti = window.intlTelInput(phoneInput, {
-        preferredCountries: ['ve','ar','co','cl','us','es'],
-        separateDialCode: true,
-        utilsScript:
-          'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
-      });
-      phoneInput.classList.add('iti-initialized');
-    } else {
-      // si ya estaba, intenta obtener la instancia
-      try { iti = window.intlTelInputGlobals.getInstance(phoneInput); } catch (_) {}
-    }
-  }
-
-  function setStatus(msg, type = 'info') {
-    if (!status) return;
-    status.textContent = msg;
-    status.className = 'form-status ' + type;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    setStatus('');
-
-    const name = form.name?.value?.trim();
-    const email = form.email?.value?.trim();
-    const message = form.message?.value?.trim();
-
-    if (!name || !email || !message) {
-      setStatus('Por favor completa nombre, correo y mensaje.', 'error');
-      return;
-    }
-    // Honeypot: si se rellena, probablemente es bot
-    if (form._gotcha && form._gotcha.value) {
-      setStatus('Algo salió mal. Intenta nuevamente.', 'error');
-      return;
-    }
-
-    // Teléfono final en formato internacional si es posible
-    let phoneFinal = phoneInput?.value?.trim() || '';
-    try {
-      if (iti && phoneInput.value) phoneFinal = iti.getNumber(); // E.164
-    } catch (_) {}
-
-    const fd = new FormData(form);
-    fd.set('telefono', phoneFinal); // asegúrate de enviar el número completo
-
-    // UI: bloquea botón
-    const prev = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Enviando…';
-
-    try {
-      const resp = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: fd
-      });
-
-      if (resp.ok) {
-        setStatus('¡Mensaje enviado! Te responderé pronto.', 'success');
-        form.reset();
-        if (iti) iti.setNumber('');
-      } else {
-        const data = await resp.json().catch(() => ({}));
-        const err = data?.errors?.[0]?.message ||
-                    'No pude enviar el formulario. Intenta más tarde.';
-        setStatus(err, 'error');
-      }
-    } catch (err) {
-      setStatus('No hay conexión. Intenta en unos minutos.', 'error');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = prev;
-    }
-  });
-})();
-
 

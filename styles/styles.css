@@ -2705,83 +2705,9 @@ input#telefono {
   margin-left: auto; 
 }
 
-/* ===== Graffiti debajo del nombre en la card de marca del footer ===== */
-.site-footer .mini-card.foot-brand .brand-inline{
-  margin-top: 12px;
-  border-radius: 14px;
-  overflow: hidden;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  /* Integración suave con tu tema */
-  background:
-    radial-gradient(120% 120% at 50% 50%,
-      rgba(99,102,241,.10) 0%,
-      rgba(16,185,129,.08) 45%,
-      rgba(2,6,23,0) 70%);
 
-  /* Altura responsiva que aprovecha el hueco sin desbordar */
-  height: clamp(120px, 22vw, 220px);
-}
-
-.site-footer .mini-card.foot-brand .brand-inline img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;               /* no recorta el lettering */
-  filter: drop-shadow(0 6px 22px rgba(0,0,0,.35));
-  transform: translateZ(0);
-}
-
-/* Un poco más compacto en móviles */
-@media (max-width: 640px){
-  .site-footer .mini-card.foot-brand .brand-inline{
-    height: clamp(110px, 40vw, 180px);
-  }
-}
-.form-status { margin-top: 10px; font-size: .95rem; color: var(--muted, #99a3ad); }
-.form-status.success { color: #4cd97b; }
-.form-status.error   { color: #ff7b7b; }
-
-/* ===== Footer: estabiliza grid y limita la imagen del graffiti ===== */
-
-/* Asegura grid en desktop y evita desbordes */
-.site-footer .foot-grid{
-  display: grid;
-  grid-template-columns: minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr); /* marca / secciones / contacto */
-  gap: 24px;
-  align-items: start;
-}
-
-/* Por si alguna regla previa cambió a flex, fuerza grid en desktop */
-@media (min-width: 1024px){
-  .site-footer .foot-grid{ display: grid !important; }
-}
-
-/* Contenedores no empujen por ancho mínimo */
-.site-footer .mini-card{ min-width: 0; }
-
-/* La imagen del graffiti NO debe crecer infinito */
-.foot-brand .brand-art{
-  display: block;
-  max-width: 100%;
-  width: 100%;
-  max-height: 180px;     /* <— CLAVE: limita altura en desktop */
-  object-fit: contain;   /* encaja sin deformar */
-  margin-top: 14px;
-  opacity: .95;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
-}
-
-/* Ajustes responsivos (no tocan móvil, solo afinan) */
-@media (max-width: 1024px){
-  .foot-brand .brand-art{ max-height: 160px; }
-}
-@media (max-width: 720px){
-  .site-footer .foot-grid{ grid-template-columns: 1fr; }
-  .foot-brand .brand-art{ max-height: 140px; }
-}
 
 
 

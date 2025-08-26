@@ -2744,6 +2744,45 @@ input#telefono {
 .form-status.success { color: #4cd97b; }
 .form-status.error   { color: #ff7b7b; }
 
+/* ===== Footer: estabiliza grid y limita la imagen del graffiti ===== */
+
+/* Asegura grid en desktop y evita desbordes */
+.site-footer .foot-grid{
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr); /* marca / secciones / contacto */
+  gap: 24px;
+  align-items: start;
+}
+
+/* Por si alguna regla previa cambió a flex, fuerza grid en desktop */
+@media (min-width: 1024px){
+  .site-footer .foot-grid{ display: grid !important; }
+}
+
+/* Contenedores no empujen por ancho mínimo */
+.site-footer .mini-card{ min-width: 0; }
+
+/* La imagen del graffiti NO debe crecer infinito */
+.foot-brand .brand-art{
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  max-height: 180px;     /* <— CLAVE: limita altura en desktop */
+  object-fit: contain;   /* encaja sin deformar */
+  margin-top: 14px;
+  opacity: .95;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+}
+
+/* Ajustes responsivos (no tocan móvil, solo afinan) */
+@media (max-width: 1024px){
+  .foot-brand .brand-art{ max-height: 160px; }
+}
+@media (max-width: 720px){
+  .site-footer .foot-grid{ grid-template-columns: 1fr; }
+  .foot-brand .brand-art{ max-height: 140px; }
+}
+
 
 
 

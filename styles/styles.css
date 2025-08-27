@@ -2853,6 +2853,62 @@ input#telefono {
   width: 18px; height: 18px; fill: #cdd5df;
 }
 
+/* ========== CONTACTO: dos columnas cómodas en desktop ========== */
+/* Fuerza layout flexible solo en escritorio, dejando móvil igual */
+@media (min-width: 1100px){
+  /* El contenedor de la sección Contacto suele ser .wrap; si tuvieras .contact-grid,
+     también funcionará esta línea gracias al segundo selector. */
+  #contacto .wrap, 
+  #contacto .contact-grid{
+    display: flex;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  /* La tarjeta grande de la izquierda (la info de contacto) ocupa el resto */
+  #contacto .wrap > .block,
+  #contacto .contact-grid > .block{
+    flex: 1 1 auto;
+    min-width: 0; /* permite que el contenido haga wrap correctamente */
+  }
+
+  /* El formulario a la derecha mantiene un ancho mínimo cómodo */
+  #contacto .contact-form{
+    flex: 0 0 min(540px, 38%);
+    min-width: 440px;   /* evita que se estruje */
+    max-width: 580px;   /* límite razonable */
+  }
+}
+
+/* Inputs del form siempre al 100% del ancho disponible */
+#contacto .contact-form input,
+#contacto .contact-form textarea,
+#contacto .contact-form select,
+#contacto .iti{ /* wrapper del intl-tel-input */
+  width: 100%;
+}
+
+/* Asegura que la barra del teléfono (intl-tel-input) no se recorte */
+#contacto .contact-form .iti{
+  display: block;
+  min-width: 0;
+}
+
+/* ========== FOOTER: alargar un poco el graffiti en desktop ========== */
+@media (min-width: 1200px){
+  .site-footer .mini-card.foot-brand .brand-inline{
+    /* un poco más de alto para que luzca mejor */
+    height: clamp(190px, 27vw, 320px);
+  }
+}
+
+/* Si quieres aún más en pantallas muy anchas, descomenta:
+@media (min-width: 1440px){
+  .site-footer .mini-card.foot-brand .brand-inline{
+    height: clamp(210px, 26vw, 360px);
+  }
+}
+*/
 
 
 

@@ -2743,6 +2743,115 @@ input#telefono {
 .form-status.success { color: #4cd97b; }
 .form-status.error   { color: #ff7b7b; }
 
+/* ===== Footer: layout sólido + barra legal ===== */
+.site-footer { margin-top: 56px; }
+.site-footer .foot-wrap { width: min(1200px, 94vw); margin-inline: auto; }
+
+.site-footer .foot-grid{
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr;       /* móvil */
+  align-items: start;
+}
+
+@media (min-width: 1024px){
+  .site-footer .foot-grid{
+    grid-template-columns: 1.2fr 0.8fr 1fr;   /* Brand | Secciones | Contacto */
+  }
+}
+
+/* Línea divisora + legales */
+.site-footer .foot-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 24px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(148,163,184,.18);
+}
+
+.site-footer .foot-bottom .copy{
+  color: var(--muted, #9aa4b2);
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
+/* Botones legales */
+.site-footer .legal-fab{ display: flex; align-items: center; gap: 10px; }
+.site-footer .legal-fab .legal-link{
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #e5e7eb;
+  background: rgba(148,163,184,.08);
+  border: 1px solid rgba(148,163,184,.12);
+  backdrop-filter: saturate(140%) blur(6px);
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.site-footer .legal-fab .legal-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(148,163,184,.22);
+  background: rgba(148,163,184,.12);
+}
+.site-footer .legal-fab .legal-sep{ opacity:.55; }
+
+@media (max-width: 640px){
+  .site-footer .foot-bottom{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ===== Graffiti debajo del nombre ===== */
+.site-footer .mini-card.foot-brand .brand-inline{
+  margin-top: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(120% 120% at 50% 50%,
+      rgba(99,102,241,.10) 0%,
+      rgba(16,185,129,.08) 45%,
+      rgba(2,6,23,0) 70%);
+
+  height: clamp(120px, 22vw, 220px);
+}
+
+.site-footer .mini-card.foot-brand .brand-inline img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 22px rgba(0,0,0,.35));
+  transform: translateZ(0);
+}
+
+@media (max-width: 640px){
+  .site-footer .mini-card.foot-brand .brand-inline{
+    height: clamp(110px, 40vw, 180px);
+  }
+}
+
+/* (Opcional) iconos sociales del contacto si necesitas ajuste */
+.site-footer .contact-card .socials{
+  display: flex; gap: 10px; margin-top: 10px;
+}
+.site-footer .contact-card .social-icon{
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(148,163,184,.08);
+  border: 1px solid rgba(148,163,184,.12);
+}
+.site-footer .contact-card .social-icon svg{
+  width: 18px; height: 18px; fill: #cdd5df;
+}
 
 
 

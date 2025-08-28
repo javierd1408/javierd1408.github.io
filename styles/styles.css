@@ -2992,3 +2992,69 @@ input#telefono {
   width: 18px; height: 18px; fill: #cdd5df;
 }
 
+/* ================================
+   CONTACTO (desktop) — sin desbordes
+   ================================ */
+
+/* Cinturón de seguridad por si algún hijo se pasa de ancho */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Centrado y ancho máximo del contenedor del bloque */
+@media (min-width: 1024px){
+  /* Si tu HTML tiene .wrap dentro de #contacto */
+  #contacto > .wrap{
+    width: min(1200px, 94vw);
+    margin-inline: auto;
+  }
+
+  /* En caso de que el grid lo apliques directamente al bloque */
+  #contacto,
+  #contacto > .wrap{
+    display: grid;
+    grid-template-columns: minmax(640px, 1fr) minmax(420px, 0.9fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Columna izquierda: tarjeta de datos */
+  #contacto .contact-card,
+  #contacto .contact-info{
+    grid-column: 1 !important;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Columna derecha: formulario */
+  #contacto .contact-form,
+  #contactForm{
+    grid-column: 2 !important;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* El wrapper de intl-tel-input debe ocupar 100% para no “romper” el ancho */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100%;
+  }
+}
+
+/* En tablets/móvil cualquier layout previo (stack) queda intacto */
+@media (max-width: 1023px){
+  #contacto, #contacto > .wrap{ display: block; }
+}
+
+/* ================================
+   FOOTER — pequeño ajuste opcional
+   ================================ */
+@media (min-width: 1024px){
+  .site-footer .foot-wrap{
+    width: min(1200px, 94vw);
+    margin-inline: auto;
+  }
+
+  /* Si quieres aprovechar un poco más el espacio de la imagen */
+  .site-footer .mini-card.foot-brand .brand-inline{
+    height: clamp(200px, 24vw, 320px);
+  }
+}

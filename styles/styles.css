@@ -3084,3 +3084,93 @@ img, svg { max-width: 100%; height: auto; display: block; }
 }
 /* Imagen del graffiti sin desbordes */
 .site-footer .foot-brand img { max-width: 100%; height: auto; }
+/* ===== Centrado y límites seguros ===== */
+
+/* Evita scroll horizontal por desbordes accidentales */
+html, body { overflow-x: hidden; }
+
+/* CONTACTO */
+#contacto .section-card{
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 20px; /* respira a los lados */
+}
+
+#contacto .contact-wrap{
+  display: grid;
+  gap: 28px;
+}
+
+@media (min-width:1024px){
+  /* 2 columnas: info | formulario */
+  #contacto .contact-wrap{
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
+    align-items: start;
+  }
+}
+
+/* Evita que las columnas empujen el grid */
+#contacto .contact-info,
+#contacto .contact-form{ min-width: 0; }
+
+/* Inputs ajustan a la columna */
+#contacto .contact-form,
+#contacto .contact-form input,
+#contacto .contact-form textarea,
+#contacto .contact-form button{ width: 100%; }
+
+/* intl-tel-input a 100% siempre */
+#contacto .contact-form .iti,
+#contacto .contact-form .iti--allow-dropdown{ width: 100%; }
+
+/* FOOTER */
+.site-footer{ margin-top: 56px; }
+.site-footer .foot-wrap{
+  width: min(1200px, 94vw);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+.site-footer .foot-grid{
+  display: grid;
+  gap: 24px;
+}
+@media (min-width:1024px){
+  .site-footer .foot-grid{
+    grid-template-columns: 1.15fr 1fr 1fr; /* Brand | Secciones | Contacto */
+    align-items: start;
+  }
+}
+.site-footer .mini-card{ min-width: 0; }
+
+/* Imagen del graffiti sin desbordes */
+.site-footer .foot-brand img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Línea + legales */
+.site-footer .foot-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 24px;
+  border-top: 1px solid rgba(148,163,184,.18);
+}
+.site-footer .copy{ color: var(--muted, #9aa4b2); font-size: .95rem; }
+.site-footer .legal-fab{ display:flex; gap:10px; }
+.site-footer .legal-link{
+  display:inline-flex; align-items:center;
+  padding:10px 14px; border-radius:12px;
+  text-decoration:none; color:#e5e7eb;
+  background: rgba(148,163,184,.08);
+  border:1px solid rgba(148,163,184,.12);
+  backdrop-filter:saturate(140%) blur(6px);
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.site-footer .legal-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(148,163,184,.22);
+  background: rgba(148,163,184,.12);
+}

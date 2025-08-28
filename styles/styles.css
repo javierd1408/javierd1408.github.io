@@ -3044,3 +3044,90 @@ input#telefono {
   width: 18px; height: 18px; fill: #cdd5df;
 }
 
+/* ============ FINAL: centrar Contacto y Footer en desktop ============ */
+:root{ --page-max:1200px; }  /* ajústalo si quieres 1100/1280 */
+
+/* Mata cualquier overflow horizontal heredado */
+html, body { overflow-x: hidden; max-width: 100%; }
+
+/* Contenedores centrados y con mismo ancho */
+#contacto,
+#contacto > .wrap,
+.site-footer .foot-wrap {
+  max-width: var(--page-max) !important;
+  width: 100% !important;
+  margin-inline: auto !important;
+  padding-inline: 16px !important;
+  box-sizing: border-box;
+}
+
+/* ================== CONTACTO (desktop) ================== */
+@media (min-width:1024px){
+  /* Dos columnas: izquierda libre; derecha form con ancho cómodo */
+  #contacto{
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) clamp(420px,32vw,560px) !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+  /* Nada puede forzar ancho extra */
+  #contacto > * { min-width: 0 !important; }
+
+  /* El formulario ocupa su columna sin límites raros */
+  #contactForm,
+  .contact-form { width: 100% !important; max-width: none !important; }
+
+  /* intl-tel-input no debe desbordar */
+  #contacto .iti,
+  #contacto .iti--allow-dropdown {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Inputs y textarea nunca más anchos que su columna */
+  #contacto input,
+  #contacto textarea,
+  #contacto select {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ================== FOOTER (grid centrado) ================== */
+.site-footer { margin-top: 56px; }
+
+/* El grid del footer se centra y no empuja */
+.site-footer .foot-wrap{
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+@media (min-width:1024px){
+  .site-footer .foot-wrap{
+    grid-template-columns: minmax(0,1.15fr) minmax(0,.9fr) minmax(0,1fr) !important;
+  }
+  .site-footer .mini-card{ min-width: 0 !important; } /* sin empujes */
+}
+
+/* Bloque del grafiti seguro */
+.site-footer .foot-brand .brand-inline{
+  margin-top: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  height: clamp(140px, 20vw, 220px);
+}
+.site-footer .foot-brand img{ display:block; max-width:100%; height:auto; }
+.site-footer .foot-brand .brand-inline img{ max-height:100%; width:auto; }
+
+/* Barra legal centrada con el mismo ancho */
+.site-footer .foot-bottom{
+  max-width: var(--page-max);
+  margin: 10px auto 24px;
+  padding: 16px 16px 0;
+  border-top: 1px solid rgba(148,163,184,.18);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+@media (max-width:640px){
+  .site-footer .foot-bottom{ flex-direction: column; align-items: flex-start; gap: 12px; }
+}

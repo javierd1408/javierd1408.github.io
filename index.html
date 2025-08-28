@@ -459,7 +459,7 @@
 </section>
 
 
-    <section id="contacto" class="block reveal">
+   <section id="contacto" class="block reveal">
   <div class="section-title"><h2>Contacto</h2></div>
 
   <div class="section-card">
@@ -518,30 +518,31 @@
       </aside>
 
       <!-- Formulario (derecha en desktop) -->
-<form id="contactForm" class="contact-form"
-      action="https://formspree.io/f/mnnbawee"
-      method="POST" novalidate>
-  <p class="muted">¿Listo para empezar? Completa el formulario y te responderé.</p>
+      <form id="contactForm" class="contact-form"
+            action="https://formspree.io/f/mnnbawee"
+            method="POST" novalidate>
+        <p class="muted">¿Listo para empezar? Completa el formulario y te responderé.</p>
 
-  <!-- Teléfono (se integra con intl-tel-input si ya lo tienes cargado) -->
-  <input type="tel" id="telefono" name="telefono" inputmode="tel"
-         placeholder="Número de teléfono" autocomplete="tel">
+        <input type="tel" id="telefono" name="telefono" inputmode="tel"
+               placeholder="Número de teléfono" autocomplete="tel">
 
-  <input type="text" id="name" name="name" placeholder="Tu nombre" required>
-  <input type="email" id="email" name="email" placeholder="Tu correo" required>
-  <textarea id="message" name="message" rows="6" placeholder="Mensaje..." required></textarea>
+        <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+        <input type="email" id="email" name="email" placeholder="Tu correo" required>
+        <textarea id="message" name="message" rows="6" placeholder="Mensaje..." required></textarea>
 
-  <!-- Anti-spam honeypot (oculto) -->
-  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+        <!-- Anti-spam honeypot (oculto) -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
 
-  <!-- (Opcional) asunto que verás en el correo -->
-  <input type="hidden" name="_subject" value="Nuevo mensaje desde el portfolio">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde el portfolio">
 
-  <button type="submit" id="submitBtn">Enviar mensaje</button>
+        <button type="submit" id="submitBtn">Enviar mensaje</button>
 
-  <!-- Estado accesible -->
-  <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
-</form>
+        <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div><!-- /.contact-wrap -->
+  </div><!-- /.section-card -->
+</section>
+
 <footer class="site-footer" id="footer">
   <div class="wrap foot-wrap">
     <div class="foot-grid">
@@ -598,7 +599,6 @@
       </section>
     </div>
 
-    <!-- Línea + legales -->
     <div class="foot-bottom">
       <span class="copy">© 2025 Javier Durán. Todos los derechos reservados.</span>
       <div class="legal-fab">
@@ -609,6 +609,7 @@
     </div>
   </div>
 </footer>
+
 
 
 <!-- ===== Modal: Política de Privacidad (ÚNICO) ===== -->

@@ -3266,3 +3266,12 @@ html, body { overflow-x: hidden; }
     align-items: flex-start;
   }
 }
+/* Centrado suave de contacto y footer SOLO en desktop */
+@media (min-width: 1024px){
+  #contacto .section-card,
+  .site-footer .foot-wrap{
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+}

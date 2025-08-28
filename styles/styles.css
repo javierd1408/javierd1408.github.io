@@ -3174,3 +3174,95 @@ html, body { overflow-x: hidden; }
   border-color: rgba(148,163,184,.22);
   background: rgba(148,163,184,.12);
 }
+
+
+
+/* =========================
+   CONTACTO — SOLO DESKTOP
+   ========================= */
+@media (min-width: 1024px){
+  #contacto .section-card{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #contacto .contact-wrap{
+    display: flex !important;      /* anulamos grids viejos, solo en desktop */
+    flex-wrap: nowrap;
+    gap: 28px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  #contacto .contact-info{
+    flex: 1 1 52%;
+    min-width: 0;                  /* clave para que no empuje */
+    max-width: none;
+  }
+
+  #contacto .contact-form{
+    flex: 0 1 520px;               /* ancho cómodo del form */
+    min-width: 440px;
+    max-width: 560px;
+  }
+
+  /* Campos del form al 100% de su columna */
+  #contacto .contact-form,
+  #contacto .contact-form input,
+  #contacto .contact-form textarea,
+  #contacto .contact-form button { width: 100%; }
+
+  /* Plugin de teléfono al 100% */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown { width: 100%; }
+}
+
+/* =========================
+   FOOTER — SOLO DESKTOP
+   ========================= */
+@media (min-width: 1024px){
+  .site-footer { margin-top: 56px; }
+
+  .site-footer .foot-wrap{
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .site-footer .foot-grid{
+    display: flex !important;      /* anulamos grids viejos, solo en desktop */
+    flex-wrap: nowrap;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .site-footer .foot-brand{
+    flex: 1 1 40%;
+    min-width: 0;                  /* evita empujes */
+  }
+
+  .site-footer .foot-col{
+    flex: 1 1 30%;
+    min-width: 0;
+  }
+}
+
+/* Seguro en móvil y desktop */
+.site-footer img{ max-width: 100%; height: auto; }
+
+/* Línea legal (seguro en ambos) */
+.site-footer .foot-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 24px;
+  border-top: 1px solid rgba(148,163,184,.18);
+}
+@media (max-width: 640px){
+  .site-footer .foot-bottom{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -3275,3 +3275,94 @@ html, body { overflow-x: hidden; }
     padding-inline: 20px;
   }
 }
+
+/* =========================
+   CONTACTO (solo desktop)
+   ========================= */
+@media (min-width: 1024px){
+  /* El contenedor de la tarjeta no debe recortar la segunda columna */
+  #contacto .section-card{
+    max-width: 1200px;
+    margin-inline: auto;
+    overflow: visible !important;     /* <- clave para que no “corte” el form */
+  }
+
+  /* 2 columnas: info | formulario */
+  #contacto .contact-wrap{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Previene desbordes por cadenas largas */
+  #contacto .contact-info,
+  #contacto .contact-form{ min-width: 0; }
+
+  /* Asegura 100% de ancho en el form e intl-tel-input */
+  #contacto .contact-form,
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{ width: 100%; }
+}
+
+/* =========================
+   FOOTER (desktop estable)
+   ========================= */
+.site-footer{ margin-top: 56px; }
+.site-footer .foot-wrap{ max-width: 1200px; margin-inline: auto; padding-inline: 16px; }
+
+@media (min-width:1024px){
+  .site-footer .foot-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 0.9fr; /* Brand | Secciones | Contacto */
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+/* Evita empujes extraños por ancho intrínseco */
+.site-footer .mini-card{ min-width: 0; }
+
+/* Línea + legales */
+.site-footer .foot-bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0 24px;
+  border-top: 1px solid rgba(148,163,184,.18);
+}
+
+/* Graffiti controlado (no rompe) */
+.site-footer .foot-brand .brand-inline{
+  margin-top: 12px;
+  height: 190px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 120% at 50% 50%,
+      rgba(99,102,241,.10) 0%,
+      rgba(16,185,129,.08) 45%,
+      rgba(2,6,23,0) 70%);
+}
+.site-footer .foot-brand .brand-inline img{
+  max-height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* Botones legales responsivos */
+@media (max-width: 640px){
+  .site-footer .foot-grid{ grid-template-columns: 1fr; }
+  .site-footer .foot-bottom{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* EXTRA: por si alguna card de servicios fue el culpable del overflow */
+.service-card{ max-width: 100%; }

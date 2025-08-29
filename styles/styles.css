@@ -3366,3 +3366,102 @@ html, body { overflow-x: hidden; }
 
 /* EXTRA: por si alguna card de servicios fue el culpable del overflow */
 .service-card{ max-width: 100%; }
+
+
+/* ======================
+   FOOTER — Desktop fijo
+   ====================== */
+.site-footer { margin-top: 56px; }
+
+/* ancho del bloque del footer centrado */
+.site-footer .foot-wrap{
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* grid de 3 columnas en desktop */
+@media (min-width: 1024px){
+  .site-footer .foot-grid{
+    display: grid;
+    grid-template-columns: 1.2fr 0.9fr 0.9fr; /* Brand | Secciones | Contacto */
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+/* evita desbordes raros */
+.site-footer .mini-card{ min-width: 0; }
+
+/* --- Brand + graffiti --- */
+.site-footer .foot-brand .brand-row{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.site-footer .foot-brand .brand-inline{
+  margin-top: 8px;
+  height: 200px;                    /* alto cómodo del graffiti */
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(120% 120% at 50% 50%,
+    rgba(99,102,241,.10) 0%,
+    rgba(16,185,129,.08) 45%,
+    rgba(2,6,23,0) 70%);
+}
+.site-footer .foot-brand .brand-inline img{
+  max-height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* --- franja legal --- */
+.site-footer .foot-bottom{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0 24px;
+  margin-top: 10px;
+
+  /* línea que cruza TODO el ancho del footer */
+  width: 100%;
+  border-top: 1px solid rgba(148,163,184,.18);
+}
+
+.site-footer .foot-bottom .copy{
+  color: var(--muted, #9aa4b2);
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
+/* botones legales a la derecha */
+.site-footer .legal-fab{
+  margin-left: auto;
+  display: flex; align-items: center; gap: 10px;
+}
+.site-footer .legal-fab .legal-link{
+  display: inline-flex; align-items: center;
+  padding: 10px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #e5e7eb;
+  background: rgba(148,163,184,.08);
+  border: 1px solid rgba(148,163,184,.12);
+  backdrop-filter: saturate(140%) blur(6px);
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+}
+.site-footer .legal-fab .legal-link:hover{
+  transform: translateY(-1px);
+  border-color: rgba(148,163,184,.22);
+  background: rgba(148,163,184,.12);
+}
+.site-footer .legal-fab .legal-sep{ opacity: .55; }
+
+/* móvil se queda como está (no tocamos) */
+@media (max-width: 640px){
+  .site-footer .foot-grid{ grid-template-columns: 1fr; }
+  .site-footer .foot-bottom{ flex-direction: column; align-items: flex-start; gap: 12px; }
+}

@@ -3556,3 +3556,40 @@ html, body { overflow-x: hidden; }
     flex-direction: column; align-items: flex-start; gap: 12px;
   }
 }
+
+/* =========================
+   Contacto (DESKTOP ONLY)
+   ========================= */
+@media (min-width: 1024px){
+
+  /* 1) El wrapper de la sección se centra y deja de heredar layouts de otras secciones */
+  #contacto .section-card{
+    display: block !important;                 /* anulamos posibles flex heredados */
+    width: min(1200px, 92vw);
+    margin-inline: auto;                       /* centrado */
+  }
+
+  /* 2) Dos columnas estables: info (izq) + form (der) */
+  #contacto .contact-wrap{
+    display: grid;
+    grid-template-columns: minmax(560px, 1fr)  /* panel informativo */
+                           minmax(420px, 520px);/* formulario */
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* 3) Evita que cualquier tarjeta empuje el grid */
+  #contacto .contact-wrap > *{ min-width: 0; }
+
+  /* 4) El formulario ocupa el 100% de su columna */
+  #contacto .contact-form{
+    width: 100%;
+    max-width: none;
+  }
+
+  /* 5) El input de teléfono (intl-tel-input) al 100% del ancho disponible */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100%;
+  }
+}

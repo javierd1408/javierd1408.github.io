@@ -3809,3 +3809,46 @@ html, body { overflow-x: hidden; }
   #contacto .contact-form .iti,
   #contacto .contact-form .iti--allow-dropdown{ width:100% !important; }
 }
+
+/* === CONTACTO (desktop): centrar tarjeta y 2 columnas === */
+@media (min-width: 1024px){
+
+  /* 1) El card que se estaba pegando a la derecha */
+  #contacto > .section-card{
+    /* quita cualquier posicionamiento previo */
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    float: none !important;
+    text-align: initial !important;
+
+    /* limita ancho y lo CENTRA */
+    width: min(1200px, 94vw) !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+  }
+
+  /* 2) Grid interno: info a la izq, form a la der */
+  #contacto > .section-card > .contact-wrap{
+    display: grid !important;
+    grid-template-columns: minmax(520px, 1fr) minmax(420px, 520px) !important;
+    gap: 28px !important;
+    align-items: start !important;
+    justify-items: stretch !important;
+  }
+
+  /* 3) El formulario no debe desbordar */
+  #contacto .contact-form{
+    max-width: 520px !important;
+    width: 100% !important;
+  }
+}
+
+/* Por si alguna regla empuja con auto–margins */
+#contacto > .section-card{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

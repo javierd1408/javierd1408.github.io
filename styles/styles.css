@@ -3791,3 +3791,21 @@ html, body { overflow-x: hidden; }
     width: 100% !important;
   }
 }
+
+/* CONTACTO (desktop): reset total del contenedor y remaquetado */
+@media (min-width: 1024px){
+  #contacto .contact-wrap{
+    all: unset !important;                /* borra TODAS las reglas previas de ese nodo */
+    display: grid !important;
+    grid-template-columns: minmax(520px,1fr) minmax(420px,520px) !important;
+    gap: 32px !important;
+
+    width: min(1200px, 94vw) !important;  /* contenedor centrado “clásico” */
+    max-width: 1200px !important;
+    margin-inline: auto !important;
+  }
+  #contacto .contact-wrap > *{ all: revert !important; min-width:0 !important; }
+  #contacto .contact-form{ width:100% !important; max-width:none !important; }
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{ width:100% !important; }
+}

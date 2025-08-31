@@ -3633,3 +3633,65 @@ html, body { overflow-x: hidden; }
     width: 100%;
   }
 }
+
+/* =========================
+   CONTACTO — RESET DURO + CENTRADO (solo desktop)
+   ========================= */
+@media (min-width: 1024px){
+
+  /* Rompe layouts heredados del contenedor */
+  #contacto .section-card{
+    display: block !important;
+    text-align: initial !important;
+    justify-content: normal !important;
+    align-items: normal !important;
+    place-content: normal !important;
+    float: none !important;
+  }
+
+  /* Wrapper centrado, con ancho controlado y grid de 2 columnas */
+  #contacto .contact-wrap{
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    float: none !important;
+    transform: none !important;
+    margin: 0 auto !important;                 /* CENTRADO */
+    width: min(1200px, 94vw) !important;       /* ancho cómodo */
+    max-width: none !important;
+    padding: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(520px, 1fr)  /* panel izq */
+                           minmax(440px, 520px) /* formulario */
+                           !important;
+    gap: 28px !important;
+    align-items: start !important;
+    justify-content: center !important;
+  }
+
+  /* Nada empuja al grid */
+  #contacto .contact-wrap > *{
+    min-width: 0 !important;
+    margin: 0 !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    float: none !important;
+    transform: none !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  /* Formulario a 100% de su columna */
+  #contacto .contact-form{
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* intl-tel-input a 100% */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100% !important;
+  }
+}

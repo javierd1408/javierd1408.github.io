@@ -3745,3 +3745,49 @@ html, body { overflow-x: hidden; }
   #contacto .contact-form .iti,
   #contacto .contact-form .iti--allow-dropdown{ width: 100% !important; }
 }
+
+/* CONTACTO (desktop): centrado fijo sin tocar móvil ni footer */
+@media (min-width: 1024px){
+
+  /* El panel de la sección como referencia */
+  #contacto .section-card{
+    position: relative !important;
+    overflow-x: clip; /* por si algo dentro intenta desbordar */
+  }
+
+  /* El contenedor que debe ir EXACTAMENTE centrado */
+  #contacto .contact-wrap{
+    position: relative !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    /* ancho de contenedor */
+    width: min(1200px, 94vw) !important;
+    max-width: 1200px !important;
+
+    /* layout de dos columnas (panel info + formulario) */
+    display: grid !important;
+    grid-template-columns: minmax(520px, 1fr) minmax(420px, 520px) !important;
+    gap: 32px !important;
+
+    /* anula empujes heredados */
+    float: none !important;
+    margin: 0 !important;
+    right: auto !important;
+  }
+
+  /* evita que hijos ensanchen el grid por mínimos de ancho */
+  #contacto .contact-wrap > *{
+    min-width: 0 !important;
+  }
+
+  /* asegúrate que el form ocupa su columna a 100% */
+  #contacto .contact-form{
+    width: 100% !important;
+    max-width: none !important;
+  }
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100% !important;
+  }
+}

@@ -3695,3 +3695,53 @@ html, body { overflow-x: hidden; }
     width: 100% !important;
   }
 }
+
+/* =========================
+   CONTACTO (desktop) — centrado duro
+   ========================= */
+@media (min-width: 1024px){
+
+  /* El “lienzo” de la sección: céntralo todo dentro */
+  #contacto .section-card{
+    display: flex !important;
+    justify-content: center !important;   /* centra horizontalmente el hijo */
+    align-items: flex-start !important;
+    /* por si algún estilo lo empujaba a la derecha: */
+    text-align: initial !important;
+    transform: none !important;
+  }
+
+  /* El bloque que contiene panel + formulario */
+  #contacto .contact-wrap{
+    /* ancho de contenedor centrado */
+    width: min(1200px, 94vw) !important;
+    margin: 0 auto !important;
+
+    /* anula cualquier empuje heredado */
+    float: none !important;
+    position: static !important;
+    left: auto !important; right: auto !important;
+    transform: none !important;
+    margin-left: auto !important;   /* estos dos con auto + flex del padre = centrado */
+    margin-right: auto !important;
+
+    /* layout de dos columnas */
+    display: grid !important;
+    grid-template-columns: minmax(520px,1fr) minmax(440px,520px) !important;
+    gap: 32px !important;
+    align-items: start !important;
+    justify-content: center !important;
+  }
+
+  /* Que nada desborde ni empuje */
+  #contacto .contact-wrap > *{
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Form a 100% y el plugin del teléfono también */
+  #contacto .contact-form{ width: 100% !important; max-width: none !important; }
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{ width: 100% !important; }
+}

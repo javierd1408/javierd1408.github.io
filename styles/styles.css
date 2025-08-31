@@ -3593,3 +3593,43 @@ html, body { overflow-x: hidden; }
     width: 100%;
   }
 }
+
+/* =========================
+   Contacto centrado (DESKTOP)
+   ========================= */
+@media (min-width: 1024px){
+
+  /* El card de la sección deja de heredar cualquier layout raro y
+     actúa solo como envoltorio; lo centramos */
+  #contacto .section-card{
+    display: block !important;
+    padding: 0;                          /* opcional: quita rellenos si empujaban */
+  }
+
+  /* El verdadero ancho útil y centrado lo lleva contact-wrap */
+  #contacto .contact-wrap{
+    width: min(1200px, 94vw);            /* ancho cómodo y responsivo */
+    margin-inline: auto !important;      /* CENTRADO REAL del bloque */
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr)   /* panel informativo */
+                           minmax(440px, 520px);/* formulario */
+    gap: 28px;
+    align-items: start;
+    justify-content: center;             /* si sobrara espacio, que quede centrado */
+  }
+
+  /* Evita que algún hijo empuje el grid */
+  #contacto .contact-wrap > *{ min-width: 0; }
+
+  /* El formulario ocupa 100% de su columna */
+  #contacto .contact-form{
+    width: 100%;
+    max-width: none;
+  }
+
+  /* El input de teléfono (intl-tel-input) también al 100% */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100%;
+  }
+}

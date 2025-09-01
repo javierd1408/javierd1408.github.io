@@ -3908,3 +3908,61 @@ html, body { overflow-x: hidden; }
     max-width: 100% !important;
   }
 }
+/* =========================
+   CONTACTO — Desktop: 1 columna + card centrado
+   ========================= */
+@media (min-width: 1024px){
+
+  /* Rompe cualquier grid/flex de 2 columnas en la sección */
+  #contacto{
+    display: block !important;
+  }
+
+  /* Título en su propia fila, centrado y con ancho del contenedor */
+  #contacto .section-title{
+    max-width: min(1200px, 94vw) !important;
+    margin: 0 auto 16px !important;
+    padding-inline: 0 !important;
+  }
+
+  /* El "card" ocupa la fila siguiente y se centra */
+  #contacto .section-card{
+    max-width: 1200px !important;
+    width: min(1200px, 94vw) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    /* por si un estilo viejo lo empujaba */
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    float: none !important;
+
+    /* que no herede grid de 2 col desde afuera */
+    display: block !important;
+  }
+
+  /* Dentro del card: 2 columnas estables (info | formulario) */
+  #contacto .section-card .contact-wrap{
+    display: grid !important;
+    grid-template-columns: minmax(520px,1fr) minmax(420px,520px) !important;
+    gap: 28px !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+
+  /* Evita desbordes */
+  #contacto .contact-info,
+  #contacto .contact-form{
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}

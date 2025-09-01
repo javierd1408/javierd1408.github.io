@@ -3966,3 +3966,64 @@ html, body { overflow-x: hidden; }
     max-width: 100% !important;
   }
 }
+
+/* =========================
+   CONTACTO — Ajuste fino desktop
+   ========================= */
+@media (min-width: 1024px){
+
+  /* Card más respirado y con borde redondeado consistente */
+  #contacto .section-card{
+    padding: 28px 32px !important;
+    border-radius: 16px !important;
+  }
+
+  /* 2 columnas más balanceadas + un poco más de espacio entre ellas */
+  #contacto .section-card .contact-wrap{
+    display: grid !important;
+    grid-template-columns:
+      minmax(500px, 1fr)              /* izquierda (info)  */
+      clamp(460px, 36vw, 560px)       /* derecha (form)    */
+    !important;
+    gap: 32px !important;
+    align-items: start !important;
+  }
+
+  /* Lista de info: filas más compactas y consistentes */
+  #contacto .contact-info .info-list{
+    display: grid !important;
+    gap: 20px !important;
+  }
+
+  /* Formulario en columna con separaciones limpias */
+  #contacto .contact-form{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  /* Inputs 100% y alturas cómodas */
+  #contacto .contact-form input[type="text"],
+  #contacto .contact-form input[type="email"],
+  #contacto .contact-form input[type="tel"],
+  #contacto .contact-form textarea{
+    width: 100% !important;
+    min-height: 46px !important;
+  }
+  #contacto .contact-form textarea{
+    min-height: 160px !important;
+    resize: vertical;
+  }
+
+  /* intl-tel-input: que el control ocupe todo el ancho de su columna */
+  #contacto .contact-form .iti,
+  #contacto .contact-form .iti--allow-dropdown{
+    width: 100% !important;
+  }
+
+  /* Botón alineado al ancho del formulario */
+  #contacto .contact-form #submitBtn{
+    width: 100% !important;
+    height: 48px !important;
+  }
+}

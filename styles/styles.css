@@ -3852,3 +3852,59 @@ html, body { overflow-x: hidden; }
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* ===== Contacto (solo desktop): fuerza centrado del card + grid interno ===== */
+@media (min-width: 1024px){
+
+  /* 1) Centrar el contenedor visible (el que ves pegado a la derecha) */
+  #contacto .section-card{
+    /* ancho y centrado duro */
+    width: min(1200px, 94vw) !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    /* no dejes que un padre lo empuje o lo traslade */
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    float: none !important;
+    text-align: initial !important;
+
+    /* evita que un grid/flex padre lo alinee al extremo */
+    justify-self: center !important;
+    align-self: start !important;
+
+    /* mantenlo sencillo: bloque normal */
+    display: block !important;
+    padding-inline: 0 !important;
+  }
+
+  /* 2) Grid interno de 2 columnas dentro del card */
+  #contacto .section-card .contact-wrap{
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: minmax(520px,1fr) minmax(420px,520px) !important;
+    gap: 28px !important;
+
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    float: none !important;
+
+    justify-items: stretch !important;
+    align-items: start !important;
+  }
+
+  /* 3) Asegura que los hijos no desborden ni fuercen el ancho */
+  #contacto .contact-info,
+  #contacto .contact-form{
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
